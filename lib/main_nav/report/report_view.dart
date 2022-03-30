@@ -1,0 +1,67 @@
+import 'package:deleto/component/confirm_dialog.dart';
+import 'package:deleto/component/default_app_bar.dart';
+import 'package:deleto/component/default_button.dart';
+import 'package:deleto/component/default_text_field.dart';
+import 'package:deleto/function.dart';
+import 'package:flutter/material.dart';
+
+class ReportView extends StatefulWidget {
+  final dynamic mainCallback;
+  ReportView({required this.mainCallback});
+  @override
+  State<ReportView> createState() => _ReportView();
+}
+class _ReportView extends State<ReportView> {
+  TextEditingController userController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
+  FocusNode userFocusNode = FocusNode();
+  FocusNode contentFocusNode = FocusNode();
+  FocusNode emailFocusNode = FocusNode();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: FocusManager.instance.primaryFocus?.unfocus,
+      child: Scaffold(
+        appBar: DefaultAppBar(title: '신고하기'),
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 24),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 24),
+              DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode,),
+              SizedBox(height: 12),
+              DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '신고 내용\n상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true,),
+              SizedBox(height: 12),
+              DefaultTextField(controller: emailController, focusNode: emailFocusNode, hint: '(선택) 회신받을 이메일 주소', callback: _sendReport,),
+              Expanded(child: Container()),
+              DefaultButton(title: '신고 접수', callback: _sendReport),
+              SizedBox(height: 24),
+            ]
+          )
+        )
+      )
+    );
+  }
+
+  _sendReport() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: '신고 접수하시겠습니까?\n신고 사항은 되돌릴 수 없습니다.',
+        positiveAction: () {
+          showToast('신고 접수가 완료되었습니다!');
+          widget.mainCallback();
+        },
+        negativeAction: () {},
+      ),
+    )) ?? false;
+  }
+}

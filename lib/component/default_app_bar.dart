@@ -19,7 +19,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Container(
         child: Row(
           children: [
-            Text('app bar')
+            Text(title)
           ]
         )
       )
