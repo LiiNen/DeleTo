@@ -18,9 +18,25 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Container(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title)
+            back ? backButton(context) : SizedBox(width: 24),
+            Text(title),
+            SizedBox(width: 24),
           ]
+        )
+      )
+    );
+  }
+
+  backButton(context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {Navigator.pop(context);},
+      child: Container(
+        width: 24, height: 24,
+        child: Center(
+          child: Icon(Icons.arrow_back_ios_rounded, color: Colors.white),
         )
       )
     );
