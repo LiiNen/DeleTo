@@ -2,6 +2,7 @@ import 'package:deleto/component/default_button.dart';
 import 'package:deleto/component/default_text_field.dart';
 import 'package:deleto/function.dart';
 import 'package:deleto/main_nav/main_nav_view.dart';
+import 'package:deleto/object/user.dart';
 import 'package:deleto/style.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,15 @@ class _LoginView extends State<LoginView> {
   }
   
   loginAction() {
-    showToast('안녕하세요 회원님!');
+    try {
+      var _id = int.parse(idController.text);
+      if(_id >= 0 && _id < 6) {
+        userInfo = testUserList[_id];
+      }
+    } catch(e) {
+      // do nothing
+    }
+    showToast('안녕하세요 ${userInfo.name} 회원님!');
     navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
   }
 }

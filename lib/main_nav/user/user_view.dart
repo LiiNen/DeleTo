@@ -3,6 +3,7 @@ import 'package:deleto/component/default_app_bar.dart';
 import 'package:deleto/component/default_button.dart';
 import 'package:deleto/function.dart';
 import 'package:deleto/login_view.dart';
+import 'package:deleto/object/user.dart';
 import 'package:flutter/material.dart';
 
 class UserView extends StatefulWidget {
@@ -10,9 +11,6 @@ class UserView extends StatefulWidget {
   State<UserView> createState() => _UserView();
 }
 class _UserView extends State<UserView> {
-  final int _point = 3000;
-  final String _userName = '딜리투';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +45,9 @@ class _UserView extends State<UserView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('$_userName 회원님'),
+              Text('${userInfo.name} 회원님'),
               SizedBox(height: 4),
-              Text('현재 포인트: $_point')
+              Text('현재 포인트: ${userInfo.point}')
             ]
           )
         )

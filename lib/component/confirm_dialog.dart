@@ -69,8 +69,8 @@ class _ConfirmDialog extends State<ConfirmDialog> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          action();
           Navigator.pop(context);
+          action();
         },
         child: Container(
           decoration: BoxDecoration(
