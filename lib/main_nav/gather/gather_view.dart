@@ -1,5 +1,5 @@
-import 'package:deleto/component/default_app_bar.dart';
-import 'package:deleto/component/default_button.dart';
+import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/component/default_button.dart';
 import 'package:flutter/material.dart';
 
 class GatherView extends StatefulWidget {

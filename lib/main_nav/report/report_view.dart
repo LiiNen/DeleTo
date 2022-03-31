@@ -1,8 +1,8 @@
-import 'package:deleto/component/confirm_dialog.dart';
-import 'package:deleto/component/default_app_bar.dart';
-import 'package:deleto/component/default_button.dart';
-import 'package:deleto/component/default_text_field.dart';
-import 'package:deleto/function.dart';
+import 'package:delito/component/confirm_dialog.dart';
+import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/component/default_button.dart';
+import 'package:delito/component/default_text_field.dart';
+import 'package:delito/function.dart';
 import 'package:flutter/material.dart';
 
 class ReportView extends StatefulWidget {

@@ -1,8 +1,8 @@
-import 'package:deleto/component/confirm_dialog.dart';
-import 'package:deleto/component/default_app_bar.dart';
-import 'package:deleto/object/store.dart';
+import 'package:delito/component/confirm_dialog.dart';
+import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/object/store.dart';
 import 'package:flutter/material.dart';
-import 'package:deleto/style.dart';
+import 'package:delito/style.dart';
 
 class StoreBoardView extends StatefulWidget {
   final Store store;

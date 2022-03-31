@@ -1,9 +1,9 @@
-import 'package:deleto/main_nav/gather/gather_view.dart';
-import 'package:deleto/main_nav/report/report_view.dart';
-import 'package:deleto/main_nav/search/search_view.dart';
-import 'package:deleto/main_nav/user/user_view.dart';
+import 'package:delito/main_nav/gather/gather_view.dart';
+import 'package:delito/main_nav/report/report_view.dart';
+import 'package:delito/main_nav/search/search_view.dart';
+import 'package:delito/main_nav/user/user_view.dart';
 import 'package:flutter/material.dart';
-import 'package:deleto/function.dart';
+import 'package:delito/function.dart';
 
 class MainNavView extends StatefulWidget {
   final int initialIndex;

@@ -1,9 +1,9 @@
-import 'package:deleto/component/default_button.dart';
-import 'package:deleto/component/default_text_field.dart';
-import 'package:deleto/function.dart';
-import 'package:deleto/main_nav/main_nav_view.dart';
-import 'package:deleto/object/user.dart';
-import 'package:deleto/style.dart';
+import 'package:delito/component/default_button.dart';
+import 'package:delito/component/default_text_field.dart';
+import 'package:delito/function.dart';
+import 'package:delito/main_nav/main_nav_view.dart';
+import 'package:delito/object/user.dart';
+import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {

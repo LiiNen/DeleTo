@@ -1,4 +1,4 @@
-import 'package:deleto/style.dart';
+import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 import 'function.dart';
 import 'login_view.dart';

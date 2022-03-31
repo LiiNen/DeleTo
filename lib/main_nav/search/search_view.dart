@@ -1,6 +1,6 @@
-import 'package:deleto/component/default_app_bar.dart';
-import 'package:deleto/function.dart';
-import 'package:deleto/main_nav/search/search_category_view.dart';
+import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/function.dart';
+import 'package:delito/main_nav/search/search_category_view.dart';
 import 'package:flutter/material.dart';
 
 List<String> foodCategory = [

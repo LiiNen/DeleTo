@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:deleto/component/confirm_dialog.dart';
+import 'package:delito/component/confirm_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 navigatorPush({required context, required widget, replacement=false, all=false}) {

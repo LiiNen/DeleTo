@@ -1,9 +1,9 @@
-import 'package:deleto/component/confirm_dialog.dart';
-import 'package:deleto/component/default_app_bar.dart';
-import 'package:deleto/component/default_button.dart';
-import 'package:deleto/function.dart';
-import 'package:deleto/login_view.dart';
-import 'package:deleto/object/user.dart';
+import 'package:delito/component/confirm_dialog.dart';
+import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/component/default_button.dart';
+import 'package:delito/function.dart';
+import 'package:delito/login_view.dart';
+import 'package:delito/object/user.dart';
 import 'package:flutter/material.dart';
 
 class UserView extends StatefulWidget {

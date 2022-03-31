@@ -1,8 +1,8 @@
-import 'package:deleto/component/default_app_bar.dart';
-import 'package:deleto/main_nav/search/search_view.dart';
-import 'package:deleto/object/store.dart';
-import 'package:deleto/store/store_item_container.dart';
-import 'package:deleto/style.dart';
+import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/main_nav/search/search_view.dart';
+import 'package:delito/object/store.dart';
+import 'package:delito/store/store_item_container.dart';
+import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
 class SearchCategoryView extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:deleto/style.dart';
+import 'package:delito/style.dart';
 
 class ConfirmDialog extends StatefulWidget {
   final String title;
