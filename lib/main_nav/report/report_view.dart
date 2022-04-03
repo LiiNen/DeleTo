@@ -42,7 +42,7 @@ class _ReportView extends State<ReportView> {
               SizedBox(height: 12),
               DefaultTextField(controller: emailController, focusNode: emailFocusNode, hint: '(선택) 회신받을 이메일 주소', callback: _sendReport,),
               Expanded(child: Container()),
-              DefaultButton(title: '신고 접수', callback: _sendReport),
+              DefaultButton(title: '신고 접수', callback: _sendReport, width: MediaQuery.of(context).size.width),
               SizedBox(height: 24),
             ]
           )

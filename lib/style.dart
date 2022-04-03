@@ -29,7 +29,7 @@ TextStyle textStyle({color: const Color(0xff3c354d), weight: int, double size: 1
 enabledBorderDefault() {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
-    borderSide: BorderSide(color: Color(0xfff0f0f0), width: 1),
+    borderSide: BorderSide(color: Color(0xffc2c2c2), width: 1),
   );
 }
 

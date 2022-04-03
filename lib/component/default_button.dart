@@ -1,3 +1,4 @@
+import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatelessWidget {
@@ -17,12 +18,12 @@ class DefaultButton extends StatelessWidget {
       child: Container(
         width: width, height: height,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 1),
+          border: Border.all(color: Color(0xffb2b2b2), width: 1),
           borderRadius: BorderRadius.all(Radius.circular(8)),
           color: Colors.white,
         ),
         child: Center(
-          child: Text(title)
+          child: Text(title, style: textStyle(color: Color(0xff787878), weight: 600))
         )
       )
     );
