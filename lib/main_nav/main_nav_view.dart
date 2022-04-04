@@ -21,7 +21,7 @@ class _MainNavView extends State<MainNavView> {
     _navItemList = <Widget>[
       SearchView(),
       GatherView(mainCallback: navMainForced,),
-      ReportView(mainCallback: navMainForced,),
+      ReportView(completeCallback: navMainForced,),
       UserView(),
     ];
     _selectedIndex = widget.initialIndex;

@@ -10,8 +10,10 @@ class Store {
   final int deliveryPrice;
   final int leastPrice;
   final bool open;
+  final String time;
+  final String userName;
 
-  Store({required this.id, this.userId=0, this.imgSrc='', required this.title, this.content='', required this.name, required this.curNum, required this.maxNum, this.deliveryPrice=0, this.leastPrice=0, this.open=true});
+  Store({required this.id, this.userId=0, this.imgSrc='', required this.title, this.content='', required this.name, required this.curNum, required this.maxNum, this.deliveryPrice=0, this.leastPrice=0, this.open=true, this.time='4/3 23:00', this.userName='딜리투계정'});
 }
 
 var testStoreList = [

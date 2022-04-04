@@ -24,6 +24,7 @@ class _LoginView extends State<LoginView> {
       child: GestureDetector(
         onTap: FocusManager.instance.primaryFocus?.unfocus,
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: Container(
             margin: EdgeInsets.symmetric(horizontal: 32),
             child: Column(

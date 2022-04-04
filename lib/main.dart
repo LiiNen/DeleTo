@@ -39,6 +39,7 @@ class _SplashView extends State<SplashView> {
     return WillPopScope(
       onWillPop: () => onWillPop(context),
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Container(
           width: MediaQuery.of(context).size.width,
           child: Column(

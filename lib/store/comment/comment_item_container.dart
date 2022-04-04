@@ -1,6 +1,8 @@
 import 'package:delito/component/user_profile_image.dart';
+import 'package:delito/main_nav/report/report_view.dart';
 import 'package:delito/object/comment.dart';
 import 'package:delito/style.dart';
+import 'package:delito/function.dart';
 import 'package:flutter/material.dart';
 
 class CommentItemContainer extends StatelessWidget {
@@ -27,10 +29,22 @@ class CommentItemContainer extends StatelessWidget {
                 Row(
                   children: [
                     Text(comment.userName, style: textStyle(weight: 600)),
-                    Expanded(child: Text(comment.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0), textAlign: TextAlign.right,)),
+                    SizedBox(width: 8.0),
+                    Expanded(child: Text(comment.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0), textAlign: TextAlign.left,)),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        navigatorPush(context: context, widget: ReportView(completeCallback: (){}, isBack: true, userName: comment.userName,));
+                      },
+                      child: Container(
+                        width: 24, height: 24,
+                        child: Center(
+                          child: Icon(Icons.assistant_photo_outlined, size: 18.0, color: Color(0xffa8a8a8)),
+                        )
+                      )
+                    )
                   ]
                 ),
-                SizedBox(height: 6),
                 Text(comment.content),
               ]
             )

@@ -19,6 +19,7 @@ class _SearchView extends State<SearchView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBar(title: '음식 카테고리 선택'),
+      backgroundColor: Colors.white,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

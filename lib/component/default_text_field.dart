@@ -8,7 +8,8 @@ class DefaultTextField extends StatelessWidget {
   final bool allowEnter;
   final FocusNode? nextFocusNode;
   final dynamic callback;
-  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback});
+  final bool enabled;
+  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback, this.enabled=true});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class DefaultTextField extends StatelessWidget {
         if(callback != null) callback();
         if(allowEnter == false && nextFocusNode != null) nextFocusNode!.requestFocus();
       },
+      enabled: enabled,
     );
   }
 }

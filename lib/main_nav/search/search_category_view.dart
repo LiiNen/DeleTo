@@ -36,6 +36,7 @@ class _SearchCategoryView extends State<SearchCategoryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBar(title: '모집글 찾기', back: true,),
+      backgroundColor: Colors.white,
       body: Container(
         child: SingleChildScrollView(
           child: Column(

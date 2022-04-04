@@ -1,5 +1,8 @@
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/component/default_button.dart';
+import 'package:delito/function.dart';
+import 'package:delito/main_nav/report/report_view.dart';
 import 'package:delito/object/comment.dart';
 import 'package:delito/object/store.dart';
 import 'package:delito/store/comment/comment_view.dart';
@@ -31,6 +34,7 @@ class _StoreBoardView extends State<StoreBoardView> {
       onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Scaffold(
         appBar: DefaultAppBar(title: '배달동료 구인', back: true,),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -113,7 +117,31 @@ class _StoreBoardView extends State<StoreBoardView> {
   contentBox() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      child: Text(widget.store.content, style: textStyle())
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.store.userName, style: textStyle(weight: 600)),
+                  SizedBox(height: 6.0),
+                  Text(widget.store.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
+                ]
+              )),
+              DefaultButton(
+                title: '신고하기',
+                callback: () {
+                  navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: widget.store.userName,));
+                },
+                width: 56, height: 24, fontSize: 12.0,
+              )
+            ]
+          ),
+          SizedBox(height: 12),
+          Text(widget.store.content, style: textStyle())
+        ]
+      )
     );
   }
 }
