@@ -2,7 +2,7 @@ import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/function.dart';
-import 'package:delito/login_view.dart';
+import 'package:delito/login/login_view.dart';
 import 'package:delito/main_nav/user/point_charge_button.dart';
 import 'package:delito/object/user.dart';
 import 'package:delito/style.dart';

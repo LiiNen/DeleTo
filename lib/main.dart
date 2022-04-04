@@ -1,7 +1,7 @@
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 import 'function.dart';
-import 'login_view.dart';
+import 'login/login_view.dart';
 
 void main() {
   runApp(const MyApp());

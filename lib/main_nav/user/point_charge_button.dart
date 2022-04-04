@@ -1,5 +1,5 @@
 import 'package:delito/function.dart';
-import 'package:delito/main_nav/user/point_charge_view.dart';
+import 'package:delito/component/default_view.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class PointChargeButton extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        navigatorPush(context: context, widget: PointChargeView(isCharge: isCharge));
+        navigatorPush(context: context, widget: DefaultView(title: isCharge ? '포인트 충전' : '포인트 출금'));
       },
       child: Container(
         height: 36,

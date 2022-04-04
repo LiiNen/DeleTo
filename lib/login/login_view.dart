@@ -1,5 +1,6 @@
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
+import 'package:delito/component/default_view.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/main_nav_view.dart';
 import 'package:delito/object/user.dart';
@@ -17,6 +18,19 @@ class _LoginView extends State<LoginView> {
   TextEditingController pwController = TextEditingController();
   FocusNode pwFocusNode = FocusNode();
 
+  loginAction() {
+    try {
+      var _id = int.parse(idController.text);
+      if(_id >= 0 && _id < 6) {
+        userInfo = testUserList[_id];
+      }
+    } catch(e) {
+      // do nothing
+    }
+    showToast('안녕하세요 ${userInfo.name} 회원님!');
+    navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -30,6 +44,7 @@ class _LoginView extends State<LoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Expanded(child: Container()),
                 Text('DeliTo', style: textStyle(weight: 700, size: 24.0),),
                 SizedBox(height: 4),
                 Text('Delivery Together', style: textStyle(color: Color(0xffc9c9c9), weight: 500, size: 18.0)),
@@ -40,7 +55,10 @@ class _LoginView extends State<LoginView> {
                 SizedBox(height: 24),
                 DefaultTextField(controller: pwController, focusNode: pwFocusNode, hint: 'PW', callback: loginAction),
                 SizedBox(height: 30),
-                DefaultButton(title: '로그인', callback: loginAction)
+                DefaultButton(title: '로그인', callback: loginAction, width: MediaQuery.of(context).size.width/3,),
+                Expanded(child: Container()),
+                _additionalButton(),
+                SizedBox(height: 40),
               ]
             )
           )
@@ -49,16 +67,36 @@ class _LoginView extends State<LoginView> {
     );
   }
   
-  loginAction() {
-    try {
-      var _id = int.parse(idController.text);
-      if(_id >= 0 && _id < 6) {
-        userInfo = testUserList[_id];
-      }
-    } catch(e) {
-      // do nothing
-    }
-    showToast('안녕하세요 ${userInfo.name} 회원님!');
-    navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
+  _additionalButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            navigatorPush(context: context, widget: DefaultView(title: '회원가입'));
+          },
+          child: Container(
+            height: 28,
+            child: Center(
+              child: Text('회원가입')
+            )
+          )
+        ),
+        SizedBox(width: 24),
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            navigatorPush(context: context, widget: DefaultView(title: '아이디/비밀번호 찾기'));
+          },
+          child: Container(
+            height: 28,
+            child: Center(
+              child: Text('아이디/비밀번호 찾기')
+            )
+          )
+        )
+      ]
+    );
   }
 }
