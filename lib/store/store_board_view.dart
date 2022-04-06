@@ -47,7 +47,7 @@ class _StoreBoardView extends State<StoreBoardView> {
                   SizedBox(height: 24),
                   contentBox(),
                   SizedBox(height: 80),
-                  CommentView(commentList: testCommentList,),
+                  CommentView(boardId: 1,),
                   SizedBox(height: 20),
                 ]
               )
