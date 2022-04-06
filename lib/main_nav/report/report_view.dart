@@ -6,8 +6,10 @@ import 'package:delito/function.dart';
 import 'package:flutter/material.dart';
 
 class ReportView extends StatefulWidget {
-  final dynamic mainCallback;
-  ReportView({required this.mainCallback});
+  final dynamic completeCallback;
+  final bool isBack;
+  final String userName;
+  ReportView({required this.completeCallback, this.isBack=false, this.userName=''});
   @override
   State<ReportView> createState() => _ReportView();
 }
@@ -21,11 +23,22 @@ class _ReportView extends State<ReportView> {
   FocusNode emailFocusNode = FocusNode();
 
   @override
+  void initState() {
+    super.initState();
+    if(widget.userName != '') {
+      setState(() {
+        userController.text = widget.userName;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Scaffold(
-        appBar: DefaultAppBar(title: '신고하기'),
+        appBar: DefaultAppBar(title: '신고하기', back: widget.isBack,),
+        backgroundColor: Colors.white,
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: 24),
           width: MediaQuery.of(context).size.width,
@@ -36,7 +49,7 @@ class _ReportView extends State<ReportView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 24),
-              DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode,),
+              DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode, enabled: widget.userName == '' ? true : false),
               SizedBox(height: 12),
               DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '신고 내용\n상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true,),
               SizedBox(height: 12),
@@ -52,13 +65,21 @@ class _ReportView extends State<ReportView> {
   }
 
   _sendReport() async {
+    if(userController.text == '') {
+      showToast('신고할 대상을 기입해주세요');
+      return;
+    }
+    else if(contentController.text == '') {
+      showToast('신고 사유를 작성해주세요');
+      return;
+    }
     return (await showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
         title: '신고 접수하시겠습니까?\n신고 사항은 되돌릴 수 없습니다.',
         positiveAction: () {
           showToast('신고 접수가 완료되었습니다!');
-          widget.mainCallback();
+          widget.completeCallback();
         },
         negativeAction: () {},
       ),

@@ -29,6 +29,7 @@ class _GatherView extends State<GatherView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBar(title: '내 모집 현황'),
+      backgroundColor: Colors.white,
       body: isLoaded ? (
         hasParty ? Container(
 

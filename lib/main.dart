@@ -1,7 +1,7 @@
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 import 'function.dart';
-import 'login_view.dart';
+import 'login/login_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +39,7 @@ class _SplashView extends State<SplashView> {
     return WillPopScope(
       onWillPop: () => onWillPop(context),
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Container(
           width: MediaQuery.of(context).size.width,
           child: Column(
