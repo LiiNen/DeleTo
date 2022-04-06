@@ -1,6 +1,6 @@
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/function.dart';
-import 'package:delito/main_nav/search/search_category_view.dart';
+import 'package:delito/main_nav/search/search_category_board_view.dart';
 import 'package:flutter/material.dart';
 
 List<String> foodCategory = [
@@ -44,7 +44,7 @@ class _SearchView extends State<SearchView> {
         children: List.generate(foodCategory.length, (index) {
           return GestureDetector(
             onTap: () {
-              navigatorPush(context: context, widget: SearchCategoryView(categoryId: index));
+              navigatorPush(context: context, widget: SearchCategoryBoardView(categoryId: index));
             },
             child: Container(
               decoration: BoxDecoration(

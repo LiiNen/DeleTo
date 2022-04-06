@@ -1,5 +1,7 @@
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
+import 'package:delito/object/store.dart';
+import 'package:delito/store/store_item_container.dart';
 import 'package:flutter/material.dart';
 
 class GatherView extends StatefulWidget {
@@ -31,8 +33,12 @@ class _GatherView extends State<GatherView> {
       appBar: DefaultAppBar(title: '내 모집 현황'),
       backgroundColor: Colors.white,
       body: isLoaded ? (
-        hasParty ? Container(
-
+        hasParty ? SingleChildScrollView(
+          child: Column(
+            children: List.generate(testStoreList.length*10, (index) {
+              return StoreItemContainer(store: testStoreList[index%5],);
+            })
+          )
         ) : Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

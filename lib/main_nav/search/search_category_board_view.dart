@@ -1,18 +1,20 @@
 import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/store.dart';
+import 'package:delito/store/store_board_creation_view.dart';
 import 'package:delito/store/store_item_container.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
-class SearchCategoryView extends StatefulWidget {
+class SearchCategoryBoardView extends StatefulWidget {
   final int categoryId;
-  SearchCategoryView({required this.categoryId});
+  SearchCategoryBoardView({required this.categoryId});
 
   @override
-  State<SearchCategoryView> createState() => _SearchCategoryView();
+  State<SearchCategoryBoardView> createState() => _SearchCategoryBoardView();
 }
-class _SearchCategoryView extends State<SearchCategoryView> {
+class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
 
   int? _categoryId;
 
@@ -38,16 +40,33 @@ class _SearchCategoryView extends State<SearchCategoryView> {
       appBar: DefaultAppBar(title: '모집글 찾기', back: true,),
       backgroundColor: Colors.white,
       body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              switchCategoryBox()
-            ] + List.generate(testStoreList.length*10, (index) {
-              return StoreItemContainer(store: testStoreList[index%5],);
-            })
-          )
+        child: Column(
+          children: [
+            switchCategoryBox(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+
+                  ] + List.generate(testStoreList.length*10, (index) {
+                    return StoreItemContainer(store: testStoreList[index%5],);
+                  })
+                )
+              )
+            )
+          ]
         )
-      )
+      ),
+      floatingActionButton: Container(
+        width: 48, height: 48,
+        child: FloatingActionButton(
+          onPressed: () {
+            navigatorPush(context: context, widget: StoreBoardCreationView());
+          },
+          backgroundColor: Color(0xff0958c5),
+          child: Icon(Icons.add_outlined)
+        )
+      ),
     );
   }
 
