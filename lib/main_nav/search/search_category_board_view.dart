@@ -27,6 +27,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
   void _patchCategoryId(int newId) {
     setState(() {
       _categoryId = newId;
+      _getShopList();
     });
   }
 
