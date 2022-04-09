@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 
 class StoreBoardItemContainer extends StatelessWidget {
   final Board board;
-  final bool isBoard;
-  StoreBoardItemContainer({required this.board, this.isBoard=true});
+  StoreBoardItemContainer({required this.board});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +23,9 @@ class StoreBoardItemContainer extends StatelessWidget {
             thumbnailBox(),
             SizedBox(width: 12),
             infoBox(),
-          ] + (isBoard ? [
             SizedBox(width: 12),
             memberBox(),
-          ] : [])
+          ]
         )
       )
     );
@@ -47,7 +45,7 @@ class StoreBoardItemContainer extends StatelessWidget {
         children: [
           Text(board.title, overflow: TextOverflow.ellipsis,),
           SizedBox(height: 2),
-          Text(board.name, overflow: TextOverflow.ellipsis, style: textStyle(color: Color(0xffe0e0e0)),)
+          Text(board.shopName, overflow: TextOverflow.ellipsis, style: textStyle(color: Color(0xffe0e0e0)),)
         ]
       )
     );

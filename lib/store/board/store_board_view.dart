@@ -34,26 +34,24 @@ class _StoreBoardView extends State<StoreBoardView> {
       child: Scaffold(
         appBar: DefaultAppBar(title: '배달동료 구인', back: true,),
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 18),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 24),
-                  Text(widget.board.title, style: textStyle(weight: 600, size: 28.0)),
-                  SizedBox(height: 24),
-                  partyInfoBox(),
-                  SizedBox(height: 24),
-                  priceInfoBox(),
-                  SizedBox(height: 24),
-                  contentBox(),
-                  SizedBox(height: 80),
-                  CommentView(boardId: 1,),
-                  SizedBox(height: 20),
-                ]
-              )
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(horizontal: 18),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 24),
+                Text(widget.board.title, style: textStyle(weight: 600, size: 28.0)),
+                SizedBox(height: 24),
+                partyInfoBox(),
+                SizedBox(height: 24),
+                priceInfoBox(),
+                SizedBox(height: 24),
+                contentBox(),
+                SizedBox(height: 80),
+                CommentView(boardId: 1,),
+                SizedBox(height: 20),
+              ]
             )
           )
         )
@@ -70,7 +68,7 @@ class _StoreBoardView extends State<StoreBoardView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.board.name, style: textStyle(weight: 500, size: 16.0)),
+              Text(widget.board.shopName, style: textStyle(weight: 500, size: 16.0)),
               SizedBox(height: 6),
               Text('최소주문금액 : ${widget.board.leastPrice}원', style: textStyle(size: 14.0)),
               SizedBox(height: 6),

@@ -49,7 +49,7 @@ class _SearchCategoryShopView extends State<SearchCategoryShopView> {
                   children: <Widget>[
 
                   ] + List.generate(testShopList.length*10, (index) {
-                    return StoreBoardItemContainer(board: testBoardList[index%5], isBoard: false);
+                    return StoreBoardItemContainer(board: testBoardList[index%5]);
                   })
                 )
               )
