@@ -1,20 +1,20 @@
 import 'package:delito/function.dart';
-import 'package:delito/object/store.dart';
-import 'package:delito/store/store_board_view.dart';
+import 'package:delito/object/board.dart';
+import 'package:delito/store/board/store_board_view.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
-class StoreItemContainer extends StatelessWidget {
-  final Store store;
+class StoreBoardItemContainer extends StatelessWidget {
+  final Board board;
   final bool isBoard;
-  StoreItemContainer({required this.store, this.isBoard=true});
+  StoreBoardItemContainer({required this.board, this.isBoard=true});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        navigatorPush(context: context, widget: StoreBoardView(store: store));
+        navigatorPush(context: context, widget: StoreBoardView(board: board));
       },
       child: Container(
         width: MediaQuery.of(context).size.width, height: 72,
@@ -45,9 +45,9 @@ class StoreItemContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(store.title, overflow: TextOverflow.ellipsis,),
+          Text(board.title, overflow: TextOverflow.ellipsis,),
           SizedBox(height: 2),
-          Text(store.name, overflow: TextOverflow.ellipsis, style: textStyle(color: Color(0xffe0e0e0)),)
+          Text(board.name, overflow: TextOverflow.ellipsis, style: textStyle(color: Color(0xffe0e0e0)),)
         ]
       )
     );
@@ -58,11 +58,11 @@ class StoreItemContainer extends StatelessWidget {
       width: 60, height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4)),
-        color: store.open ? store.curNum < store.maxNum ?
+        color: board.open ? board.curNum < board.maxNum ?
           Colors.lightGreenAccent : Colors.pinkAccent : Colors.grey
       ),
       child: Center(
-        child: Text('${store.curNum} / ${store.maxNum} 명')
+        child: Text('${board.curNum} / ${board.maxNum} 명')
       )
     );
   }

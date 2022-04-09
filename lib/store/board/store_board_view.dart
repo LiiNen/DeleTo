@@ -3,15 +3,14 @@ import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/report/report_view.dart';
-import 'package:delito/object/comment.dart';
-import 'package:delito/object/store.dart';
+import 'package:delito/object/board.dart';
 import 'package:delito/store/comment/comment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 
 class StoreBoardView extends StatefulWidget {
-  final Store store;
-  StoreBoardView({required this.store});
+  final Board board;
+  StoreBoardView({required this.board});
   @override
   State<StoreBoardView> createState() => _StoreBoardView();
 }
@@ -43,7 +42,7 @@ class _StoreBoardView extends State<StoreBoardView> {
               child: Column(
                 children: [
                   SizedBox(height: 24),
-                  Text(widget.store.title, style: textStyle(weight: 600, size: 28.0)),
+                  Text(widget.board.title, style: textStyle(weight: 600, size: 28.0)),
                   SizedBox(height: 24),
                   partyInfoBox(),
                   SizedBox(height: 24),
@@ -71,11 +70,11 @@ class _StoreBoardView extends State<StoreBoardView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.store.name, style: textStyle(weight: 500, size: 16.0)),
+              Text(widget.board.name, style: textStyle(weight: 500, size: 16.0)),
               SizedBox(height: 6),
-              Text('최소주문금액 : ${widget.store.leastPrice}원', style: textStyle(size: 14.0)),
+              Text('최소주문금액 : ${widget.board.leastPrice}원', style: textStyle(size: 14.0)),
               SizedBox(height: 6),
-              Text('배달비 : ${widget.store.deliveryPrice}원', style: textStyle(size: 14.0)),
+              Text('배달비 : ${widget.board.deliveryPrice}원', style: textStyle(size: 14.0)),
             ]
           )
         )
@@ -87,7 +86,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(widget.store.open && widget.store.curNum < widget.store.maxNum) {
+        if(widget.board.open && widget.board.curNum < widget.board.maxNum) {
           _participate();
         }
       },
@@ -95,14 +94,14 @@ class _StoreBoardView extends State<StoreBoardView> {
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: widget.store.open ? widget.store.curNum < widget.store.maxNum ?
+          color: widget.board.open ? widget.board.curNum < widget.board.maxNum ?
             Colors.lightGreenAccent : Colors.pinkAccent : Colors.grey,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: widget.store.open ? widget.store.curNum < widget.store.maxNum ? [
-            Text('모집 완료 시, 배달비 ${(widget.store.deliveryPrice/widget.store.maxNum).ceil()}원 !', style: textStyle(weight: 700),),
+          children: widget.board.open ? widget.board.curNum < widget.board.maxNum ? [
+            Text('모집 완료 시, 배달비 ${(widget.board.deliveryPrice/widget.board.maxNum).ceil()}원 !', style: textStyle(weight: 700),),
             Text('참여하기', style: textStyle(weight: 700)),
           ] : [
             Text('현재 정원이 모두 모집되었습니다.', style: textStyle(weight: 700))
@@ -124,22 +123,22 @@ class _StoreBoardView extends State<StoreBoardView> {
               Expanded(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.store.userName, style: textStyle(weight: 600)),
+                  Text(widget.board.userName, style: textStyle(weight: 600)),
                   SizedBox(height: 6.0),
-                  Text(widget.store.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
+                  Text(widget.board.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
                 ]
               )),
               DefaultButton(
                 title: '신고하기',
                 callback: () {
-                  navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: widget.store.userName,));
+                  navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: widget.board.userName,));
                 },
                 width: 56, height: 24, fontSize: 12.0,
               )
             ]
           ),
           SizedBox(height: 12),
-          Text(widget.store.content, style: textStyle())
+          Text(widget.board.content, style: textStyle())
         ]
       )
     );

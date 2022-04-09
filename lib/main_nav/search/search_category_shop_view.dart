@@ -1,20 +1,19 @@
 import 'package:delito/component/default_app_bar.dart';
-import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_view.dart';
-import 'package:delito/object/store.dart';
-import 'package:delito/store/store_board_creation_view.dart';
-import 'package:delito/store/store_item_container.dart';
+import 'package:delito/object/board.dart';
+import 'package:delito/object/shop.dart';
+import 'package:delito/store/board/store_board_item_container.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
-class SearchCategoryBoardView extends StatefulWidget {
+class SearchCategoryShopView extends StatefulWidget {
   final int categoryId;
-  SearchCategoryBoardView({required this.categoryId});
+  SearchCategoryShopView({required this.categoryId});
 
   @override
-  State<SearchCategoryBoardView> createState() => _SearchCategoryBoardView();
+  State<SearchCategoryShopView> createState() => _SearchCategoryShopView();
 }
-class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
+class _SearchCategoryShopView extends State<SearchCategoryShopView> {
 
   int? _categoryId;
 
@@ -49,25 +48,15 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
                 child: Column(
                   children: <Widget>[
 
-                  ] + List.generate(testStoreList.length*10, (index) {
-                    return StoreItemContainer(store: testStoreShopList[index%5], isBoard: false);
+                  ] + List.generate(testShopList.length*10, (index) {
+                    return StoreBoardItemContainer(board: testBoardList[index%5], isBoard: false);
                   })
                 )
               )
             )
           ]
         )
-      ),
-      floatingActionButton: Container(
-        width: 48, height: 48,
-        child: FloatingActionButton(
-          onPressed: () {
-            navigatorPush(context: context, widget: StoreBoardCreationView());
-          },
-          backgroundColor: Color(0xff0958c5),
-          child: Icon(Icons.add_outlined)
-        )
-      ),
+      )
     );
   }
 

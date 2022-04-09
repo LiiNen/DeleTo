@@ -1,9 +1,9 @@
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/function.dart';
+import 'package:delito/main_nav/search/search_category_shop_view.dart';
 import 'package:delito/main_nav/search/search_view.dart';
-import 'package:delito/object/store.dart';
-import 'package:delito/store/store_board_creation_view.dart';
-import 'package:delito/store/store_item_container.dart';
+import 'package:delito/object/board.dart';
+import 'package:delito/store/board/store_board_item_container.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
@@ -49,8 +49,8 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
                 child: Column(
                   children: <Widget>[
 
-                  ] + List.generate(testStoreList.length*10, (index) {
-                    return StoreItemContainer(store: testStoreList[index%5],);
+                  ] + List.generate(testBoardList.length*10, (index) {
+                    return StoreBoardItemContainer(board: testBoardList[index%5],);
                   })
                 )
               )
@@ -62,7 +62,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
         width: 48, height: 48,
         child: FloatingActionButton(
           onPressed: () {
-            navigatorPush(context: context, widget: StoreBoardCreationView());
+            navigatorPush(context: context, widget: SearchCategoryShopView(categoryId: _categoryId!));
           },
           backgroundColor: Color(0xff0958c5),
           child: Icon(Icons.add_outlined)
