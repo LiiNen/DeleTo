@@ -23,6 +23,8 @@ class StoreShopItemContainer extends StatelessWidget {
             thumbnailBox(),
             SizedBox(width: 12),
             infoBox(),
+            SizedBox(width: 12),
+            openBox(),
           ]
         )
       )
@@ -45,6 +47,20 @@ class StoreShopItemContainer extends StatelessWidget {
           SizedBox(height: 2),
           Text('${shop.leastPrice}원 / ${shop.deliveryPrice}원', overflow: TextOverflow.ellipsis, style: textStyle(color: Color(0xffe0e0e0)),)
         ]
+      )
+    );
+  }
+
+  openBox() {
+    bool _isOpen = getTimeSafe(openTime: shop.openTime, closeTime: shop.closeTime);
+    return Container(
+      width: 60, height: 40,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+        color: _isOpen ? Colors.lightGreenAccent : Colors.grey
+      ),
+      child: Center(
+        child: Text(_isOpen ? '영업중' : '배달불가')
       )
     );
   }

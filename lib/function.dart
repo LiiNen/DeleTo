@@ -49,10 +49,6 @@ getTimeSafe({required String openTime, required String closeTime}) {
   DateTime openDate = DateTime(nowDate.year, nowDate.month, nowDawn ? nowDate.day-1 : nowDate.day, openHour, openMinute);
   DateTime closeDate = DateTime(nowDate.year, nowDate.month, !nowDawn&&closeDawn ? nowDate.day+1 : nowDate.day, closeHour, closeMinute);
 
-  print(nowDate);
-  print(openDate);
-  print(closeDate);
-
   if(nowDate.isAfter(openDate) && nowDate.isBefore(closeDate)) {
     return true;
   }

@@ -1,5 +1,6 @@
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/object/shop.dart';
+import 'package:delito/store/store_board_creation_view.dart';
 import 'package:delito/style.dart';
 import 'package:delito/function.dart';
 import 'package:flutter/material.dart';
@@ -46,14 +47,33 @@ class _StoreShopView extends State<StoreShopView> {
   }
 
   shopInfoBox() {
-    return Container();
+    return Row(
+      children: [
+        FlutterLogo(size: 62,),
+        SizedBox(width: 24),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('최소주문금액 : ${widget.shop.leastPrice}원', style: textStyle(size: 14.0)),
+              SizedBox(height: 6),
+              Text('배달비 : ${widget.shop.deliveryPrice}원', style: textStyle(size: 14.0)),
+              SizedBox(height: 6),
+              Text('영업시간 : ${widget.shop.openTime} - ${widget.shop.closeTime}', style: textStyle(size: 14.0)),
+            ]
+          )
+        )
+      ]
+    );
   }
 
   priceInfoBox() {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-
+        if(_isOpen!) {
+          navigatorPush(context: context, widget: StoreBoardCreationView(shopInfoWidget: shopInfoBox(), shop: widget.shop));
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
