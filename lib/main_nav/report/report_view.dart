@@ -42,21 +42,34 @@ class _ReportView extends State<ReportView> {
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: 24),
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
             children: [
-              SizedBox(height: 24),
-              DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode, enabled: widget.userName == '' ? true : false),
-              SizedBox(height: 12),
-              DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '신고 내용\n상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true,),
-              SizedBox(height: 12),
-              DefaultTextField(controller: emailController, focusNode: emailFocusNode, hint: '(선택) 회신받을 이메일 주소', callback: _sendReport,),
-              Expanded(child: Container()),
-              DefaultButton(title: '신고 접수', callback: _sendReport, width: MediaQuery.of(context).size.width),
-              SizedBox(height: 24),
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 24),
+                    DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode, enabled: widget.userName == '' ? true : false),
+                    SizedBox(height: 12),
+                    DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '신고 내용\n상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true,),
+                    SizedBox(height: 12),
+                    DefaultTextField(controller: emailController, focusNode: emailFocusNode, hint: '(선택) 회신받을 이메일 주소', callback: _sendReport,),
+                    SizedBox(height: 76),
+                  ]
+                )
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    DefaultButton(title: '신고 접수', callback: _sendReport, width: MediaQuery.of(context).size.width),
+                    SizedBox(height: 20),
+                  ]
+                )
+              )
             ]
           )
         )
