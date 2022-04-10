@@ -1,27 +1,22 @@
 import 'package:delito/object/store.dart';
 
 class Shop extends Store{
-  final int userId;
-  final String title;
-  final String content;
-  final int curNum;
-  final int maxNum;
   final int deliveryPrice;
   final int leastPrice;
-  final bool open;
-  final String time;
-  final String userName;
+  final String openTime;
+  final String closeTime;
 
   Shop({
     required id, imgSrc='', required shopName,
-    this.userId=0, required this.title, this.content='', required this.curNum, required this.maxNum, this.deliveryPrice=0, this.leastPrice=0, this.open=true, this.time='4/3 23:00', this.userName='딜리투계정'
+    this.deliveryPrice=0, this.leastPrice=0,
+    this.openTime='09:00', this.closeTime='23:00',
   }) : super(id: id, imgSrc: imgSrc, shopName: shopName);
 }
 
 var testShopList = [
-  Shop(id: 1, title: '치킨먹을 사람?', shopName: '아주대학교 KFC', curNum: 3, maxNum: 6, content: '5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ', deliveryPrice: 5000, leastPrice: 12000),
-  Shop(id: 2, title: '배달비 아낄사람', shopName: '피자브라더스 인계본점', curNum: 4, maxNum: 5, open: false),
-  Shop(id: 3, title: '광교관 여학생 있음?', shopName: '신전떡볶이 아주대점', curNum: 4, maxNum: 4),
-  Shop(id: 4, title: '본인 팔달관 망령', shopName: '맘스터치 광교점', curNum: 3, maxNum: 4),
-  Shop(id: 5, title: '남제 1명 구함', shopName: '맥도날드 아주대점', curNum: 1, maxNum: 2),
+  Shop(id: 1, shopName: '아주대학교 KFC', deliveryPrice: 5000, leastPrice: 12000),
+  Shop(id: 2, shopName: '피자브라더스 인계본점', openTime: '17:00', closeTime: '02:00'),
+  Shop(id: 3, shopName: '신전떡볶이 아주대점',),
+  Shop(id: 4, shopName: '맘스터치 광교점',),
+  Shop(id: 5, shopName: '맥도날드 아주대점',),
 ];

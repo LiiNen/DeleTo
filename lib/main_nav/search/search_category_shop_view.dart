@@ -1,8 +1,7 @@
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/main_nav/search/search_view.dart';
-import 'package:delito/object/board.dart';
 import 'package:delito/object/shop.dart';
-import 'package:delito/store/board/store_board_item_container.dart';
+import 'package:delito/store/shop/store_shop_item_container.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +48,7 @@ class _SearchCategoryShopView extends State<SearchCategoryShopView> {
                   children: <Widget>[
 
                   ] + List.generate(testShopList.length*10, (index) {
-                    return StoreBoardItemContainer(board: testBoardList[index%5]);
+                    return StoreShopItemContainer(shop: testShopList[index%5]);
                   })
                 )
               )

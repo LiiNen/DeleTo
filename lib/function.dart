@@ -29,3 +29,34 @@ showToast(String message) {
     gravity: ToastGravity.BOTTOM,
   );
 }
+
+getTimeSafe({required String openTime, required String closeTime}) {
+  var nowDate = DateTime.now();
+  var openHour = int.parse(openTime.split(':')[0]);
+  var openMinute = int.parse(openTime.split(':')[1]);
+  var closeHour = int.parse(closeTime.split(':')[0]);
+  var closeMinute = int.parse(closeTime.split(':')[1]);
+
+  bool nowDawn = false;
+  bool closeDawn = false;
+  if(nowDate.hour < 7) {
+    nowDawn = true;
+  }
+  if(closeHour < 7) {
+    closeDawn = true;
+  }
+
+  DateTime openDate = DateTime(nowDate.year, nowDate.month, nowDawn ? nowDate.day-1 : nowDate.day, openHour, openMinute);
+  DateTime closeDate = DateTime(nowDate.year, nowDate.month, !nowDawn&&closeDawn ? nowDate.day+1 : nowDate.day, closeHour, closeMinute);
+
+  print(nowDate);
+  print(openDate);
+  print(closeDate);
+
+  if(nowDate.isAfter(openDate) && nowDate.isBefore(closeDate)) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
