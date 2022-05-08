@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 navigatorPush({required context, required widget, replacement=false, all=false}) {
   replacement
@@ -55,4 +56,9 @@ getTimeSafe({required String openTime, required String closeTime}) {
   else {
     return false;
   }
+}
+
+String moneyParser(int target) {
+  var f = NumberFormat('###,###,###,###');
+  return f.format(target);
 }

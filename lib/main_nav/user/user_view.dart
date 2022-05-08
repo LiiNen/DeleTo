@@ -4,6 +4,7 @@ import 'package:delito/component/default_button.dart';
 import 'package:delito/function.dart';
 import 'package:delito/login/login_view.dart';
 import 'package:delito/main_nav/user/point_charge_button.dart';
+import 'package:delito/main_nav/user/point_view.dart';
 import 'package:delito/object/user.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,26 @@ class _UserView extends State<UserView> {
                   SizedBox(width: 4),
                   Image.asset('asset/pointIcon.png', width: 16),
                 ]
+              ),
+              SizedBox(height: 8),
+              GestureDetector(
+                onTap: () {
+                  navigatorPush(
+                    context: context,
+                    widget: PointView()
+                  );
+                },
+                behavior: HitTestBehavior.translucent,
+                child: Container(
+                  height: 18,
+                  decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(
+                      color: Colors.blue,
+                      width: 0.8, // Underline thickness
+                    ))
+                  ),
+                  child: Text('이용내역 조회하기', style: textStyle(weight: 800, size: 14.0, color: Colors.blue))
+                )
               )
             ]
           )
