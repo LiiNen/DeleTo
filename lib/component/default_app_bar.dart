@@ -7,7 +7,8 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool back;
   final dynamic backCallback;
   final Color color;
-  DefaultAppBar({required this.title, this.back=false, this.backCallback, this.color=Colors.black}) : preferredSize = Size.fromHeight(44.0);
+  final dynamic tapAction;
+  DefaultAppBar({required this.title, this.back=false, this.backCallback, this.color=Colors.black, this.tapAction}) : preferredSize = Size.fromHeight(44.0);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +17,18 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: color,
       automaticallyImplyLeading: false,
-      title: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            back ? backButton(context) : SizedBox(width: 24),
-            Text(title),
-            SizedBox(width: 24),
-          ]
+      title: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {tapAction();},
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              back ? backButton(context) : SizedBox(width: 24),
+              Text(title),
+              SizedBox(width: 24),
+            ]
+          )
         )
       )
     );

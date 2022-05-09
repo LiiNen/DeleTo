@@ -1,7 +1,11 @@
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/function.dart';
+import 'package:delito/main_nav/search/search_address_selection_view.dart';
 import 'package:delito/main_nav/search/search_category_board_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kpostal/kpostal.dart';
+import 'package:delito/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 List<String> foodCategory = [
   '일식', '중식', '치킨', '백반',
@@ -15,10 +19,32 @@ class SearchView extends StatefulWidget {
   State<SearchView> createState() => _SearchView();
 }
 class _SearchView extends State<SearchView> {
+
+  String? _address;
+
+  @override
+  void initState() {
+    super.initState();
+    _getAddress();
+  }
+
+  _getAddress() async {
+    var pref = await SharedPreferences.getInstance();
+    setState(() {
+      _address = pref.getString('address') ?? '';
+    });
+    print('getaddress');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(title: '음식 카테고리 선택'),
+      appBar: DefaultAppBar(
+        title: _address != null ? (_address != '' ? _address! : '주소 설정하기') : '',
+        tapAction: () {
+          navigatorPush(context: context, widget: SearchAddressSelectionView(completeCallback: _getAddress));
+        },
+      ),
       backgroundColor: Colors.white,
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -27,12 +53,15 @@ class _SearchView extends State<SearchView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('음식 카테고리를 선택하세요'),
+            SizedBox(height: 24),
             categorySelector()
           ]
         )
       )
     );
   }
+
 
   categorySelector() {
     return Container(
