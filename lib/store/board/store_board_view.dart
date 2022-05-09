@@ -1,6 +1,7 @@
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
+import 'package:delito/component/input_dialog.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/report/report_view.dart';
 import 'package:delito/object/board.dart';
@@ -19,12 +20,16 @@ class _StoreBoardView extends State<StoreBoardView> {
   _participate() async {
     return (await showDialog(
       context: context,
-      builder: (context) => ConfirmDialog(
-        title: '참여하실래요?',
-        positiveAction: () {},
-        negativeAction: () {},
+      builder: (context) => InputDialog(
+        title: '모임 신청', confirmAction: (message, point) {_participateAction(message, point);},
+        confirmWord: '포인트 지불 후 참여'
       ),
     )) ?? false;
+  }
+
+  _participateAction(String message, String point) async {
+    print(message);
+    print(point);
   }
 
   @override

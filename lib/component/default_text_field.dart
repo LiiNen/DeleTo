@@ -6,10 +6,11 @@ class DefaultTextField extends StatelessWidget {
   final FocusNode focusNode;
   final String hint;
   final bool allowEnter;
+  final bool isNumber;
   final FocusNode? nextFocusNode;
   final dynamic callback;
   final bool enabled;
-  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback, this.enabled=true});
+  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback, this.enabled=true, this.isNumber=false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class DefaultTextField extends StatelessWidget {
         hintStyle: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0),
       ),
       style: textStyle(weight: 600, size: 12.0),
-      keyboardType: allowEnter ? TextInputType.multiline : TextInputType.text,
+      keyboardType: isNumber ? TextInputType.number : (allowEnter ? TextInputType.multiline : TextInputType.text),
       textInputAction: allowEnter ? TextInputAction.newline : TextInputAction.done,
       maxLines: allowEnter ? 18 : 1,
       onSubmitted: (value) {
