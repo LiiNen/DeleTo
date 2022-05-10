@@ -19,12 +19,9 @@ class SearchAddressSelectionView extends StatefulWidget {
 }
 class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
   TextEditingController controller = TextEditingController();
-  TextEditingController nameController = TextEditingController();
   FocusNode focusNode = FocusNode();
-  FocusNode nameFocusNode = FocusNode();
   bool _enabled = false;
   bool _warning = false;
-  String? _address;
   var long = 0.0;
   var lat = 0.0;
 
@@ -116,19 +113,22 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
   }
 
   _getGps() async {
-    var permission = await Geolocator.checkPermission();
-    if(permission == LocationPermission.denied) {
-      showToast('gps 권한을 확인해주세요.');
-      Map<Permission, PermissionStatus> permissions = await [
-        Permission.location,
-      ].request();
-    }
-    else {
+    // var permission = await Geolocator.requestPermission();
+    // if(permission == LocationPermission.denied) {
+    //   showToast('gps 권한을 확인해주세요.');
+    //   Map<Permission, PermissionStatus> permissions = await [
+    //     Permission.location,
+    //   ].request();
+    // }
+    // else {
+    try {
       Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high
       ).then((Position position) async {
         gpsReturnCallback(position);
       });
+    } catch (e) {
+      showToast('gps 상태나 권한을 확인해주세요');
     }
   }
 

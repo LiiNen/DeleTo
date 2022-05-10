@@ -1,4 +1,3 @@
-import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/input_dialog.dart';

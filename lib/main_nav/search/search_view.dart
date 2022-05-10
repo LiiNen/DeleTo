@@ -3,7 +3,6 @@ import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_address_selection_view.dart';
 import 'package:delito/main_nav/search/search_category_board_view.dart';
 import 'package:flutter/material.dart';
-import 'package:kpostal/kpostal.dart';
 import 'package:delito/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,11 +50,17 @@ class _SearchView extends State<SearchView> {
         height: MediaQuery.of(context).size.height,
         margin: EdgeInsets.symmetric(horizontal: 18),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              height: 32,
+              child: (_address != null && _address != '') ? Center(child: Text('위의 주소 별칭을 탭해 현재 위치를 변경할 수 있습니다.', style: textStyle(weight: 500, size: 12.0))) : Container()
+            ),
+            Expanded(child: Container()),
             Text('음식 카테고리를 선택하세요'),
             SizedBox(height: 24),
-            categorySelector()
+            categorySelector(),
+            SizedBox(height: 24),
+            Expanded(child: Container()),
           ]
         )
       )
