@@ -39,6 +39,7 @@ dependencies:
   geolocator: ^8.0.5
   kpostal: ^0.4.2
   shared_preferences: ^2.0.13
+  permission_handler: ^9.0.2
 
 dev_dependencies:
   flutter_test:

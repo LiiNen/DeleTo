@@ -22,6 +22,7 @@ class DefaultTextField extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10,),
         enabledBorder: enabledBorderDefault(),
         focusedBorder: focusedBorderDefault(),
+        disabledBorder: enabledBorderDefault(),
         hintText: hint,
         hintStyle: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0),
       ),
