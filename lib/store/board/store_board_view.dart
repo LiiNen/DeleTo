@@ -1,3 +1,4 @@
+import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/input_dialog.dart';
@@ -52,7 +53,8 @@ class _StoreBoardView extends State<StoreBoardView> {
                 priceInfoBox(),
                 SizedBox(height: 24),
                 contentBox(),
-                SizedBox(height: 80),
+                SizedBox(height: 40),
+                ContentTitleContainer(title: '댓글'),
                 CommentView(boardId: 1,),
                 SizedBox(height: 20),
               ]

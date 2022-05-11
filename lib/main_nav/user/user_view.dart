@@ -1,6 +1,6 @@
 import 'package:delito/component/confirm_dialog.dart';
+import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
-import 'package:delito/component/default_button.dart';
 import 'package:delito/component/line_divider.dart';
 import 'package:delito/function.dart';
 import 'package:delito/login/login_view.dart';
@@ -23,7 +23,7 @@ class _UserView extends State<UserView> {
       backgroundColor: Colors.white,
       body: Container(
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.symmetric(horizontal: 18),
+        margin: EdgeInsets.symmetric(horizontal: 30),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -36,20 +36,12 @@ class _UserView extends State<UserView> {
               Column(
                 children: [
                   LineDivider(),
-                  Container(
-                    margin: EdgeInsets.only(top: 19.5, bottom: 16),
-                    width: MediaQuery.of(context).size.width,
-                    child: Text('계정 / 정보 관리', style: textStyle(weight: 700, size: 16.0)),
-                  ),
+                  ContentTitleContainer(title: '계정 / 정보 관리'),
                   UserColumnButton(title: '포인트 이용내역 조회하기', callback: () {navigatorPush(context: context, widget: PointView());}),
                   UserColumnButton(title: '이메일', content: 'email@ajou.ac.kr'),
                   UserColumnButton(title: '회원정보 수정'),
                   LineDivider(),
-                  Container(
-                    margin: EdgeInsets.only(top: 19.5, bottom: 16),
-                    width: MediaQuery.of(context).size.width,
-                    child: Text('기타', style: textStyle(weight: 700, size: 16.0)),
-                  ),
+                  ContentTitleContainer(title: '기타'),
                   UserColumnButton(title: '공지사항'),
                   UserColumnButton(title: '버전 정보 조회'),
                   UserColumnButton(title: '로그아웃', callback: _logoutAction,),

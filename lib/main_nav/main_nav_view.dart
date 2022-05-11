@@ -52,6 +52,7 @@ class _MainNavView extends State<MainNavView> {
           selectedFontSize: 12,
           currentIndex: _selectedIndex,
           onTap: (int index) {
+
             setState(() {
               _selectedIndex = index;
             });

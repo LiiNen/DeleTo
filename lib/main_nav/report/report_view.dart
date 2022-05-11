@@ -1,4 +1,5 @@
 import 'package:delito/component/confirm_dialog.dart';
+import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
@@ -50,11 +51,11 @@ class _ReportView extends State<ReportView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 24),
+                    ContentTitleContainer(title: '신고 대상'),
                     DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode, enabled: widget.userName == '' ? true : false),
-                    SizedBox(height: 12),
-                    DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '신고 내용\n상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true,),
-                    SizedBox(height: 12),
+                    ContentTitleContainer(title: '신고 내용'),
+                    DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true,),
+                    ContentTitleContainer(title: '회신 받을 이메일 주소'),
                     DefaultTextField(controller: emailController, focusNode: emailFocusNode, hint: '(선택) 회신받을 이메일 주소', callback: _sendReport,),
                     SizedBox(height: 76),
                   ]
