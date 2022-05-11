@@ -1,10 +1,12 @@
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
+import 'package:delito/component/line_divider.dart';
 import 'package:delito/function.dart';
 import 'package:delito/login/login_view.dart';
 import 'package:delito/main_nav/user/point_charge_button.dart';
 import 'package:delito/main_nav/user/point_view.dart';
+import 'package:delito/main_nav/user/user_column_button.dart';
 import 'package:delito/object/user.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
@@ -21,19 +23,41 @@ class _UserView extends State<UserView> {
       backgroundColor: Colors.white,
       body: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
         margin: EdgeInsets.symmetric(horizontal: 18),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SizedBox(height: 24),
-            _userInfoBox(),
-            SizedBox(height: 24),
-            _pointBox(),
-            Expanded(child: Container()),
-            DefaultButton(title: '로그아웃', width: MediaQuery.of(context).size.width, callback: _logoutAction),
-            SizedBox(height: 24),
-          ]
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(height: 24),
+              _userInfoBox(),
+              SizedBox(height: 24),
+              _pointBox(),
+              SizedBox(height: 24),
+              Column(
+                children: [
+                  LineDivider(),
+                  Container(
+                    margin: EdgeInsets.only(top: 19.5, bottom: 16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Text('계정 / 정보 관리', style: textStyle(weight: 700, size: 16.0)),
+                  ),
+                  UserColumnButton(title: '포인트 이용내역 조회하기', callback: () {navigatorPush(context: context, widget: PointView());}),
+                  UserColumnButton(title: '이메일', content: 'email@ajou.ac.kr'),
+                  UserColumnButton(title: '회원정보 수정'),
+                  LineDivider(),
+                  Container(
+                    margin: EdgeInsets.only(top: 19.5, bottom: 16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Text('기타', style: textStyle(weight: 700, size: 16.0)),
+                  ),
+                  UserColumnButton(title: '공지사항'),
+                  UserColumnButton(title: '버전 정보 조회'),
+                  UserColumnButton(title: '로그아웃', callback: _logoutAction,),
+                  UserColumnButton(title: '탈퇴하기'),
+                ]
+              )
+            ]
+          )
         )
       )
     );
