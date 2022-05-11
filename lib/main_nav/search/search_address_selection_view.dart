@@ -47,6 +47,7 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
               SizedBox(height: 16),
               DefaultTextField(controller: controller, enabled: _enabled, hint: '위의 버튼을 통해 주소를 입력해주세요', focusNode: focusNode,),
               warningBox(),
+              positionBox(),
               Expanded(child: Container()),
               Text('아래 저장하기 버튼을 눌러야 정상적으로 반영됩니다.', style: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0)),
               SizedBox(height: 6),
@@ -82,7 +83,8 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
   }
 
   addressReturnCallback(Kpostal result) {
-    if(result.latitude == null || result.longitude == null) {
+    print(result);
+    if(result.kakaoLongitude == null || result.kakaoLatitude == null) {
       setState(() {
         long = 0.0;
         lat = 0.0;
@@ -94,8 +96,8 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
     }
     else {
       setState(() {
-        long = result.longitude!;
-        lat = result.latitude!;
+        long = result.kakaoLongitude!;
+        lat = result.kakaoLatitude!;
         _warning = false;
         _enabled = true;
       });
@@ -113,22 +115,26 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
   }
 
   _getGps() async {
-    // var permission = await Geolocator.requestPermission();
-    // if(permission == LocationPermission.denied) {
-    //   showToast('gps 권한을 확인해주세요.');
-    //   Map<Permission, PermissionStatus> permissions = await [
-    //     Permission.location,
-    //   ].request();
-    // }
-    // else {
-    try {
-      Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high
-      ).then((Position position) async {
-        gpsReturnCallback(position);
-      });
-    } catch (e) {
-      showToast('gps 상태나 권한을 확인해주세요');
+    var permission = await Geolocator.requestPermission();
+    if(permission == LocationPermission.denied) {
+      showToast('gps 권한을 확인해주세요.');
+      Map<Permission, PermissionStatus> permissions = await [
+        Permission.location,
+      ].request();
+    }
+    else {
+      try {
+        Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high
+        ).then((Position position) async {
+          gpsReturnCallback(position);
+        });
+      } catch (e) {
+        print('hello');
+        print(long);
+        print(lat);
+        showToast('gps 상태나 권한을 확인해주세요');
+      }
     }
   }
 
@@ -136,6 +142,7 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
     setState(() {
       long = position.longitude;
       lat = position.latitude;
+      _warning = false;
       _enabled = true;
       controller.text = 'gps를 이용한 위치 정보';
     });
@@ -148,6 +155,20 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
       margin: EdgeInsets.symmetric(vertical: 12),
       child: _enabled ? Text('위의 입력창에 주소의 별칭을 입력해주세요', style: textStyle(color: Color(0xffff7c2f), weight: 600, size: 12.0)) : (
           _warning ? Text('주소의 위치가 모호합니다. gps를 이용해주세요.', style: textStyle(color: Colors.red, weight: 600, size: 12.0)) : Container())
+    );
+  }
+
+  positionBox() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 24,
+      child: (lat != 0.0 && long != 0.0) ? Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('위도: ${lat}'),
+          Text('경도: ${long}'),
+        ]
+      ) : Container(),
     );
   }
 
