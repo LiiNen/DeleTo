@@ -28,8 +28,8 @@ class _StoreBoardView extends State<StoreBoardView> {
   }
 
   _participateAction(String message, String point) async {
-    print(message);
-    print(point);
+    /// todo: post message, point
+    /// error handling with point
   }
 
   @override

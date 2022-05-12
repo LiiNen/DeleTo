@@ -5,7 +5,6 @@ import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/board.dart';
 import 'package:delito/store/board/store_board_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
-import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
 class SearchCategoryBoardView extends StatefulWidget {

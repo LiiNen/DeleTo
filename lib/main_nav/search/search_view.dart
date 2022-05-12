@@ -32,7 +32,6 @@ class _SearchView extends State<SearchView> {
     setState(() {
       _address = pref.getString('address') ?? '';
     });
-    print('getaddress');
   }
 
   @override

@@ -29,7 +29,6 @@ class StoreTabBar extends StatelessWidget implements PreferredSizeWidget {
         labelStyle: textStyle(color: Colors.black, weight: 700, size: 16.0),
         unselectedLabelStyle: textStyle(color: Color(0xff8e8e8e), weight: 500, size: 16.0),
         tabs: List.generate(tabList.length, (index) {
-          // print(tabList[index]);
           return Tab(text: tabList[index].replaceAll('\n', ' '),);
         }),
         onTap: (index) {

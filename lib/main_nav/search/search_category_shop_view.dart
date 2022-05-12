@@ -3,7 +3,6 @@ import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/shop.dart';
 import 'package:delito/store/shop/store_shop_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
-import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
 class SearchCategoryShopView extends StatefulWidget {

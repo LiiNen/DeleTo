@@ -80,14 +80,6 @@ class _ReportView extends State<ReportView> {
   }
 
   _sendReport() async {
-    if(userController.text == '') {
-      showToast('신고할 대상을 기입해주세요');
-      return;
-    }
-    else if(contentController.text == '') {
-      showToast('신고 사유를 작성해주세요');
-      return;
-    }
     return (await showDialog(
       context: context,
       builder: (context) => ConfirmDialog(

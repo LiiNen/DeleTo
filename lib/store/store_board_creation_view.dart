@@ -37,7 +37,6 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
         title: '${widget.shop.shopName} 배달 동료 모집을 시작하시겠습니까?',
         positiveAction: () {
           // todo: callback
-          print('완료');
         },
         negativeAction: () {},
       )

@@ -83,7 +83,6 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
   }
 
   addressReturnCallback(Kpostal result) {
-    print(result);
     if(result.kakaoLongitude == null || result.kakaoLatitude == null) {
       setState(() {
         long = 0.0;
@@ -130,9 +129,6 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
           gpsReturnCallback(position);
         });
       } catch (e) {
-        print('hello');
-        print(long);
-        print(lat);
         showToast('gps 상태나 권한을 확인해주세요');
       }
     }
