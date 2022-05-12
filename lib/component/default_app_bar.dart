@@ -1,3 +1,4 @@
+import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -8,7 +9,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final dynamic backCallback;
   final Color color;
   final dynamic tapAction;
-  DefaultAppBar({required this.title, this.back=false, this.backCallback, this.color=Colors.black, this.tapAction}) : preferredSize = Size.fromHeight(44.0);
+  DefaultAppBar({required this.title, this.back=false, this.backCallback, this.color=Colors.white, this.tapAction}) : preferredSize = Size.fromHeight(44.0);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               back ? backButton(context) : SizedBox(width: 24),
-              Text(title),
+              Text(title, style: textStyle()),
               SizedBox(width: 24),
             ]
           )
@@ -41,7 +42,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Container(
         width: 24, height: 24,
         child: Center(
-          child: Icon(Icons.arrow_back_ios_rounded, color: Colors.white),
+          child: Icon(Icons.arrow_back_ios_rounded, color: Colors.black),
         )
       )
     );

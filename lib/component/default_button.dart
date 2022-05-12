@@ -7,24 +7,27 @@ class DefaultButton extends StatelessWidget {
   final double width;
   final double height;
   final double fontSize;
-  DefaultButton({required this.title, required this.callback, this.width=88.0, this.height=36.0, this.fontSize=14.0});
+  final Color fontColor;
+  final Color color;
+  DefaultButton({required this.title, required this.callback, this.width=88.0, this.height=36.0, this.fontSize=14.0, this.color=Colors.white, this.fontColor=const Color(0xff787878)});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        callback();
+        if(callback != null) {
+          callback();
+        }
       },
       child: Container(
         width: width, height: height,
         decoration: BoxDecoration(
-          border: Border.all(color: Color(0xffb2b2b2), width: 1),
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: Colors.white,
+          color: color,
         ),
         child: Center(
-          child: Text(title, style: textStyle(color: Color(0xff787878), weight: 600, size: fontSize))
+          child: Text(title, style: textStyle(color: fontColor, weight: 600, size: fontSize))
         )
       )
     );

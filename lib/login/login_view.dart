@@ -2,6 +2,7 @@ import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
 import 'package:delito/component/default_view.dart';
 import 'package:delito/function.dart';
+import 'package:delito/login/policy_view.dart';
 import 'package:delito/main_nav/main_nav_view.dart';
 import 'package:delito/object/user.dart';
 import 'package:delito/style.dart';
@@ -74,7 +75,7 @@ class _LoginView extends State<LoginView> {
         GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            navigatorPush(context: context, widget: DefaultView(title: '회원가입'));
+            navigatorPush(context: context, widget: PolicyView());
           },
           child: Container(
             height: 28,
