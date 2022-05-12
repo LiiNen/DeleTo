@@ -4,6 +4,7 @@ import 'package:delito/main_nav/search/search_category_shop_view.dart';
 import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/board.dart';
 import 'package:delito/store/board/store_board_item_container.dart';
+import 'package:delito/store/store_tab_bar.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +15,15 @@ class SearchCategoryBoardView extends StatefulWidget {
   @override
   State<SearchCategoryBoardView> createState() => _SearchCategoryBoardView();
 }
-class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
+class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with SingleTickerProviderStateMixin {
 
   int? _categoryId;
+  late TabController _tabController;
 
   @override
   void initState() {
     _categoryId = widget.categoryId;
+    _tabController = TabController(length: foodCategory.length, vsync: this, initialIndex: _categoryId!);
     super.initState();
   }
 
@@ -38,12 +41,12 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(title: '모집글 찾기', back: true,),
+      appBar: DefaultAppBar(title: '모집글 찾기', back: true, elevation: 0,),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
           children: [
-            switchCategoryBox(),
+            StoreTabBar(tabList: foodCategory, callback: _patchCategoryId, controller: _tabController),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -68,39 +71,6 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> {
           child: Icon(Icons.add_outlined)
         )
       ),
-    );
-  }
-
-  switchCategoryBox() {
-    return Container(
-      width: MediaQuery.of(context).size.width, height: 82,
-      margin: EdgeInsets.symmetric(horizontal: 18),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          switchButton(true),
-          Expanded(
-            child: Center(
-              child: Text(foodCategory[_categoryId!].replaceAll('\n', ','), style: textStyle(weight: 700, size: 22.0))
-            )
-          ),
-          switchButton(false)
-        ]
-      )
-    );
-  }
-
-  switchButton(bool isLeft) {
-    int dx = isLeft ? -1 : 1;
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: () {
-        _patchCategoryId((_categoryId! + dx) % foodCategory.length);
-      },
-      child: Container(
-        width: 32, height: 32,
-        child: Icon(isLeft ? Icons.arrow_back_ios_rounded : Icons.arrow_forward_ios_rounded, size: 32),
-      )
     );
   }
 }
