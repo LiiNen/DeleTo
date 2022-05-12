@@ -10,7 +10,9 @@ class DefaultTextField extends StatelessWidget {
   final FocusNode? nextFocusNode;
   final dynamic callback;
   final bool enabled;
-  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback, this.enabled=true, this.isNumber=false});
+  final dynamic changeListener;
+  final bool secureText;
+  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback, this.enabled=true, this.isNumber=false, this.changeListener, this.secureText=false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class DefaultTextField extends StatelessWidget {
       controller: controller,
       autofocus: false,
       focusNode: focusNode,
+      obscureText: secureText,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10,),
         enabledBorder: enabledBorderDefault(),
@@ -33,6 +36,9 @@ class DefaultTextField extends StatelessWidget {
       onSubmitted: (value) {
         if(callback != null) callback();
         if(allowEnter == false && nextFocusNode != null) nextFocusNode!.requestFocus();
+      },
+      onChanged: (value) {
+        if(changeListener != null) changeListener();
       },
       enabled: enabled,
     );

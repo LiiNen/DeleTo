@@ -2,6 +2,7 @@ import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/default_view.dart';
 import 'package:delito/component/line_divider.dart';
 import 'package:delito/login/login_app_bar.dart';
+import 'package:delito/login/register_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 import 'package:flutter_svg/svg.dart';
@@ -116,7 +117,6 @@ class _PolicyView extends State<PolicyView> {
   }
 
   _nextStep() {
-    print('hell');
-    // navigatorPush(context: context, widget: )
+    navigatorPush(context: context, widget: RegisterView());
   }
 }

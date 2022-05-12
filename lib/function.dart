@@ -62,3 +62,10 @@ String moneyParser(int target) {
   var f = NumberFormat('###,###,###,###');
   return f.format(target);
 }
+
+bool pwRegexCheck(String input) {
+  return RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$').hasMatch(input);
+}
+bool emailRegexCheck(String input) {
+  return RegExp(r'^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$').hasMatch(input);
+}
