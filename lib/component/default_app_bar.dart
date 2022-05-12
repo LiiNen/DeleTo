@@ -9,12 +9,13 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final dynamic backCallback;
   final Color color;
   final dynamic tapAction;
-  DefaultAppBar({required this.title, this.back=false, this.backCallback, this.color=Colors.white, this.tapAction}) : preferredSize = Size.fromHeight(44.0);
+  final double elevation;
+  DefaultAppBar({required this.title, this.back=false, this.backCallback, this.color=Colors.white, this.tapAction, this.elevation=1.0}) : preferredSize = Size.fromHeight(44.0);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
+      elevation: elevation,
       centerTitle: true,
       backgroundColor: color,
       automaticallyImplyLeading: false,
@@ -26,7 +27,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               back ? backButton(context) : SizedBox(width: 24),
-              Text(title, style: textStyle()),
+              Text(title, style: textStyle(weight: 700, size: 16.0)),
               SizedBox(width: 24),
             ]
           )

@@ -1,3 +1,4 @@
+import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
@@ -52,9 +53,9 @@ class _ReportView extends State<ReportView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ContentTitleContainer(title: '신고 대상'),
-                    DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode, enabled: widget.userName == '' ? true : false),
+                    DefaultTextField(controller: userController, focusNode: userFocusNode, hint: '신고할 유저 이름', nextFocusNode: contentFocusNode, enabled: widget.userName == '' ? true : false, changeListener: () {setState(() {});},),
                     ContentTitleContainer(title: '신고 내용'),
-                    DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true,),
+                    DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '상세하게 작성할수록 처리하기 쉽습니다.', nextFocusNode: userFocusNode, allowEnter: true, changeListener: () {setState(() {});}),
                     ContentTitleContainer(title: '회신 받을 이메일 주소'),
                     DefaultTextField(controller: emailController, focusNode: emailFocusNode, hint: '(선택) 회신받을 이메일 주소', callback: _sendReport,),
                     SizedBox(height: 76),
@@ -66,7 +67,7 @@ class _ReportView extends State<ReportView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    DefaultButton(title: '신고 접수', callback: _sendReport, width: MediaQuery.of(context).size.width),
+                    ConditionButton(title: '신고 접수', callback: _sendReport, width: MediaQuery.of(context).size.width, condition: userController.text != '' && contentController.text != '',),
                     SizedBox(height: 20),
                   ]
                 )

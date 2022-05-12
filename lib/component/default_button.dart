@@ -9,7 +9,8 @@ class DefaultButton extends StatelessWidget {
   final double fontSize;
   final Color fontColor;
   final Color color;
-  DefaultButton({required this.title, required this.callback, this.width=88.0, this.height=36.0, this.fontSize=14.0, this.color=Colors.white, this.fontColor=const Color(0xff787878)});
+  final bool hasBorder;
+  DefaultButton({required this.title, required this.callback, this.width=88.0, this.height=36.0, this.fontSize=14.0, this.color=Colors.white, this.fontColor=const Color(0xff787878), this.hasBorder=true});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class DefaultButton extends StatelessWidget {
       child: Container(
         width: width, height: height,
         decoration: BoxDecoration(
+          border: hasBorder ? Border.all(color: Color(0xffb2b2b2), width: 1) : Border.all(color: Colors.transparent),
           borderRadius: BorderRadius.all(Radius.circular(8)),
           color: color,
         ),

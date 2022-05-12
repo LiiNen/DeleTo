@@ -1,3 +1,4 @@
+import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
@@ -60,9 +61,9 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
                     SizedBox(height: 24),
                     widget.shopInfoWidget,
                     SizedBox(height: 24),
-                    DefaultTextField(controller: titleController, focusNode: titleFocusNode, hint: '제목', nextFocusNode: contentFocusNode,),
+                    DefaultTextField(controller: titleController, focusNode: titleFocusNode, hint: '제목', nextFocusNode: contentFocusNode, changeListener: () {setState(() {});}),
                     SizedBox(height: 12),
-                    DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '내용', allowEnter: true,callback: _createBoard),
+                    DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '내용', allowEnter: true,callback: _createBoard, changeListener: () {setState(() {});}),
                     SizedBox(height: 96), // button + sizedBox + margin 20
                   ]
                 )
@@ -72,7 +73,7 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    DefaultButton(title: '작성하기', callback: _createBoard, width: MediaQuery.of(context).size.width),
+                    ConditionButton(title: '작성하기', callback: _createBoard, width: MediaQuery.of(context).size.width, condition: titleController.text != '' && contentController.text != ''),
                     SizedBox(height: 40),
                   ]
                 )

@@ -13,5 +13,6 @@ class ConditionButton extends DefaultButton {
     fontColor: Colors.white,
     height: 52,
     width: width,
+    hasBorder: false,
   );
 }
