@@ -1,7 +1,7 @@
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/object/board.dart';
-import 'package:delito/store/board/store_board_item_container.dart';
+import 'package:delito/store/board/board_item_container.dart';
 import 'package:flutter/material.dart';
 
 class GatherView extends StatefulWidget {
@@ -36,7 +36,7 @@ class _GatherView extends State<GatherView> {
         hasParty ? SingleChildScrollView(
           child: Column(
             children: List.generate(testBoardList.length*10, (index) {
-              return StoreBoardItemContainer(board: testBoardList[index%5],);
+              return BoardItemContainer(context: context, board: testBoardList[index%5],);
             })
           )
         ) : Center(

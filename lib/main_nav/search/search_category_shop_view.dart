@@ -1,7 +1,8 @@
+import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/shop.dart';
-import 'package:delito/store/shop/store_shop_item_container.dart';
+import 'package:delito/store/shop/shop_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class _SearchCategoryShopView extends State<SearchCategoryShopView> with SingleT
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(title: '배달 가능한 식당 찾기', back: true,),
+      appBar: DefaultAppBar(title: '배달 가능한 식당 찾기', back: true, elevation: 0.0,),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -48,9 +49,12 @@ class _SearchCategoryShopView extends State<SearchCategoryShopView> with SingleT
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 18),
+                      child: ContentTitleContainer(title: '${testShopList.length}건의 검색결과')
+                    )
                   ] + List.generate(testShopList.length*10, (index) {
-                    return StoreShopItemContainer(shop: testShopList[index%5]);
+                    return ShopItemContainer(context: context, shop: testShopList[index%5]);
                   })
                 )
               )

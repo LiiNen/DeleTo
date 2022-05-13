@@ -1,9 +1,10 @@
+import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_category_shop_view.dart';
 import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/board.dart';
-import 'package:delito/store/board/store_board_item_container.dart';
+import 'package:delito/store/board/board_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -50,9 +51,12 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 18),
+                      child: ContentTitleContainer(title: '${testBoardList.length}건의 검색결과')
+                    )
                   ] + List.generate(testBoardList.length*10, (index) {
-                    return StoreBoardItemContainer(board: testBoardList[index%5],);
+                    return BoardItemContainer(context: context, board: testBoardList[index%5],);
                   })
                 )
               )

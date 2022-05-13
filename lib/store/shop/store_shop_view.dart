@@ -134,7 +134,7 @@ class _StoreShopView extends State<StoreShopView> {
   shopInfoBox() {
     return Row(
       children: [
-        widget.shop.imgSrc != '' ? Image.network(widget.shop.imgSrc, width: 62, height: 62) : FlutterLogo(size: 62,),
+        widget.shop.imgUrl != '' ? Image.network(widget.shop.imgUrl, width: 62, height: 62) : FlutterLogo(size: 62,),
         SizedBox(width: 24),
         Expanded(
           child: Column(
