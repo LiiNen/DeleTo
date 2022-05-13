@@ -14,8 +14,9 @@ class Board extends Store{
 
   Board({
     required id, imgSrc='', required shopName,
-    this.userId=0, required this.title, this.content='',  required this.curNum, required this.maxNum, this.deliveryPrice=0, this.leastPrice=0, this.open=true, this.time='4/3 23:00', this.userName='딜리투계정'
-  }) : super(id: id, imgSrc: imgSrc, shopName: shopName);
+    this.userId=0, required this.title, this.content='',  required this.curNum, required this.maxNum, this.deliveryPrice=0, this.leastPrice=0, this.open=true, this.time='4/3 23:00', this.userName='딜리투계정',
+    lat=0.0, lng=0.0
+  }) : super(id: id, imgSrc: imgSrc, shopName: shopName, lat: lat, lng: lng);
 }
 
 var testBoardList = [

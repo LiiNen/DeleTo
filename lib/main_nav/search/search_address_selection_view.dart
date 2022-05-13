@@ -22,7 +22,7 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
   FocusNode focusNode = FocusNode();
   bool _enabled = false;
   bool _warning = false;
-  var long = 0.0;
+  var lng = 0.0;
   var lat = 0.0;
 
   @override
@@ -85,7 +85,7 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
   addressReturnCallback(Kpostal result) {
     if(result.kakaoLongitude == null || result.kakaoLatitude == null) {
       setState(() {
-        long = 0.0;
+        lng = 0.0;
         lat = 0.0;
         controller.text = '';
         _warning = true;
@@ -95,7 +95,7 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
     }
     else {
       setState(() {
-        long = result.kakaoLongitude!;
+        lng = result.kakaoLongitude!;
         lat = result.kakaoLatitude!;
         _warning = false;
         _enabled = true;
@@ -136,7 +136,7 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
 
   gpsReturnCallback(Position position) {
     setState(() {
-      long = position.longitude;
+      lng = position.longitude;
       lat = position.latitude;
       _warning = false;
       _enabled = true;
@@ -158,11 +158,11 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 24,
-      child: (lat != 0.0 && long != 0.0) ? Row(
+      child: (lat != 0.0 && lng != 0.0) ? Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('위도: ${lat}'),
-          Text('경도: ${long}'),
+          Text('경도: ${lng}'),
         ]
       ) : Container(),
     );
@@ -172,7 +172,7 @@ class _SearchAddressSelectionView extends State<SearchAddressSelectionView> {
     final pref = await SharedPreferences.getInstance();
     pref.setString('address', controller.text);
     pref.setDouble('lat', lat);
-    pref.setDouble('long', long);
+    pref.setDouble('lng', lng);
     Navigator.pop(context);
     widget.completeCallback();
   }

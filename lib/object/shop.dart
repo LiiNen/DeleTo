@@ -20,7 +20,8 @@ class Shop extends Store{
     this.reviewAverage=5.0,
     this.deliveryTime='35~45분',
     this.menuList=const [],
-  }) : super(id: id, imgSrc: imgSrc, shopName: shopName);
+    lat=0.0, lng=0.0
+  }) : super(id: id, imgSrc: imgSrc, shopName: shopName, lat: lat, lng: lng);
 }
 
 var testShopList = [

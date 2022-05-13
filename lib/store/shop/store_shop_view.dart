@@ -7,6 +7,7 @@ import 'package:delito/store/store_board_creation_view.dart';
 import 'package:delito/style.dart';
 import 'package:delito/function.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreShopView extends StatefulWidget {
   final Shop shop;
@@ -18,11 +19,27 @@ class StoreShopView extends StatefulWidget {
 class _StoreShopView extends State<StoreShopView> {
 
   bool? _isOpen;
+  String? _distString;
 
   @override
   void initState() {
     _isOpen = getTimeSafe(openTime: widget.shop.openTime, closeTime: widget.shop.closeTime);
+    _calDist();
     super.initState();
+  }
+
+  _calDist() async {
+    final pref = await SharedPreferences.getInstance();
+    var lat = pref.getDouble('lat') ?? 0.0;
+    var lng = pref.getDouble('lng') ?? 0.0;
+    setState(() {
+      if(lat == 0.0 && lng == 0.0) {
+        _distString = '위치를 설정해주세요';
+      }
+      else {
+        _distString = calDist(lat1: lat, lng1: lng, lat2: widget.shop.lat, lng2: widget.shop.lng);
+      }
+    });
   }
 
   @override
@@ -84,8 +101,7 @@ class _StoreShopView extends State<StoreShopView> {
                 children: [
                   Expanded(child: ContentTitleContainer(title: '나와의 거리')),
                   SizedBox(width: 12),
-                  /// todo: cal distance
-                  Text('400.0m'),
+                  Text(_distString != null ? '${_distString!} m' : ''),
                 ]
               ),
               LineDivider(),

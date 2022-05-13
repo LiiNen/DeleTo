@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
 
 navigatorPush({required context, required widget, replacement=false, all=false}) {
   replacement
@@ -68,4 +69,11 @@ bool pwRegexCheck(String input) {
 }
 bool emailRegexCheck(String input) {
   return RegExp(r'^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$').hasMatch(input);
+}
+
+String calDist({required double lat1, required double lat2, required double lng1, required double lng2}) {
+  final Distance distance = Distance();
+  final double meter = distance.as(LengthUnit.Meter,
+      LatLng(lat1, lng1), LatLng(lat2, lng2));
+  return meter.toString();
 }
