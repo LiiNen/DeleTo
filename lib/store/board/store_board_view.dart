@@ -5,7 +5,9 @@ import 'package:delito/component/input_dialog.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/report/report_view.dart';
 import 'package:delito/object/board.dart';
+import 'package:delito/object/shop.dart';
 import 'package:delito/store/comment/comment_view.dart';
+import 'package:delito/store/shop/store_shop_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 
@@ -16,6 +18,21 @@ class StoreBoardView extends StatefulWidget {
   State<StoreBoardView> createState() => _StoreBoardView();
 }
 class _StoreBoardView extends State<StoreBoardView> {
+
+  double? _distance;
+
+  @override
+  void initState() {
+    super.initState();
+    _calDistance();
+  }
+
+  void _calDistance() {
+    /// todo: cal distance
+    setState(() {
+      _distance = 400;
+    });
+  }
 
   _participate() async {
     return (await showDialog(
@@ -74,7 +91,16 @@ class _StoreBoardView extends State<StoreBoardView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.board.shopName, style: textStyle(weight: 500, size: 16.0)),
+              Row(
+                children: [
+                  Expanded(child: Text(widget.board.shopName, style: textStyle(weight: 500, size: 16.0), overflow: TextOverflow.ellipsis,)),
+                  SizedBox(width: 4),
+                  DefaultButton(title: '식당정보', width: 60, height: 24, fontSize: 12.0, callback: () {
+                    /// todo: navigator push to store_shop_view
+                    navigatorPush(context: context, widget: StoreShopView(shop: testShopList[0], fromBoard: true,),);
+                  }),
+                ]
+              ),
               SizedBox(height: 6),
               Text('최소주문금액 : ${widget.board.leastPrice}원', style: textStyle(size: 14.0)),
               SizedBox(height: 6),
@@ -127,7 +153,13 @@ class _StoreBoardView extends State<StoreBoardView> {
               Expanded(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.board.userName, style: textStyle(weight: 600)),
+                  Row(
+                    children: [
+                      Text(widget.board.userName, style: textStyle(weight: 600)),
+                      SizedBox(width: 4.0),
+                      Text(_distance != null ? '${_distance!}m' : '', style: textStyle(color: Color(0xffa8a8a8), size: 14.0))
+                    ]
+                  ),
                   SizedBox(height: 6.0),
                   Text(widget.board.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
                 ]
@@ -137,7 +169,7 @@ class _StoreBoardView extends State<StoreBoardView> {
                 callback: () {
                   navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: widget.board.userName,));
                 },
-                width: 56, height: 24, fontSize: 12.0,
+                width: 60, height: 24, fontSize: 12.0,
               )
             ]
           ),
