@@ -33,7 +33,7 @@ class StoreShopItemContainer extends StatelessWidget {
 
   thumbnailBox() {
     return Container(
-      child: FlutterLogo(size: 40, )
+      child: shop.imgSrc != '' ? Image.network(shop.imgSrc, width: 40, height: 40) : FlutterLogo(size: 40, )
     );
   }
 

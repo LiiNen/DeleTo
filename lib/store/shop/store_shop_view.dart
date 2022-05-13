@@ -35,28 +35,79 @@ class _StoreShopView extends State<StoreShopView> {
         padding: EdgeInsets.symmetric(horizontal: 18),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 24),
               Text(widget.shop.shopName, style: textStyle(weight: 600, size: 28.0)),
               SizedBox(height: 24),
               shopInfoBox(),
               SizedBox(height: 24),
-              !widget.fromBoard ? priceInfoBox() : Container(),
-              SizedBox(height: 20),
-              ContentTitleContainer(title: '배달 예상 시간'),
+
+              // from board just info
+              !widget.fromBoard ? Column(
+                children: [
+                  priceInfoBox(),
+                  SizedBox(height: 20),
+                ]
+              ) : Container(),
               LineDivider(),
-              // menu list
+
+              Row(
+                children: [
+                  Expanded(child: ContentTitleContainer(title: '요기요 평점')),
+                  SizedBox(width: 12),
+                  Icon(Icons.star, color: Colors.yellow, size: 20),
+                  SizedBox(width: 2),
+                  Text('${widget.shop.reviewAverage}', style: textStyle(weight: 500, size: 16.0)),
+                ]
+              ),
+              LineDivider(),
+              // menu list if exists
               widget.shop.menuList.length != 0 ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ContentTitleContainer(title: '대표 메뉴'),
                   menuListContainer(),
                   LineDivider(),
                 ]
               ) : Container(),
-              ContentTitleContainer(title: '가게 전화번호'),
-              LineDivider(),
-              ContentTitleContainer(title: '가게 주소'),
 
+              Row(
+                children: [
+                  Expanded(child: ContentTitleContainer(title: '배달 예상 시간')),
+                  SizedBox(width: 12),
+                  Text(widget.shop.deliveryTime),
+                ]
+              ),
+              LineDivider(),
+              Row(
+                children: [
+                  Expanded(child: ContentTitleContainer(title: '나와의 거리')),
+                  SizedBox(width: 12),
+                  /// todo: cal distance
+                  Text('400.0m'),
+                ]
+              ),
+              LineDivider(),
+              Row(
+                children: [
+                  Expanded(child: ContentTitleContainer(title: '전화번호')),
+                  SizedBox(width: 12),
+                  Text(widget.shop.phone),
+                ]
+              ),
+              LineDivider(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ContentTitleContainer(title: '가게 주소'),
+                  SizedBox(width: 12),
+                  Text(widget.shop.address, textAlign: TextAlign.start,),
+                  SizedBox(height: 16),
+                ]
+              ),
+
+              SizedBox(height: 40),
             ]
           )
         )
@@ -67,7 +118,7 @@ class _StoreShopView extends State<StoreShopView> {
   shopInfoBox() {
     return Row(
       children: [
-        FlutterLogo(size: 62,),
+        widget.shop.imgSrc != '' ? Image.network(widget.shop.imgSrc, width: 62, height: 62) : FlutterLogo(size: 62,),
         SizedBox(width: 24),
         Expanded(
           child: Column(
