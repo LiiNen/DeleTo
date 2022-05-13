@@ -1,4 +1,7 @@
+import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/component/line_divider.dart';
+import 'package:delito/object/menu.dart';
 import 'package:delito/object/shop.dart';
 import 'package:delito/store/store_board_creation_view.dart';
 import 'package:delito/style.dart';
@@ -7,7 +10,8 @@ import 'package:flutter/material.dart';
 
 class StoreShopView extends StatefulWidget {
   final Shop shop;
-  StoreShopView({required this.shop});
+  final bool fromBoard;
+  StoreShopView({required this.shop, this.fromBoard=false});
   @override
   State<StoreShopView> createState() => _StoreShopView();
 }
@@ -37,8 +41,22 @@ class _StoreShopView extends State<StoreShopView> {
               SizedBox(height: 24),
               shopInfoBox(),
               SizedBox(height: 24),
-              priceInfoBox(),
+              !widget.fromBoard ? priceInfoBox() : Container(),
               SizedBox(height: 20),
+              ContentTitleContainer(title: '배달 예상 시간'),
+              LineDivider(),
+              // menu list
+              widget.shop.menuList.length != 0 ? Column(
+                children: [
+                  ContentTitleContainer(title: '대표 메뉴'),
+                  menuListContainer(),
+                  LineDivider(),
+                ]
+              ) : Container(),
+              ContentTitleContainer(title: '가게 전화번호'),
+              LineDivider(),
+              ContentTitleContainer(title: '가게 주소'),
+
             ]
           )
         )
@@ -88,6 +106,37 @@ class _StoreShopView extends State<StoreShopView> {
             : Text('영업시간이 아닙니다.', style: textStyle(weight: 700))
         )
       )
+    );
+  }
+
+  menuListContainer() {
+    return Container(
+      height: 200,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.shop.menuList.length*2+1,
+        itemBuilder: (BuildContext context, int index) {
+          // if(index==0) return SizedBox(width: 0);
+          if(index%2 == 1) return menuContainer(widget.shop.menuList[((index-1)/2).floor()]);
+          else return Container(width: 12);
+        }
+      )
+    );
+  }
+
+  menuContainer(Menu _menu) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 120, height: 120,
+          child: _menu.imgUrl != '' ? Image.network(_menu.imgUrl, width: 120, height: 120) : FlutterLogo(size: 120,)
+        ),
+        SizedBox(height: 4),
+        Text(_menu.name, style: textStyle(weight: 700, size: 14.0)),
+        SizedBox(height: 4),
+        Text('${_menu.price}원', style: textStyle(color: Color(0xff7a7a7a), weight: 500, size: 14.0)),
+      ]
     );
   }
 }
