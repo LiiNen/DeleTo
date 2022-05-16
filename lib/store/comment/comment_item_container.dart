@@ -20,7 +20,7 @@ class CommentItemContainer extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          UserProfileImage(imgSrc: comment.imgSrc, width: 32),
+          UserProfileImage(imgSrc: comment.imgUrl, width: 32),
           SizedBox(width: 12),
           Expanded(
             child: Column(

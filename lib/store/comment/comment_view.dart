@@ -56,7 +56,7 @@ class _CommentView extends State<CommentView> {
   _postComment() async {
     /// todo: send post request
     setState(() {
-      testCommentList.add(Comment(userId: 0, userName: userInfo.name, imgSrc: '', content: controller.text, time: '4/6 20:23'));
+      testCommentList.add(Comment(userId: 0, userName: userInfo.name, imgUrl: '', content: controller.text, time: '4/6 20:23'));
     });
   }
 }
