@@ -1,3 +1,4 @@
+import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
@@ -63,7 +64,7 @@ class _StoreBoardView extends State<StoreBoardView> {
             child: Column(
               children: [
                 SizedBox(height: 24),
-                Text(widget.board.title, style: textStyle(weight: 600, size: 28.0)),
+                Text(widget.board.title, style: textStyle(weight: 700, size: 22.0)),
                 SizedBox(height: 24),
                 partyInfoBox(),
                 SizedBox(height: 24),
@@ -93,7 +94,7 @@ class _StoreBoardView extends State<StoreBoardView> {
             children: [
               Row(
                 children: [
-                  Expanded(child: Text(widget.board.shopName, style: textStyle(weight: 500, size: 16.0), overflow: TextOverflow.ellipsis,)),
+                  Expanded(child: Text(widget.board.shopName, style: textStyle(weight: 700, size: 16.0), overflow: TextOverflow.ellipsis,)),
                   SizedBox(width: 4),
                   DefaultButton(title: '식당정보', width: 60, height: 24, fontSize: 12.0, callback: () {
                     /// todo: navigator push to store_shop_view
@@ -124,19 +125,18 @@ class _StoreBoardView extends State<StoreBoardView> {
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: widget.board.open ? widget.board.curNum < widget.board.maxNum ?
-            Colors.lightGreenAccent : Colors.pinkAccent : Colors.grey,
+          color: widget.board.open && widget.board.curNum < widget.board.maxNum ? Color(0xff0958c5) : Color(0xffd1d5d9),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: widget.board.open ? widget.board.curNum < widget.board.maxNum ? [
-            Text('모집 완료 시, 배달비 ${(widget.board.deliveryPrice/widget.board.maxNum).ceil()}원 !', style: textStyle(weight: 700),),
-            Text('참여하기', style: textStyle(weight: 700)),
+            Text('모집 완료 시, 배달비 ${(widget.board.deliveryPrice/widget.board.maxNum).ceil()}원 !', style: textStyle(color: Colors.white, weight: 700),),
+            Text('참여하기', style: textStyle(color: Colors.white, weight: 700)),
           ] : [
-            Text('현재 정원이 모두 모집되었습니다.', style: textStyle(weight: 700))
+            Text('현재 정원이 모두 모집되었습니다.', style: textStyle(color: Colors.white, weight: 700))
           ] : [
-            Text('모집이 완료된 글입니다.', style: textStyle(weight: 700))
+            Text('모집이 완료된 글입니다.', style: textStyle(color: Colors.white, weight: 700))
           ]
         )
       )

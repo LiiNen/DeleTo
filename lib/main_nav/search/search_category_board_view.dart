@@ -1,5 +1,6 @@
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/component/line_divider.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_category_shop_view.dart';
 import 'package:delito/main_nav/search/search_view.dart';
@@ -7,6 +8,7 @@ import 'package:delito/object/board.dart';
 import 'package:delito/store/board/board_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:delito/style.dart';
 
 class SearchCategoryBoardView extends StatefulWidget {
   final int categoryId;
@@ -57,7 +59,10 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
                     )
                   ] + List.generate(testBoardList.length*10, (index) {
                     return BoardItemContainer(context: context, board: testBoardList[index%5],);
-                  })
+                  }) + [
+                    LineDivider(),
+                    SizedBox(height: 80),
+                  ]
                 )
               )
             )
@@ -65,15 +70,17 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
         )
       ),
       floatingActionButton: Container(
-        width: 48, height: 48,
-        child: FloatingActionButton(
+        height: 40,
+        child: FloatingActionButton.extended(
           onPressed: () {
             navigatorPush(context: context, widget: SearchCategoryShopView(categoryId: _categoryId!));
           },
           backgroundColor: Color(0xff0958c5),
-          child: Icon(Icons.add_outlined)
+          icon: Icon(Icons.add_outlined),
+          label: Text('직접 만들기', style: textStyle(color: Colors.white, weight: 600, size: 16.0)),
         )
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }

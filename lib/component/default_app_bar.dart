@@ -21,13 +21,23 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {tapAction();},
+        onTap: () {
+          if(tapAction != null) {
+            tapAction();
+          }
+        },
         child: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               back ? backButton(context) : SizedBox(width: 24),
-              Text(title, style: textStyle(weight: 700, size: 16.0)),
+              tapAction != null ? Row(
+                children: [
+                  Text(title, style: textStyle(weight: 700, size: 16.0)),
+                  SizedBox(width: 6),
+                  Icon(Icons.edit_location_outlined, size: 16.0, color: Colors.black),
+                ]
+              ) : Text(title, style: textStyle(weight: 700, size: 16.0)),
               SizedBox(width: 24),
             ]
           )
