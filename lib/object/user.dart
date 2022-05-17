@@ -6,7 +6,7 @@ class User {
 
   User({required this.id, required this.name, required this.point, required this.imgSrc});
 }
-var userInfo = User(id: 1, name: 'DeliTo', point: 5000, imgSrc: '');
+var userInfo = User(id: 0, name: 'DeliTo', point: 5000, imgSrc: '');
 var testUserList = [
   User(id: 1, name: 'DeliTo', point: 1000, imgSrc: ''),
   User(id: 2, name: '곽태우', point: 2000, imgSrc: ''),
