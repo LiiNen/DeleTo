@@ -1,3 +1,4 @@
+import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_text_field.dart';
 import 'package:delito/function.dart';
 import 'package:delito/object/user.dart';
@@ -35,32 +36,14 @@ class _InputDialog extends State<InputDialog> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: 12),
-              descriptionBox(),
-              inputTextFieldColumn(),
+              ContentTitleContainer(title: '전달할 메세지'),
+              DefaultTextField(controller: messageController, focusNode: FocusNode(), hint: '원하는 메뉴, 수령 장소 등 전달하고 싶은 내용을 적어주세요', isDialog: true,),
+              ContentTitleContainer(title: '지불할 포인트'),
+              DefaultTextField(controller: pointController, focusNode: FocusNode(), hint: '사용할 포인트를 입력해주세요', isNumber: true),
               confirmBox()
             ]
           )
         )
-      )
-    );
-  }
-
-  descriptionBox() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      child: Center(child: Text('모임장에게 전달할 메세지와\n지불할 포인트를 입력해주세요', style: textStyle(weight: 600, size: 14.0), textAlign: TextAlign.center,)),
-    );
-  }
-
-  inputTextFieldColumn() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-      child: Column(
-        children: [
-          DefaultTextField(controller: messageController, focusNode: FocusNode(), hint: '전달할 메세지를 적어주세요'),
-          SizedBox(height: 6),
-          DefaultTextField(controller: pointController, focusNode: FocusNode(), hint: '사용할 포인트를 입력해주세요', isNumber: true),
-        ]
       )
     );
   }

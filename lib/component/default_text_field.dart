@@ -12,7 +12,8 @@ class DefaultTextField extends StatelessWidget {
   final bool enabled;
   final dynamic changeListener;
   final bool secureText;
-  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback, this.enabled=true, this.isNumber=false, this.changeListener, this.secureText=false});
+  final bool isDialog;
+  DefaultTextField({required this.controller, required this.focusNode, required this.hint, this.allowEnter=false, this.nextFocusNode, this.callback, this.enabled=true, this.isNumber=false, this.changeListener, this.secureText=false, this.isDialog=false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class DefaultTextField extends StatelessWidget {
       style: textStyle(weight: 600, size: 12.0),
       keyboardType: isNumber ? TextInputType.number : (allowEnter ? TextInputType.multiline : TextInputType.text),
       textInputAction: allowEnter ? TextInputAction.newline : TextInputAction.done,
-      maxLines: allowEnter ? 18 : 1,
+      maxLines: isDialog ? 3 : (allowEnter ? 18 : 1),
       onSubmitted: (value) {
         if(callback != null) callback();
         if(allowEnter == false && nextFocusNode != null) nextFocusNode!.requestFocus();
