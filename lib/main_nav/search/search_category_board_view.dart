@@ -1,5 +1,6 @@
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/component/default_button.dart';
 import 'package:delito/component/line_divider.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_category_shop_view.dart';
@@ -21,23 +22,28 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
 
   int? _categoryId;
   late TabController _tabController;
+  int _pageNum = 0;
 
   @override
   void initState() {
     _categoryId = widget.categoryId;
     _tabController = TabController(length: foodCategory.length, vsync: this, initialIndex: _categoryId!);
     super.initState();
+    _getBoardList();
   }
 
   void _patchCategoryId(int newId) {
     setState(() {
+      _pageNum = 0;
       _categoryId = newId;
-      _getShopList();
+      _getBoardList();
     });
   }
 
-  void _getShopList() {
-
+  void _getBoardList() async {
+    setState(() {
+      _pageNum += 1;
+    });
   }
 
   @override
@@ -57,9 +63,11 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
                       margin: EdgeInsets.symmetric(horizontal: 18),
                       child: ContentTitleContainer(title: '${testBoardList.length}건의 검색결과')
                     )
-                  ] + List.generate(testBoardList.length*10, (index) {
+                  ] + List.generate(testBoardList.length*(_pageNum), (index) {
                     return BoardItemContainer(context: context, board: testBoardList[index%5],);
                   }) + [
+                    LineDivider(),
+                    DefaultButton(title: '더 불러오기', callback: _getBoardList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                     LineDivider(),
                     SizedBox(height: 80),
                   ]

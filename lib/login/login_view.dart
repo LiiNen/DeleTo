@@ -26,12 +26,12 @@ class _LoginView extends State<LoginView> {
       // if(_id >= 0 && _id < 6) {
       //   userInfo = testUserList[_id];
       // }
-      getUser(userId: int.parse(idController.text));
+      // getUser(userId: int.parse(idController.text));
     } catch(e) {
       // do nothing
     }
-    // showToast('안녕하세요 ${userInfo.name} 회원님!');
-    // navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
+    showToast('안녕하세요 ${userInfo.name} 회원님!');
+    navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
   }
 
   @override
@@ -39,7 +39,7 @@ class _LoginView extends State<LoginView> {
     return WillPopScope(
       onWillPop: () => onWillPop(context),
       child: GestureDetector(
-        onTap: FocusManager.instance.primaryFocus?.unfocus,
+        onTap: () {FocusManager.instance.primaryFocus?.unfocus();},
         child: Scaffold(
           backgroundColor: Colors.white,
           body: Container(
