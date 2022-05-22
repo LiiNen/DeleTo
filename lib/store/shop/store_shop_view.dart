@@ -63,7 +63,7 @@ class _StoreShopView extends State<StoreShopView> {
               // from board just info
               !widget.fromBoard ? Column(
                 children: [
-                  priceInfoBox(),
+                  creationButton(),
                   SizedBox(height: 20),
                 ]
               ) : Container(),
@@ -152,7 +152,7 @@ class _StoreShopView extends State<StoreShopView> {
     );
   }
 
-  priceInfoBox() {
+  creationButton() {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -164,13 +164,13 @@ class _StoreShopView extends State<StoreShopView> {
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: _isOpen! ? Colors.lightGreenAccent : Colors.grey,
+          color: _isOpen! ? Color(0xff0958c5) : Color(0xffd1d5d9),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Center(
           child: _isOpen!
-            ? Text('모집글 만들기', style: textStyle(weight: 700))
-            : Text('영업시간이 아닙니다.', style: textStyle(weight: 700))
+            ? Text('모집글 만들기', style: textStyle(color: Colors.white, weight: 700))
+            : Text('영업시간이 아닙니다.', style: textStyle(color: Colors.white, weight: 700))
         )
       )
     );
