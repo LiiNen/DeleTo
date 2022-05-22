@@ -37,7 +37,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
   }
 
   void _getShopList() {
-    /// todo: get shop list with category id
+
   }
 
   @override

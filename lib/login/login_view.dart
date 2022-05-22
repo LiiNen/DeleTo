@@ -1,3 +1,4 @@
+import 'package:delito/api/user_api.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
 import 'package:delito/component/default_view.dart';
@@ -21,15 +22,16 @@ class _LoginView extends State<LoginView> {
 
   loginAction() {
     try {
-      var _id = int.parse(idController.text);
-      if(_id >= 0 && _id < 6) {
-        userInfo = testUserList[_id];
-      }
+      // var _id = int.parse(idController.text);
+      // if(_id >= 0 && _id < 6) {
+      //   userInfo = testUserList[_id];
+      // }
+      getUser(userId: int.parse(idController.text));
     } catch(e) {
       // do nothing
     }
-    showToast('안녕하세요 ${userInfo.name} 회원님!');
-    navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
+    // showToast('안녕하세요 ${userInfo.name} 회원님!');
+    // navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
   }
 
   @override

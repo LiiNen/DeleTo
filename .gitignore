@@ -46,3 +46,4 @@ app.*.map.json
 /android/app/release
 
 *kpostal_key.dart
+*api_config.dart
