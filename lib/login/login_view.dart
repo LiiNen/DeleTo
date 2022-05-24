@@ -20,18 +20,15 @@ class _LoginView extends State<LoginView> {
   TextEditingController pwController = TextEditingController();
   FocusNode pwFocusNode = FocusNode();
 
-  loginAction() {
-    try {
-      // var _id = int.parse(idController.text);
-      // if(_id >= 0 && _id < 6) {
-      //   userInfo = testUserList[_id];
-      // }
-      // getUser(userId: int.parse(idController.text));
-    } catch(e) {
-      // do nothing
+  loginAction() async {
+    var _status = await getUser(userId: int.parse(idController.text));
+    if(_status == true) {
+      showToast('안녕하세요 ${userInfo.name} 회원님!');
+      navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
     }
-    showToast('안녕하세요 ${userInfo.name} 회원님!');
-    navigatorPush(context: context, widget: MainNavView(), replacement: true, all: true);
+    else {
+      showToast('등록된 회원정보가 없습니다.');
+    }
   }
 
   @override
