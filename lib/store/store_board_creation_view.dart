@@ -1,3 +1,4 @@
+import 'package:delito/api/board_api.dart';
 import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
@@ -5,7 +6,9 @@ import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
 import 'package:delito/object/shop.dart';
 import 'package:delito/function.dart';
+import 'package:delito/object/user.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreBoardCreationView extends StatefulWidget {
   final Widget shopInfoWidget;
@@ -41,8 +44,26 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
       context: context,
       builder: (context) => ConfirmDialog(
         title: '${widget.shop.shopName} 배달 동료 모집을 시작하시겠습니까?',
-        positiveAction: () {
-          // todo: callback
+        positiveAction: () async {
+          final _pref = await SharedPreferences.getInstance();
+          var _lat = _pref.getDouble('lat');
+          var _lng = _pref.getDouble('lng');
+          var _status = await postBoard(
+            deliveryPrice: 1000,
+            title: titleController.text,
+            content: contentController.text,
+            maxNum: countController.text,
+            restId: 10,
+            userId: userInfo.id,
+            categoryId: 1,
+            lat: _lat, lng: _lng
+          );
+          if(_status) {
+            showToast('성공');
+          }
+          else {
+            showToast('실패');
+          }
         },
         negativeAction: () {},
       )
