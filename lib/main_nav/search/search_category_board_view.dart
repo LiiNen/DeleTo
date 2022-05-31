@@ -6,6 +6,7 @@ import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_category_shop_view.dart';
 import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/board.dart';
+import 'package:delito/object/category.dart';
 import 'package:delito/store/board/board_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
   @override
   void initState() {
     _categoryId = widget.categoryId;
-    _tabController = TabController(length: foodCategory.length, vsync: this, initialIndex: _categoryId!);
+    _tabController = TabController(length: categoryList.length, vsync: this, initialIndex: _categoryId!);
     super.initState();
     _getBoardList();
   }
@@ -54,7 +55,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
       body: Container(
         child: Column(
           children: [
-            StoreTabBar(tabList: foodCategory, callback: _patchCategoryId, controller: _tabController),
+            StoreTabBar(tabList: categoryList, callback: _patchCategoryId, controller: _tabController),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

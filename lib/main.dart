@@ -1,3 +1,4 @@
+import 'package:delito/api/category_api.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 import 'function.dart';
@@ -27,6 +28,7 @@ class _SplashView extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    getCategory();
     Future.delayed(const Duration(seconds: 2), pushLoginView);
   }
 

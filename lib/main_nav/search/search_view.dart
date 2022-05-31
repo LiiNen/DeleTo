@@ -2,16 +2,10 @@ import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_address_selection_view.dart';
 import 'package:delito/main_nav/search/search_category_board_view.dart';
+import 'package:delito/object/category.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-List<String> foodCategory = [
-  '일식', '중식', '치킨', '백반',
-  '디저트', '분식', '피자', '양식',
-  '찜,탕\n찌개', '고기구이', '족발보쌈', '아시안',
-  '패스트푸드', '야식', '도시락'
-];
 
 class SearchView extends StatefulWidget {
   @override
@@ -74,7 +68,7 @@ class _SearchView extends State<SearchView> {
         crossAxisCount: 4, crossAxisSpacing: 16,
         mainAxisSpacing: 16,
         childAspectRatio: 1.6,
-        children: List.generate(foodCategory.length, (index) {
+        children: List.generate(categoryList.length, (index) {
           return GestureDetector(
             onTap: () {
               navigatorPush(context: context, widget: SearchCategoryBoardView(categoryId: index));
@@ -85,7 +79,7 @@ class _SearchView extends State<SearchView> {
                 borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
               child: Center(
-                child: Text(foodCategory[index])
+                child: Text(categoryList[index].name)
               )
             )
           );

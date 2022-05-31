@@ -3,6 +3,7 @@ import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/line_divider.dart';
 import 'package:delito/main_nav/search/search_view.dart';
+import 'package:delito/object/category.dart';
 import 'package:delito/object/shop.dart';
 import 'package:delito/store/shop/shop_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
@@ -24,7 +25,7 @@ class _SearchCategoryShopView extends State<SearchCategoryShopView> with SingleT
   @override
   void initState() {
     _categoryId = widget.categoryId;
-    _tabController = TabController(length: foodCategory.length, vsync: this, initialIndex: _categoryId!);
+    _tabController = TabController(length: categoryList.length, vsync: this, initialIndex: _categoryId!);
     super.initState();
     _getShopList();
   }
@@ -52,7 +53,7 @@ class _SearchCategoryShopView extends State<SearchCategoryShopView> with SingleT
       body: Container(
         child: Column(
           children: [
-            StoreTabBar(tabList: foodCategory, callback: _patchCategoryId, controller: _tabController),
+            StoreTabBar(tabList: categoryList, callback: _patchCategoryId, controller: _tabController),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

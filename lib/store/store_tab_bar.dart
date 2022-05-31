@@ -1,8 +1,9 @@
+import 'package:delito/object/category.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 
 class StoreTabBar extends StatelessWidget implements PreferredSizeWidget {
-  final dynamic tabList;
+  final List<Category> tabList;
   final dynamic callback;
   @override
   final Size preferredSize;
@@ -29,7 +30,7 @@ class StoreTabBar extends StatelessWidget implements PreferredSizeWidget {
         labelStyle: textStyle(color: Colors.black, weight: 700, size: 16.0),
         unselectedLabelStyle: textStyle(color: Color(0xff8e8e8e), weight: 500, size: 16.0),
         tabs: List.generate(tabList.length, (index) {
-          return Tab(text: tabList[index].replaceAll('\n', ' '),);
+          return Tab(text: tabList[index].name.replaceAll('\n', ' '),);
         }),
         onTap: (index) {
           callback(index);
