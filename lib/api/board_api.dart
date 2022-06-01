@@ -4,10 +4,26 @@ import 'package:delito/api/api_config.dart';
 import 'package:delito/object/board.dart';
 import 'package:http/http.dart' as http;
 
-getBoardListByPage({required int categoryId, required int pageNum}) {
-  var requestBody = Map();
-  requestBody['category'] = categoryId.toString();
-  requestBody['pageNum'] = pageNum.toString();
+getBoardListByPage({required int categoryId, required int pageNum}) async {
+  var response = await http.get(Uri.parse('$requestUrl$pathBoard$pathCategory?category_id=$categoryId&pageNum=$pageNum'));
+  print('$requestUrl$pathBoard$pathCategory?category_id=$categoryId&pageNum=$pageNum');
+
+  if(response.statusCode == 200) {
+    var responseBody = json.decode(response.body);
+    return List.generate(responseBody.length, (index) {
+      var _temp = responseBody[index];
+      return Board(
+        id: _temp['id'],
+        shopName: '가게이름',
+        title: _temp['title'],
+        curNum: 0,
+        maxNum: _temp['mem_count'],
+        lat: _temp['lat'],
+        lng: _temp['long']
+      );
+    });
+  }
+  else return null;
 }
 
 getBoardList(json) {

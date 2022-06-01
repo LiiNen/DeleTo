@@ -27,6 +27,7 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
   List<Restaurant> restList = [];
   bool isLoaded = false;
   bool isEnded = false;
+  bool isExist = true;
 
   @override
   void initState() {
@@ -55,7 +56,12 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
     else {
       if(_temp.length == 0) {
         setState(() {
-          isEnded = true;
+          if(!isLoaded && !isEnded) {
+            isExist = false;
+          }
+          else {
+            isEnded = true;
+          }
         });
       }
       else {
@@ -85,9 +91,11 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
                       margin: EdgeInsets.symmetric(horizontal: 18),
                       child: ContentTitleContainer(title: '${testRestList.length}건의 검색결과')
                     )
-                  ] + (isLoaded ? List.generate(restList.length, (index) {
+                  ] + (isExist ? (isLoaded ? List.generate(restList.length, (index) {
                     return RestItemContainer(context: context, shop: restList[index]);
-                  }) : []) + [
+                  }) : []) : [
+                    DefaultButton(title: '가게가 없습니다.', callback: () {}, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
+                  ]) + [
                     LineDivider(),
                     isEnded ? Container() : DefaultButton(title: '더 불러오기', callback: _getRestList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                     LineDivider(),

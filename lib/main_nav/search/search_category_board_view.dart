@@ -1,3 +1,4 @@
+import 'package:delito/api/board_api.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
@@ -25,6 +26,11 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
   late TabController _tabController;
   int _pageNum = 0;
 
+  List<Board> boardList = [];
+  bool isLoaded = false;
+  bool isEnded = false;
+  bool isExist = true;
+
   @override
   void initState() {
     _categoryId = widget.categoryId;
@@ -37,14 +43,37 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
     setState(() {
       _pageNum = 0;
       _categoryId = newId;
+      isLoaded = false;
+      isEnded = false;
+      boardList = [];
       _getBoardList();
     });
   }
 
   void _getBoardList() async {
-    setState(() {
-      _pageNum += 1;
-    });
+    var _temp = await getBoardListByPage(categoryId: categoryList[_categoryId!].id, pageNum: _pageNum);
+    if(_temp == null) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      if(_temp.length == 0) {
+        setState(() {
+          if(!isLoaded && !isEnded) {
+            isExist = false;
+          }
+          else {
+            isEnded = true;
+          }
+        });
+      }
+      else {
+        boardList = boardList + _temp;
+        setState(() {
+          isLoaded = true;
+          _pageNum += 1;
+        });
+      }
+    }
   }
 
   @override
@@ -64,9 +93,11 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
                       margin: EdgeInsets.symmetric(horizontal: 18),
                       child: ContentTitleContainer(title: '${testBoardList.length}건의 검색결과')
                     )
-                  ] + List.generate(testBoardList.length*(_pageNum), (index) {
-                    return BoardItemContainer(context: context, board: testBoardList[index%5],);
-                  }) + [
+                  ] + (isExist ? (isLoaded ? List.generate(boardList.length, (index) {
+                    return BoardItemContainer(context: context, board: boardList[index]);
+                  }) : []) : [
+                    DefaultButton(title: '가게가 없습니다.', callback: () {}, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
+                  ]) + [
                     LineDivider(),
                     DefaultButton(title: '더 불러오기', callback: _getBoardList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                     LineDivider(),
