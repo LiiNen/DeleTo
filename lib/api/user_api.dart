@@ -13,7 +13,7 @@ getUser({required int userId}) async {
       return false;
     }
     var user = responseBody['user'][0];
-    userInfo = User(id: userId, name: user['name'], point: user['point'], imgSrc: '');
+    userInfo = User(id: userId, name: user['name'], point: user['point'], imgSrc: '', email: 'test@test.ac.kr');
     return true;
   }
   return false;

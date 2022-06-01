@@ -10,7 +10,6 @@ getCategory() async {
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
-    print(responseBody);
     if(responseBody.length != 0) {
       setCategory(responseBody);
       return true;

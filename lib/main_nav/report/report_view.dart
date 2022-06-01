@@ -1,3 +1,4 @@
+import 'package:delito/api/report_api.dart';
 import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/content_title_container.dart';
@@ -5,6 +6,7 @@ import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
 import 'package:delito/function.dart';
+import 'package:delito/object/user.dart';
 import 'package:flutter/material.dart';
 
 class ReportView extends StatefulWidget {
@@ -85,11 +87,21 @@ class _ReportView extends State<ReportView> {
       builder: (context) => ConfirmDialog(
         title: '신고 접수하시겠습니까?\n신고 사항은 되돌릴 수 없습니다.',
         positiveAction: () {
-          showToast('신고 접수가 완료되었습니다!');
-          widget.completeCallback();
+          _sendReportAction();
         },
         negativeAction: () {},
       ),
     )) ?? false;
+  }
+  
+  _sendReportAction() async {
+    var _status = await postReport(title: '제목', content: contentController.text, email: emailController.text != '' ? emailController.text : userInfo.email);
+    if(_status == true) {
+      showToast('신고 접수가 완료되었습니다!');
+      widget.completeCallback();
+    }
+    else {
+      showToast('네트워크를 확인해주세요');
+    }
   }
 }
