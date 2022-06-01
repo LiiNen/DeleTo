@@ -3,7 +3,7 @@ import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/line_divider.dart';
 import 'package:delito/function.dart';
-import 'package:delito/main_nav/search/search_category_shop_view.dart';
+import 'package:delito/main_nav/search/search_category_rest_view.dart';
 import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/board.dart';
 import 'package:delito/object/category.dart';

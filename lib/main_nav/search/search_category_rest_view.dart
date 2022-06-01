@@ -1,3 +1,4 @@
+import 'package:delito/api/restaurant_api.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
@@ -8,6 +9,7 @@ import 'package:delito/object/restaurant.dart';
 import 'package:delito/store/shop/rest_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:delito/function.dart';
 
 class SearchCategoryRestView extends StatefulWidget {
   final int categoryId;
@@ -22,27 +24,48 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
   late TabController _tabController;
   int _pageNum = 0;
 
+  List<Restaurant> restList = [];
+  bool isLoaded = false;
+  bool isEnded = false;
+
   @override
   void initState() {
     _categoryId = widget.categoryId;
     _tabController = TabController(length: categoryList.length, vsync: this, initialIndex: _categoryId!);
     super.initState();
-    _getShopList();
+    _getRestList();
   }
 
   void _patchCategoryId(int newId) {
     setState(() {
       _pageNum = 0;
       _categoryId = newId;
-      _getShopList();
+      isLoaded = false;
+      isEnded = false;
+      restList = [];
+      _getRestList();
     });
   }
 
-  void _getShopList() async {
-    /// todo: get shop list with category id
-    setState(() {
-      _pageNum += 1;
-    });
+  void _getRestList() async {
+    var _temp = await getRestListByPage(categoryId: categoryList[_categoryId!].id, pageNum: _pageNum);
+    if(_temp == null) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      if(_temp.length == 0) {
+        setState(() {
+          isEnded = true;
+        });
+      }
+      else {
+        restList = restList + _temp;
+        setState(() {
+          isLoaded = true;
+          _pageNum += 1;
+        });
+      }
+    }
   }
 
   @override
@@ -62,11 +85,11 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
                       margin: EdgeInsets.symmetric(horizontal: 18),
                       child: ContentTitleContainer(title: '${testRestList.length}건의 검색결과')
                     )
-                  ] + List.generate(testRestList.length*10, (index) {
-                    return RestItemContainer(context: context, shop: testRestList[index%5]);
-                  }) + [
+                  ] + (isLoaded ? List.generate(restList.length, (index) {
+                    return RestItemContainer(context: context, shop: restList[index]);
+                  }) : []) + [
                     LineDivider(),
-                    DefaultButton(title: '더 불러오기', callback: _getShopList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
+                    isEnded ? Container() : DefaultButton(title: '더 불러오기', callback: _getRestList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                     LineDivider(),
                     SizedBox(height: 20),
                   ]
