@@ -4,7 +4,7 @@ import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
-import 'package:delito/object/shop.dart';
+import 'package:delito/object/restaurant.dart';
 import 'package:delito/function.dart';
 import 'package:delito/object/user.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreBoardCreationView extends StatefulWidget {
   final Widget shopInfoWidget;
-  final Shop shop;
+  final Restaurant shop;
   StoreBoardCreationView({required this.shopInfoWidget, required this.shop});
   @override
   State<StoreBoardCreationView> createState() => _StoreBoardCreationView();

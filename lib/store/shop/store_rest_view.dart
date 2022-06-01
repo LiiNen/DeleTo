@@ -2,21 +2,21 @@ import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/line_divider.dart';
 import 'package:delito/object/menu.dart';
-import 'package:delito/object/shop.dart';
+import 'package:delito/object/restaurant.dart';
 import 'package:delito/store/store_board_creation_view.dart';
 import 'package:delito/style.dart';
 import 'package:delito/function.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StoreShopView extends StatefulWidget {
-  final Shop shop;
+class StoreRestView extends StatefulWidget {
+  final Restaurant shop;
   final bool fromBoard;
-  StoreShopView({required this.shop, this.fromBoard=false});
+  StoreRestView({required this.shop, this.fromBoard=false});
   @override
-  State<StoreShopView> createState() => _StoreShopView();
+  State<StoreRestView> createState() => _StoreRestView();
 }
-class _StoreShopView extends State<StoreShopView> {
+class _StoreRestView extends State<StoreRestView> {
 
   bool? _isOpen;
   String? _distString;

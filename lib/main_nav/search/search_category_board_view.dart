@@ -82,7 +82,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
         height: 40,
         child: FloatingActionButton.extended(
           onPressed: () {
-            navigatorPush(context: context, widget: SearchCategoryShopView(categoryId: _categoryId!));
+            navigatorPush(context: context, widget: SearchCategoryRestView(categoryId: _categoryId!));
           },
           backgroundColor: Color(0xff0958c5),
           icon: Icon(Icons.add_outlined),

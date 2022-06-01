@@ -1,7 +1,7 @@
 import 'package:delito/object/menu.dart';
 import 'package:delito/object/store.dart';
 
-class Shop extends Store{
+class Restaurant extends Store{
   final int deliveryPrice;
   final int leastPrice;
   final String openTime;
@@ -13,7 +13,7 @@ class Shop extends Store{
   final List<Menu> menuList;
   final String categories;
 
-  Shop({
+  Restaurant({
     required id, imgUrl='', required shopName,
     this.deliveryPrice=0, this.leastPrice=0,
     this.openTime='09:00', this.closeTime='23:00',
@@ -26,15 +26,15 @@ class Shop extends Store{
   }) : super(id: id, imgUrl: imgUrl, shopName: shopName, lat: lat, lng: lng);
 }
 
-var testShopList = [
-  Shop(
+var testRestList = [
+  Restaurant(
     id: 1, shopName: '쌀국수먹자-본점', deliveryPrice: 2000, leastPrice: 10000, menuList: testMenuList,
     phone: '050352901572', address: '경기도 수원시 팔달구 지동 138-6 진우빌라트 1층 105호',
     imgUrl: 'https://rev-static.yogiyo.co.kr/restaurant_logos/업체자체_20201102_468209_쌀국수먹자-본점_대표사진_300x300.jpg',
     openTime: "00:00", closeTime: "23:59", reviewAverage: 4.8,
   ),
-  Shop(id: 2, shopName: '피자헛-수원지동점', openTime: '17:00', closeTime: '02:00', imgUrl: 'https://rev-static.yogiyo.co.kr/franchise_logos/피자헛_20170612_Franchise이미지약정서_crop_200x200.jpg'),
-  Shop(id: 3, shopName: '신전떡볶이 아주대점',),
-  Shop(id: 4, shopName: '맘스터치 광교점',),
-  Shop(id: 5, shopName: '맥도날드 아주대점',),
+  Restaurant(id: 2, shopName: '피자헛-수원지동점', openTime: '17:00', closeTime: '02:00', imgUrl: 'https://rev-static.yogiyo.co.kr/franchise_logos/피자헛_20170612_Franchise이미지약정서_crop_200x200.jpg'),
+  Restaurant(id: 3, shopName: '신전떡볶이 아주대점',),
+  Restaurant(id: 4, shopName: '맘스터치 광교점',),
+  Restaurant(id: 5, shopName: '맥도날드 아주대점',),
 ];

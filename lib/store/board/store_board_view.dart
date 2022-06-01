@@ -6,10 +6,10 @@ import 'package:delito/component/input_dialog.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/report/report_view.dart';
 import 'package:delito/object/board.dart';
-import 'package:delito/object/shop.dart';
+import 'package:delito/object/restaurant.dart';
 import 'package:delito/object/user.dart';
 import 'package:delito/store/comment/comment_view.dart';
-import 'package:delito/store/shop/store_shop_view.dart';
+import 'package:delito/store/shop/store_rest_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 
@@ -115,7 +115,7 @@ class _StoreBoardView extends State<StoreBoardView> {
                   SizedBox(width: 4),
                   DefaultButton(title: '식당정보', width: 60, height: 24, fontSize: 12.0, callback: () {
                     /// todo: navigator push to store_shop_view
-                    navigatorPush(context: context, widget: StoreShopView(shop: testShopList[0], fromBoard: true,),);
+                    navigatorPush(context: context, widget: StoreRestView(shop: testRestList[0], fromBoard: true,),);
                   }),
                 ]
               ),

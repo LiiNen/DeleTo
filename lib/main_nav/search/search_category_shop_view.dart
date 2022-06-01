@@ -4,19 +4,19 @@ import 'package:delito/component/default_button.dart';
 import 'package:delito/component/line_divider.dart';
 import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/category.dart';
-import 'package:delito/object/shop.dart';
-import 'package:delito/store/shop/shop_item_container.dart';
+import 'package:delito/object/restaurant.dart';
+import 'package:delito/store/shop/rest_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
 import 'package:flutter/material.dart';
 
-class SearchCategoryShopView extends StatefulWidget {
+class SearchCategoryRestView extends StatefulWidget {
   final int categoryId;
-  SearchCategoryShopView({required this.categoryId});
+  SearchCategoryRestView({required this.categoryId});
 
   @override
-  State<SearchCategoryShopView> createState() => _SearchCategoryShopView();
+  State<SearchCategoryRestView> createState() => _SearchCategoryRestView();
 }
-class _SearchCategoryShopView extends State<SearchCategoryShopView> with SingleTickerProviderStateMixin {
+class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleTickerProviderStateMixin {
 
   int? _categoryId;
   late TabController _tabController;
@@ -60,10 +60,10 @@ class _SearchCategoryShopView extends State<SearchCategoryShopView> with SingleT
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 18),
-                      child: ContentTitleContainer(title: '${testShopList.length}건의 검색결과')
+                      child: ContentTitleContainer(title: '${testRestList.length}건의 검색결과')
                     )
-                  ] + List.generate(testShopList.length*10, (index) {
-                    return ShopItemContainer(context: context, shop: testShopList[index%5]);
+                  ] + List.generate(testRestList.length*10, (index) {
+                    return RestItemContainer(context: context, shop: testRestList[index%5]);
                   }) + [
                     LineDivider(),
                     DefaultButton(title: '더 불러오기', callback: _getShopList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
