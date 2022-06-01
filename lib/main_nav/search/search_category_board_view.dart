@@ -99,7 +99,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
                     DefaultButton(title: '가게가 없습니다.', callback: () {}, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                   ]) + [
                     LineDivider(),
-                    DefaultButton(title: '더 불러오기', callback: _getBoardList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
+                    DefaultButton(title: isEnded ? '모집글의 끝입니다.' : '더 불러오기', callback: isEnded ? () {} : _getBoardList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                     LineDivider(),
                     SizedBox(height: 80),
                   ]

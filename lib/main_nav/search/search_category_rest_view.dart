@@ -97,7 +97,7 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
                     DefaultButton(title: '가게가 없습니다.', callback: () {}, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                   ]) + [
                     LineDivider(),
-                    isEnded ? Container() : DefaultButton(title: '더 불러오기', callback: _getRestList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
+                    DefaultButton(title: isEnded ? '모든 가게를 조회했습니다.' : '더 불러오기', callback: isEnded ? () {} : _getRestList, width: MediaQuery.of(context).size.width, hasBorder: false, height: 40),
                     LineDivider(),
                     SizedBox(height: 20),
                   ]
