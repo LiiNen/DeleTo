@@ -213,13 +213,13 @@ class _StoreBoardView extends State<StoreBoardView> {
                   Text(board.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
                 ]
               )),
-              DefaultButton(
+              userInfo.id != board.userId ? DefaultButton(
                 title: '신고하기',
                 callback: () {
                   navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: board.userName,));
                 },
                 width: 60, height: 24, fontSize: 12.0,
-              )
+              ) : Container(),
             ]
           ),
           SizedBox(height: 12),

@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 getBoardListByPage({required int categoryId, required int pageNum}) async {
   var response = await http.get(Uri.parse('$requestUrl$pathBoard$pathCategory?category_id=$categoryId&page_num=$pageNum'));
-  print('$requestUrl$pathBoard$pathCategory?category_id=$categoryId&page_num=$pageNum');
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);

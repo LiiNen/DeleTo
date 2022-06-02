@@ -1,3 +1,4 @@
+import 'package:delito/api/user_api.dart';
 import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
@@ -16,6 +17,22 @@ class UserView extends StatefulWidget {
   State<UserView> createState() => _UserView();
 }
 class _UserView extends State<UserView> {
+  @override
+  void initState() {
+    super.initState();
+    _getUser();
+  }
+
+  void _getUser() async {
+    var _status = await getUser(userId: userInfo.id);
+    if(_status == true) {
+      setState(() {});
+    }
+    else {
+      showToast('네트워크를 확인해주세요');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

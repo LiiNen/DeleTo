@@ -1,8 +1,10 @@
+import 'package:delito/api/point_api.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/main_nav/user/point_item_container.dart';
 import 'package:delito/object/user.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/object/point.dart';
+import 'package:delito/function.dart';
 
 class PointView extends StatefulWidget {
   @override
@@ -10,12 +12,22 @@ class PointView extends StatefulWidget {
 }
 class _PointView extends State<PointView> {
 
-  dynamic _pointList;
+  List<Point>? pointList;
 
   @override
   void initState() {
     super.initState();
-    _pointList = testPointList;
+    _getPointList();
+  }
+
+  _getPointList() async {
+    pointList = await getPointList(pageNum: 0, lastPoint: userInfo.point);
+    if(pointList == null) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      setState(() {});
+    }
   }
 
   @override
@@ -28,8 +40,8 @@ class _PointView extends State<PointView> {
           children: <Widget>[
             SizedBox(height: 20),
             Text('현재 포인트 잔액 ${userInfo.point}')
-          ] + (_pointList != null ? List.generate(_pointList.length, (index) {
-            return PointItemContainer(point: _pointList[index]);
+          ] + (pointList != null ? List.generate(pointList!.length, (index) {
+            return PointItemContainer(point: pointList![index]);
           }) : []) + [
             SizedBox(height: 20),
           ]
