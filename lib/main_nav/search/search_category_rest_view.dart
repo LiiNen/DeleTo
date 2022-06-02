@@ -88,10 +88,10 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 18),
-                      child: ContentTitleContainer(title: '${testRestList.length}건의 검색결과')
-                    )
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(horizontal: 18),
+                    //   child: ContentTitleContainer(title: '${testRestList.length}건의 검색결과')
+                    // )
                   ] + (isExist ? (isLoaded ? List.generate(restList.length, (index) {
                     return RestItemContainer(context: context, shop: restList[index]);
                   }) : []) : [
