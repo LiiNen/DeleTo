@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:delito/api/api_config.dart';
+import 'package:delito/object/menu.dart';
 import 'package:delito/object/restaurant.dart';
 import 'package:http/http.dart' as http;
 
 getRestListByPage({required int categoryId, required int pageNum}) async {
-  var response = await http.get(Uri.parse('$requestUrl$pathRestaurant$pathCategory?category_id=$categoryId&pageNum=$pageNum'));
+  var response = await http.get(Uri.parse('$requestUrl$pathRestaurant$pathCategory?category_id=$categoryId&page_num=$pageNum'));
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
@@ -28,4 +29,37 @@ getRestListByPage({required int categoryId, required int pageNum}) async {
     });
   }
   else return null;
+}
+
+getRestDetail({required int restId}) async {
+  var response = await http.get(Uri.parse('$requestUrl$pathRestaurant$pathInfo?restaurant_id=$restId'));
+
+  if(response.statusCode == 200) {
+    var responseBody = json.decode(response.body);
+    var _temp = responseBody[0];
+    var _menu = responseBody[1];
+    return Restaurant(
+      id: restId,
+      shopName: _temp['name'],
+      deliveryPrice: int.parse(_temp['delivery_fee']),
+      leastPrice: _temp['min_order_amount'],
+      deliveryTime: _temp['delivery_time'],
+      openTime: _temp['begin'].substring(0,5),
+      closeTime: _temp['end'].substring(0,5),
+      phone: _temp['phone'],
+      address: _temp['address'],
+      imgUrl: _temp['url'],
+      lat: _temp['lat'],
+      lng: _temp['lng'],
+      reviewAverage: _temp['review_avg'].toDouble(),
+      menuList: List.generate(_menu.length, (index) {
+        return Menu(
+          name: _menu[index]['name'],
+          price: _menu[index]['price'],
+          imgUrl: _menu[index]['url'],
+        );
+      })
+    );
+  }
+  return null;
 }

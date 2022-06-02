@@ -45,6 +45,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
       _categoryId = newId;
       isLoaded = false;
       isEnded = false;
+      isExist = true;
       boardList = [];
       _getBoardList();
     });
@@ -60,6 +61,7 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
         setState(() {
           if(!isLoaded && !isEnded) {
             isExist = false;
+            isEnded = true;
           }
           else {
             isEnded = true;

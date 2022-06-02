@@ -1,3 +1,4 @@
+import 'package:delito/api/restaurant_api.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/line_divider.dart';
@@ -10,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreRestView extends StatefulWidget {
-  final Restaurant shop;
+  final int restId;
   final bool fromBoard;
-  StoreRestView({required this.shop, this.fromBoard=false});
+  StoreRestView({required this.restId, this.fromBoard=false});
   @override
   State<StoreRestView> createState() => _StoreRestView();
 }
@@ -21,11 +22,24 @@ class _StoreRestView extends State<StoreRestView> {
   bool? _isOpen;
   String? _distString;
 
+  Restaurant? _rest;
+
   @override
   void initState() {
-    _isOpen = getTimeSafe(openTime: widget.shop.openTime, closeTime: widget.shop.closeTime);
-    _calDist();
+    _getRestInfo();
     super.initState();
+  }
+
+  void _getRestInfo() async {
+    _rest = await getRestDetail(restId: widget.restId);
+    setState(() {});
+    if(_rest == null) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      _isOpen = getTimeSafe(openTime: _rest!.openTime, closeTime: _rest!.closeTime);
+      _calDist();
+    }
   }
 
   _calDist() async {
@@ -37,7 +51,7 @@ class _StoreRestView extends State<StoreRestView> {
         _distString = '위치를 설정해주세요';
       }
       else {
-        _distString = calDist(lat1: lat, lng1: lng, lat2: widget.shop.lat, lng2: widget.shop.lng);
+        _distString = calDist(lat1: lat, lng1: lng, lat2: _rest!.lat, lng2: _rest!.lng);
       }
     });
   }
@@ -47,7 +61,7 @@ class _StoreRestView extends State<StoreRestView> {
     return Scaffold(
       appBar: DefaultAppBar(title: '가게정보', back: true),
       backgroundColor: Colors.white,
-      body: Container(
+      body: _rest != null ? Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(horizontal: 18),
         child: SingleChildScrollView(
@@ -55,7 +69,7 @@ class _StoreRestView extends State<StoreRestView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 24),
-              Text(widget.shop.shopName, style: textStyle(weight: 600, size: 28.0)),
+              Text(_rest!.shopName, style: textStyle(weight: 600, size: 28.0)),
               SizedBox(height: 24),
               shopInfoBox(),
               SizedBox(height: 24),
@@ -75,12 +89,12 @@ class _StoreRestView extends State<StoreRestView> {
                   SizedBox(width: 12),
                   Icon(Icons.star, color: Colors.yellow, size: 20),
                   SizedBox(width: 2),
-                  Text('${widget.shop.reviewAverage}', style: textStyle(weight: 500, size: 16.0)),
+                  Text('${_rest!.reviewAverage}', style: textStyle(weight: 500, size: 16.0)),
                 ]
               ),
               LineDivider(),
               // menu list if exists
-              widget.shop.menuList.length != 0 ? Column(
+              _rest!.menuList.length != 0 ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ContentTitleContainer(title: '대표 메뉴'),
@@ -93,7 +107,7 @@ class _StoreRestView extends State<StoreRestView> {
                 children: [
                   Expanded(child: ContentTitleContainer(title: '배달 예상 시간')),
                   SizedBox(width: 12),
-                  Text(widget.shop.deliveryTime),
+                  Text(_rest!.deliveryTime),
                 ]
               ),
               LineDivider(),
@@ -109,7 +123,7 @@ class _StoreRestView extends State<StoreRestView> {
                 children: [
                   Expanded(child: ContentTitleContainer(title: '전화번호')),
                   SizedBox(width: 12),
-                  Text(widget.shop.phone),
+                  Text(_rest!.phone),
                 ]
               ),
               LineDivider(),
@@ -118,7 +132,7 @@ class _StoreRestView extends State<StoreRestView> {
                 children: [
                   ContentTitleContainer(title: '가게 주소'),
                   SizedBox(width: 12),
-                  Text(widget.shop.address, textAlign: TextAlign.start,),
+                  Text(_rest!.address, textAlign: TextAlign.start,),
                   SizedBox(height: 16),
                 ]
               ),
@@ -127,24 +141,24 @@ class _StoreRestView extends State<StoreRestView> {
             ]
           )
         )
-      )
+      ) : Center(child: CircularProgressIndicator())
     );
   }
 
   shopInfoBox() {
     return Row(
       children: [
-        widget.shop.imgUrl != '' ? Image.network(widget.shop.imgUrl, width: 62, height: 62) : FlutterLogo(size: 62,),
+        _rest!.imgUrl != '' ? Image.network(_rest!.imgUrl, width: 62, height: 62) : FlutterLogo(size: 62,),
         SizedBox(width: 24),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('최소주문금액 : ${widget.shop.leastPrice}원', style: textStyle(size: 14.0)),
+              Text('최소주문금액 : ${_rest!.leastPrice}원', style: textStyle(size: 14.0)),
               SizedBox(height: 6),
-              Text('배달비 : ${widget.shop.deliveryPrice}원', style: textStyle(size: 14.0)),
+              Text('배달비 : ${_rest!.deliveryPrice}원', style: textStyle(size: 14.0)),
               SizedBox(height: 6),
-              Text('영업시간 : ${widget.shop.openTime} - ${widget.shop.closeTime}', style: textStyle(size: 14.0)),
+              Text('영업시간 : ${_rest!.openTime} - ${_rest!.closeTime}', style: textStyle(size: 14.0)),
             ]
           )
         )
@@ -157,7 +171,7 @@ class _StoreRestView extends State<StoreRestView> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         if(_isOpen!) {
-          navigatorPush(context: context, widget: StoreBoardCreationView(shopInfoWidget: shopInfoBox(), shop: widget.shop));
+          navigatorPush(context: context, widget: StoreBoardCreationView(shopInfoWidget: shopInfoBox(), shop: _rest!));
         }
       },
       child: Container(
@@ -181,10 +195,10 @@ class _StoreRestView extends State<StoreRestView> {
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: widget.shop.menuList.length*2+1,
+        itemCount: _rest!.menuList.length*2+1,
         itemBuilder: (BuildContext context, int index) {
           // if(index==0) return SizedBox(width: 0);
-          if(index%2 == 1) return menuContainer(widget.shop.menuList[((index-1)/2).floor()]);
+          if(index%2 == 1) return menuContainer(_rest!.menuList[((index-1)/2).floor()]);
           else return Container(width: 12);
         }
       )

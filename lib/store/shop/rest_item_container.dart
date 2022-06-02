@@ -12,7 +12,7 @@ class RestItemContainer extends StoreItemContainer {
     imgUrl: shop.imgUrl, subTitle: shop.categories, title: shop.shopName,
     content: '최소주문금액: ${shop.leastPrice}\n배달비: ${shop.deliveryPrice}',
     callback: () {
-      navigatorPush(context: context, widget: StoreRestView(shop: shop));
+      navigatorPush(context: context, widget: StoreRestView(restId: shop.id));
     },
     bottomAlignWidget: [
       getTimeSafe(openTime: shop.openTime, closeTime: shop.closeTime) ?

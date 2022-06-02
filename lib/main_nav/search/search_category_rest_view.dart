@@ -43,6 +43,7 @@ class _SearchCategoryRestView extends State<SearchCategoryRestView> with SingleT
       _categoryId = newId;
       isLoaded = false;
       isEnded = false;
+      isExist = true;
       restList = [];
       _getRestList();
     });
