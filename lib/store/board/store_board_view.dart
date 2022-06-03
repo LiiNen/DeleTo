@@ -13,23 +13,35 @@ import 'package:delito/store/shop/store_rest_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 
+import 'board_setting_view.dart';
+
 class StoreBoardView extends StatefulWidget {
-  final Board board;
-  StoreBoardView({required this.board});
+  final int boardId;
+  StoreBoardView({required this.boardId});
   @override
-  State<StoreBoardView> createState() => _StoreBoardView(board);
+  State<StoreBoardView> createState() => _StoreBoardView(boardId);
 }
 class _StoreBoardView extends State<StoreBoardView> {
-  late Board board;
-  _StoreBoardView(this.board);
+  int boardId;
+  _StoreBoardView(this.boardId);
+
+  Board? _board;
 
   double? _distance;
   late bool _isMaster;
 
   @override
   void initState() {
+    _getBoardInfo();
     super.initState();
-    _isMaster = userInfo.id == board.userId ? true : false;
+
+  }
+
+  void _getBoardInfo() async {
+    setState(() {
+      _board = testBoardList[0];
+      _isMaster = userInfo.id == _board!.userId ? true : false;
+    });
     _calDistance();
   }
 
@@ -57,13 +69,13 @@ class _StoreBoardView extends State<StoreBoardView> {
 
   _boardClose() async {
     setState(() {
-      board.open = false;
+      _board!.open = false;
     });
   }
 
   _boardComplete() async {
     setState(() {
-      board.isComplete = true;
+      _board!.isComplete = true;
     });
   }
 
@@ -74,14 +86,14 @@ class _StoreBoardView extends State<StoreBoardView> {
       child: Scaffold(
         appBar: DefaultAppBar(title: '배달동료 구인', back: true,),
         backgroundColor: Colors.white,
-        body: Container(
+        body: _board != null ? Container(
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(horizontal: 18),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 24),
-                Text(board.title, style: textStyle(weight: 700, size: 22.0)),
+                Text(_board!.title, style: textStyle(weight: 700, size: 22.0)),
                 SizedBox(height: 24),
                 partyInfoBox(),
                 SizedBox(height: 24),
@@ -95,7 +107,7 @@ class _StoreBoardView extends State<StoreBoardView> {
               ]
             )
           )
-        )
+        ) : Container()
       )
     );
   }
@@ -111,18 +123,18 @@ class _StoreBoardView extends State<StoreBoardView> {
             children: [
               Row(
                 children: [
-                  Expanded(child: Text(board.shopName, style: textStyle(weight: 700, size: 16.0), overflow: TextOverflow.ellipsis,)),
+                  Expanded(child: Text(_board!.shopName, style: textStyle(weight: 700, size: 16.0), overflow: TextOverflow.ellipsis,)),
                   SizedBox(width: 4),
                   DefaultButton(title: '식당정보', width: 60, height: 24, fontSize: 12.0, callback: () {
                     /// todo: navigator push to store_shop_view
-                    navigatorPush(context: context, widget: StoreRestView(restId: board.id, fromBoard: true,),);
+                    navigatorPush(context: context, widget: StoreRestView(restId: _board!.id, fromBoard: true,),);
                   }),
                 ]
               ),
               SizedBox(height: 6),
-              Text('최소주문금액 : ${board.leastPrice}원', style: textStyle(size: 14.0)),
+              Text('최소주문금액 : ${_board!.leastPrice}원', style: textStyle(size: 14.0)),
               SizedBox(height: 6),
-              Text('배달비 : ${board.deliveryPrice}원', style: textStyle(size: 14.0)),
+              Text('배달비 : ${_board!.deliveryPrice}원', style: textStyle(size: 14.0)),
             ]
           )
         )
@@ -134,7 +146,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(board.open && board.curNum < board.maxNum) {
+        if(_board!.open && _board!.curNum < _board!.maxNum) {
           _participate();
         }
       },
@@ -142,13 +154,13 @@ class _StoreBoardView extends State<StoreBoardView> {
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: board.open && board.curNum < board.maxNum ? Color(0xff0958c5) : Color(0xffd1d5d9),
+          color: _board!.open && _board!.curNum < _board!.maxNum ? Color(0xff0958c5) : Color(0xffd1d5d9),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: board.open ? board.curNum < board.maxNum ? [
-            Text('모집 완료 시, 배달비 ${(board.deliveryPrice/board.maxNum).ceil()}원 !', style: textStyle(color: Colors.white, weight: 700),),
+          children: _board!.open ? _board!.curNum < _board!.maxNum ? [
+            Text('모집 완료 시, 배달비 ${(_board!.deliveryPrice/_board!.maxNum).ceil()}원 !', style: textStyle(color: Colors.white, weight: 700),),
             Text('참여하기', style: textStyle(color: Colors.white, weight: 700)),
           ] : [
             Text('현재 정원이 모두 모집되었습니다.', style: textStyle(color: Colors.white, weight: 700))
@@ -164,10 +176,10 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(board.open) {
-          _boardClose();
+        if(_board!.open) {
+          navigatorPush(context: context, widget: BoardSettingView(boardId: 1, backCallback: _getBoardInfo));
         }
-        else if(!board.isComplete) {
+        else if(!_board!.isComplete) {
           _boardComplete();
         }
       },
@@ -175,14 +187,14 @@ class _StoreBoardView extends State<StoreBoardView> {
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: board.open || !board.isComplete ? Color(0xff0958c5) : Color(0xffd1d5d9),
+          color: _board!.open || !_board!.isComplete ? Color(0xff0958c5) : Color(0xffd1d5d9),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: board.open ? [
-            Text('모집 마감하기', style: textStyle(color: Colors.white, weight: 700),),
-          ] : !board.isComplete ? [
+          children: _board!.open ? [
+            Text('종료하기', style: textStyle(color: Colors.white, weight: 700),),
+          ] : !_board!.isComplete ? [
             Text('전달 완료', style: textStyle(color: Colors.white, weight: 700))
           ] : [
             Text('종료된 게시글입니다', style: textStyle(color: Colors.white, weight: 700))
@@ -204,26 +216,26 @@ class _StoreBoardView extends State<StoreBoardView> {
                 children: [
                   Row(
                     children: [
-                      Text(board.userName, style: textStyle(weight: 600)),
+                      Text(_board!.userName, style: textStyle(weight: 600)),
                       SizedBox(width: 4.0),
                       Text(_distance != null ? '${_distance!}m' : '', style: textStyle(color: Color(0xffa8a8a8), size: 14.0))
                     ]
                   ),
                   SizedBox(height: 6.0),
-                  Text(board.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
+                  Text(_board!.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
                 ]
               )),
-              userInfo.id != board.userId ? DefaultButton(
+              userInfo.id != _board!.userId ? DefaultButton(
                 title: '신고하기',
                 callback: () {
-                  navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: board.userName,));
+                  navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: _board!.userName,));
                 },
                 width: 60, height: 24, fontSize: 12.0,
               ) : Container(),
             ]
           ),
           SizedBox(height: 12),
-          Text(board.content, style: textStyle())
+          Text(_board!.content, style: textStyle())
         ]
       )
     );

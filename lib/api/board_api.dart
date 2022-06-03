@@ -29,6 +29,16 @@ getBoardListByPage({required int categoryId, required int pageNum}) async {
   else return null;
 }
 
+getBoardDetail({required int boardId}) async {
+  var response = await http.get(Uri.parse('$requestUrl$pathBoard$pathInfo?post_id=$boardId'));
+
+  if(response.statusCode == 200) {
+    var responseBody = json.decode(response.body);
+
+    /// todo: parse data
+  }
+}
+
 postBoard({required int deliveryPrice, required String title, required String content, required String maxNum, required int restId, required int userId, required int categoryId, required lat, required lng}) async {
   var requestBody = Map();
   var postBody = Map();
