@@ -177,7 +177,7 @@ class _StoreBoardView extends State<StoreBoardView> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         if(_board!.open) {
-          navigatorPush(context: context, widget: BoardSettingView(boardId: 1, backCallback: _getBoardInfo));
+          navigatorPush(context: context, widget: BoardSettingView(boardId: 2, backCallback: _getBoardInfo));
         }
         else if(!_board!.isComplete) {
           _boardComplete();

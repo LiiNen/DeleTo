@@ -1,4 +1,8 @@
+import 'package:delito/api/party_api.dart';
 import 'package:delito/component/default_app_bar.dart';
+import 'package:delito/function.dart';
+import 'package:delito/object/party_user.dart';
+import 'package:delito/store/board/board_setting_item_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../style.dart';
@@ -12,28 +16,45 @@ class BoardSettingView extends StatefulWidget {
   State<BoardSettingView> createState() => _BoardSettingView();
 }
 class _BoardSettingView extends State<BoardSettingView> {
-  var userList = [];
+  List<PartyUser>? _userList;
 
   @override
   void initState() {
+    _getPartyList();
     super.initState();
+  }
 
+  _getPartyList() async {
+    var _temp = await getPartyList(boardId: widget.boardId);
+    if(_temp != null) {
+      setState(() {
+        _userList = _temp;
+      });
+    }
+    else {
+      showToast('네트워크를 확인해주세요');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBar(title: '파티원 관리', back: true, backCallback: () {widget.backCallback();},),
-      body: Container(
+      body: _userList != null ? Container(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
-            children: [
-
+            children: <Widget>[
+            ] + (_userList!.length != 0 ? List.generate(_userList!.length, (index) {
+              return BoardSettingItemContainer(user: _userList![index], callback: _getPartyList);
+            }) : []) + [
+              SizedBox(height: 20),
+              mainButton(),
+              SizedBox(height: 40),
             ]
           )
         )
-      )
+      ) : Center(child: CircularProgressIndicator())
     );
   }
 

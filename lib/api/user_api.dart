@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:delito/api/api_config.dart';
 import 'package:delito/object/user.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +12,7 @@ getUser({required int userId}) async {
       return false;
     }
     var user = responseBody['user'][0];
-    userInfo = User(id: userId, name: user['name'], point: user['point'], imgSrc: '', email: 'test@test.ac.kr');
+    userInfo = User(id: userId, name: user['name'], point: user['point'], imgUrl: '', email: 'test@test.ac.kr');
     return true;
   }
   return false;
