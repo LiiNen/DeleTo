@@ -10,7 +10,6 @@ getPointList({required int pageNum, required int lastPoint}) async {
   var response = await http.get(Uri.parse('$requestUrl$pathUser$pathPoint?user_id=${userInfo.id}&page_num=$pageNum'));
   num _lastPoint = lastPoint;
 
-  print(response.body);
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
     return List.generate(responseBody.length, (index) {

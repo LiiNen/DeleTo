@@ -91,10 +91,10 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 18),
-                      child: ContentTitleContainer(title: '${testBoardList.length}건의 검색결과')
-                    )
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(horizontal: 18),
+                    //   child: ContentTitleContainer(title: '${testBoardList.length}건의 검색결과')
+                    // )
                   ] + (isExist ? (isLoaded ? List.generate(boardList.length, (index) {
                     return BoardItemContainer(context: context, board: boardList[index]);
                   }) : []) : [

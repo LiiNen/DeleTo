@@ -95,7 +95,7 @@ class _ReportView extends State<ReportView> {
   }
   
   _sendReportAction() async {
-    var _status = await postReport(title: '제목', content: contentController.text, email: emailController.text != '' ? emailController.text : userInfo.email);
+    var _status = await postReport(content: contentController.text, email: emailController.text != '' ? emailController.text : userInfo.email, targetUserName: userController.text);
     if(_status == true) {
       showToast('신고 접수가 완료되었습니다!');
       widget.completeCallback();
