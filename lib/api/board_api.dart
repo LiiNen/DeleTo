@@ -13,14 +13,16 @@ getBoardListByPage({required int categoryId, required int pageNum}) async {
       var _temp = responseBody[index];
       return Board(
         id: _temp['restaurant_id'],
-        shopName: '가게이름',
+        shopName: _temp['restaurant_name'],
         title: _temp['title'],
-        curNum: 0,
+        curNum: _temp['cur_mem'],
         maxNum: _temp['mem_count'],
         lat: _temp['lat'],
         lng: _temp['lng'],
         imgUrl: _temp['url'],
         boardId: _temp['id'],
+        /// todo: front does not accept complete state
+        isComplete: (_temp['is_complete'] == 1)
       );
     });
   }

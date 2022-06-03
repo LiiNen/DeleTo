@@ -12,6 +12,10 @@ getRestListByPage({required int categoryId, required int pageNum}) async {
     var responseBody = json.decode(response.body);
     return List.generate(responseBody.length, (index) {
       var _temp = responseBody[index];
+      var _categories = _temp['categories'][0]['name'];
+      for(var i = 1; i < _temp['categories'].length; i++) {
+        _categories = _categories + ', ' + _temp['categories'][i]['name'].toString();
+      }
       return Restaurant(
         id: _temp['id'],
         shopName: _temp['name'],
@@ -25,6 +29,7 @@ getRestListByPage({required int categoryId, required int pageNum}) async {
         lat: _temp['lat'],
         lng: _temp['lng'],
         reviewAverage: _temp['review_avg'].toDouble(),
+        categories: _categories
       );
     });
   }
