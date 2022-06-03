@@ -1,12 +1,17 @@
+import 'package:delito/api/party_api.dart';
 import 'package:delito/component/condition_button.dart';
+import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/object/party_user.dart';
 import 'package:delito/style.dart';
 import 'package:flutter/material.dart';
 
+import '../../function.dart';
+
 class BoardSettingItemContainer extends StatelessWidget {
+  final context;
   final PartyUser user;
   final dynamic callback;
-  BoardSettingItemContainer({required this.user, required this.callback});
+  BoardSettingItemContainer({required this.context, required this.user, required this.callback});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class BoardSettingItemContainer extends StatelessWidget {
           SizedBox(width: 8),
           textBox(),
           Expanded(child: Container()),
-          ConditionButton(title: user.isChecked ? '참여중' : '수락', callback: acceptAction, condition: !user.isChecked, width: 52.0)
+          ConditionButton(title: user.isChecked ? '참여중' : '수락', callback: _partyAction, condition: !user.isChecked, width: 52.0)
         ]
       )
     );
@@ -32,6 +37,7 @@ class BoardSettingItemContainer extends StatelessWidget {
   textBox() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -46,8 +52,40 @@ class BoardSettingItemContainer extends StatelessWidget {
     );
   }
 
-  acceptAction() async {
+  _partyAction() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: '${user.name}님을 어떻게 하시겠습니까?',
+        positiveWord: '수락',
+        positiveAction: () {
+          _acceptAction();
+        },
+        negativeWord: '거절',
+        negativeAction: () {
+          _rejectAction();
+        },
+      ),
+    )) ?? false;
+  }
 
-    callback();
+  _acceptAction() async {
+    var _status = await acceptParty(partyId: user.partyId);
+    if(_status == false) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      callback();
+    }
+  }
+
+  _rejectAction() async {
+    var _status = await rejectParty(partyId: user.partyId);
+    if(_status == false) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      callback();
+    }
   }
 }

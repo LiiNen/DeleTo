@@ -46,7 +46,7 @@ class _BoardSettingView extends State<BoardSettingView> {
           child: Column(
             children: <Widget>[
             ] + (_userList!.length != 0 ? List.generate(_userList!.length, (index) {
-              return BoardSettingItemContainer(user: _userList![index], callback: _getPartyList);
+              return BoardSettingItemContainer(context: context, user: _userList![index], callback: _getPartyList);
             }) : []) + [
               SizedBox(height: 20),
               mainButton(),
@@ -71,7 +71,7 @@ class _BoardSettingView extends State<BoardSettingView> {
           color: Color(0xff0958c5)
         ),
         child: Center(
-          child: Text('dd', style: textStyle(color: Colors.white, weight: 700))
+          child: Text('완료하기', style: textStyle(color: Colors.white, weight: 700))
         )
       )
     );

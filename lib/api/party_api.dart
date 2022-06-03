@@ -24,3 +24,37 @@ getPartyList({required int boardId}) async {
   }
   return null;
 }
+
+acceptParty({required int partyId}) async {
+  var requestBody = Map();
+  requestBody['party_id'] = partyId;
+  var requestBodyJson = json.encode(requestBody);
+  var response = await http.post(Uri.parse('$requestUrl$pathParty/accept'),
+    body: requestBodyJson,
+    headers: {"Content-Type": "application/json"}
+  );
+
+  if(response.statusCode == 200) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+rejectParty({required int partyId}) async {
+  var requestBody = Map();
+  requestBody['party_id'] = partyId;
+  var requestBodyJson = json.encode(requestBody);
+  var response = await http.delete(Uri.parse('$requestUrl$pathParty/reject'),
+    body: requestBodyJson,
+    headers: {"Content-Type": "application/json"}
+  );
+
+  if(response.statusCode == 200) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
