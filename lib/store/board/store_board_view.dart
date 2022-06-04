@@ -22,12 +22,9 @@ class StoreBoardView extends StatefulWidget {
   final String imgUrl;
   StoreBoardView({required this.boardId, required this.imgUrl});
   @override
-  State<StoreBoardView> createState() => _StoreBoardView(boardId);
+  State<StoreBoardView> createState() => _StoreBoardView();
 }
 class _StoreBoardView extends State<StoreBoardView> {
-  int boardId;
-  _StoreBoardView(this.boardId);
-
   Board? _board;
 
   String? _distString;
@@ -40,7 +37,7 @@ class _StoreBoardView extends State<StoreBoardView> {
   }
 
   void _getBoardInfo() async {
-    _board = await getBoardDetail(boardId: boardId);
+    _board = await getBoardDetail(boardId: widget.boardId);
     if(_board == null) {
       showToast('네트워크를 확인해주세요');
     }
@@ -121,7 +118,7 @@ class _StoreBoardView extends State<StoreBoardView> {
                 contentBox(),
                 SizedBox(height: 40),
                 ContentTitleContainer(title: '댓글'),
-                CommentView(boardId: 1,),
+                CommentView(boardId: widget.boardId,),
                 SizedBox(height: 20),
               ]
             )
