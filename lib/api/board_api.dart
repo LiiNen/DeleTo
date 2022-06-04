@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:delito/api/api_config.dart';
+import 'package:delito/api/user_api.dart';
 import 'package:delito/object/board.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,9 +35,29 @@ getBoardDetail({required int boardId}) async {
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
-
-    /// todo: parse data
+    var userName = await getUser(userId: responseBody['content']['user_id'], isLogin: false);
+    if(userName == false) {
+      return null;
+    }
+    return Board(
+      id: responseBody['restaurant_id'],
+      shopName: responseBody['restaurant']['name'],
+      title: responseBody['title'],
+      curNum: responseBody['cur_mem'],
+      maxNum: responseBody['mem_count'],
+      boardId: responseBody['id'],
+      isComplete: responseBody['is_complete'],
+      lat: responseBody['lat'],
+      lng: responseBody['lng'],
+      content: responseBody['content']['content'],
+      deliveryPrice: int.parse(responseBody['restaurant']['delivery_fee']),
+      leastPrice: responseBody['restaurant']['min_order_amount'],
+      time: responseBody['createdAt'],
+      userId: responseBody['content']['user_id'],
+      userName: userName
+    );
   }
+  return null;
 }
 
 postBoard({required int deliveryPrice, required String title, required String content, required String maxNum, required int restId, required int userId, required int categoryId, required lat, required lng}) async {

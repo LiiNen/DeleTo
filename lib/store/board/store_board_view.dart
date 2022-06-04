@@ -1,3 +1,4 @@
+import 'package:delito/api/board_api.dart';
 import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
@@ -12,12 +13,14 @@ import 'package:delito/store/comment/comment_view.dart';
 import 'package:delito/store/shop/store_rest_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'board_setting_view.dart';
 
 class StoreBoardView extends StatefulWidget {
   final int boardId;
-  StoreBoardView({required this.boardId});
+  final String imgUrl;
+  StoreBoardView({required this.boardId, required this.imgUrl});
   @override
   State<StoreBoardView> createState() => _StoreBoardView(boardId);
 }
@@ -27,28 +30,39 @@ class _StoreBoardView extends State<StoreBoardView> {
 
   Board? _board;
 
-  double? _distance;
+  String? _distString;
   late bool _isMaster;
 
   @override
   void initState() {
     _getBoardInfo();
     super.initState();
-
   }
 
   void _getBoardInfo() async {
-    setState(() {
-      _board = testBoardList[0];
-      _isMaster = userInfo.id == _board!.userId ? true : false;
-    });
-    _calDistance();
+    _board = await getBoardDetail(boardId: boardId);
+    if(_board == null) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      setState(() {
+        _isMaster = userInfo.id == _board!.userId ? true : false;
+      });
+      _calDist();
+    }
   }
 
-  void _calDistance() {
-    /// todo: cal distance
+  void _calDist() async {
+    final pref = await SharedPreferences.getInstance();
+    var lat = pref.getDouble('lat') ?? 0.0;
+    var lng = pref.getDouble('lng') ?? 0.0;
     setState(() {
-      _distance = 400;
+      if(lat == 0.0 && lng == 0.0) {
+        _distString = '위치를 설정해주세요';
+      }
+      else {
+        _distString = calDist(lat1: lat, lng1: lng, lat2: _board!.lat, lng2: _board!.lng);
+      }
     });
   }
 
@@ -65,8 +79,13 @@ class _StoreBoardView extends State<StoreBoardView> {
   _participateAction(String message, String point) async {
     /// todo: post message, point
     /// error handling with point
+    if(int.parse(point) < userInfo.point) {
+      showToast('포인트가 부족합니다');
+    }
   }
 
+
+  //todo: ???
   _boardClose() async {
     setState(() {
       _board!.open = false;
@@ -115,7 +134,7 @@ class _StoreBoardView extends State<StoreBoardView> {
   partyInfoBox() {
     return Row(
       children: [
-        FlutterLogo(size: 62,),
+        widget.imgUrl != null ? Image.network(widget.imgUrl, width: 62, height: 62) : FlutterLogo(size: 62),
         SizedBox(width: 24),
         Expanded(
           child: Column(
@@ -218,7 +237,7 @@ class _StoreBoardView extends State<StoreBoardView> {
                     children: [
                       Text(_board!.userName, style: textStyle(weight: 600)),
                       SizedBox(width: 4.0),
-                      Text(_distance != null ? '${_distance!}m' : '', style: textStyle(color: Color(0xffa8a8a8), size: 14.0))
+                      Text(_distString != null ? '${_distString!} m' : '', style: textStyle(color: Color(0xffa8a8a8), size: 14.0))
                     ]
                   ),
                   SizedBox(height: 6.0),
