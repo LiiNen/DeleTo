@@ -1,4 +1,5 @@
 import 'package:delito/api/board_api.dart';
+import 'package:delito/api/party_api.dart';
 import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
@@ -74,10 +75,20 @@ class _StoreBoardView extends State<StoreBoardView> {
   }
 
   _participateAction(String message, String point) async {
-    /// todo: post message, point
-    /// error handling with point
-    if(int.parse(point) < userInfo.point) {
+    if(message == '') {
+      showToast('메세지를 입력해주세요');
+    }
+    else if(int.parse(point) > userInfo.point) {
       showToast('포인트가 부족합니다');
+    }
+    else {
+      var _status = await joinParty(boardId: widget.boardId, content: message, point: point);
+      if(_status == false) {
+        showToast('네트워크를 확인해주세요');
+      }
+      else {
+        showToast('참가 신청 메세지를 보냈습니다');
+      }
     }
   }
 
@@ -209,7 +220,7 @@ class _StoreBoardView extends State<StoreBoardView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: _board!.open ? [
-            Text('종료하기', style: textStyle(color: Colors.white, weight: 700),),
+            Text('관리하기', style: textStyle(color: Colors.white, weight: 700),),
           ] : !_board!.isComplete ? [
             Text('전달 완료', style: textStyle(color: Colors.white, weight: 700))
           ] : [

@@ -28,6 +28,12 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
   FocusNode countFocusNode = FocusNode();
 
   _createBoard() async {
+    final _pref = await SharedPreferences.getInstance();
+    var _lat = _pref.getDouble('lat') ?? 0;
+    var _lng = _pref.getDouble('lng') ?? 0;
+    if(_lat == 0 && _lng == 0) {
+      showToast('위치 정보를 확인해주세요');
+    }
     if(titleController.text == '') {
       showToast('제목을 입력해주세요');
       return;
@@ -45,15 +51,12 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
       builder: (context) => ConfirmDialog(
         title: '${widget.shop.shopName} 배달 동료 모집을 시작하시겠습니까?',
         positiveAction: () async {
-          final _pref = await SharedPreferences.getInstance();
-          var _lat = _pref.getDouble('lat');
-          var _lng = _pref.getDouble('lng');
           var _status = await postBoard(
-            deliveryPrice: 1000,
+            deliveryPrice: widget.shop.deliveryPrice,
             title: titleController.text,
             content: contentController.text,
             maxNum: countController.text,
-            restId: 10,
+            restId: widget.shop.id,
             userId: userInfo.id,
             categoryId: 1,
             lat: _lat, lng: _lng

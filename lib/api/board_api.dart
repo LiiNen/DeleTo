@@ -61,9 +61,7 @@ getBoardDetail({required int boardId}) async {
 }
 
 postBoard({required int deliveryPrice, required String title, required String content, required String maxNum, required int restId, required int userId, required int categoryId, required lat, required lng}) async {
-  var requestBody = Map();
   var postBody = Map();
-
   postBody['delivery_fee'] = deliveryPrice.toString();
   postBody['title'] = title;
   postBody['content'] = content;
@@ -73,9 +71,14 @@ postBoard({required int deliveryPrice, required String title, required String co
   postBody['category_id'] = categoryId.toString();
   postBody['lat'] = lat;
   postBody['long'] = lng;
+  var requestBody = Map();
   requestBody['post'] = postBody;
 
-  var response = await http.post(Uri.parse('$requestUrl$pathBoard'), body: requestBody);
+  var requestBodyJson = json.encode(requestBody);
+  var response = await http.post(Uri.parse('$requestUrl$pathBoard'),
+    body: requestBodyJson,
+    headers: {"Content-Type": "application/json"}
+  );
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
     if(responseBody['status'] == true) {

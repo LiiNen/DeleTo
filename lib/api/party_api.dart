@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:delito/api/api_config.dart';
 import 'package:delito/object/party_user.dart';
+import 'package:delito/object/user.dart';
 import 'package:http/http.dart' as http;
 
 getPartyList({required int boardId}) async {
@@ -23,6 +24,25 @@ getPartyList({required int boardId}) async {
     });
   }
   return null;
+}
+
+joinParty({required int boardId, required String content, required String point}) async {
+  var requestBody = Map();
+  requestBody['user_id'] = userInfo.id.toString();
+  requestBody['post_id'] = boardId.toString();
+  requestBody['transaction_point'] = point;
+  requestBody['content'] = content;
+
+  var requestBodyJson = json.encode(requestBody);
+  var response = await http.post(Uri.parse('$requestUrl$pathParty$pathJoin'),
+    body: requestBodyJson,
+    headers: {"Content-Type": "application/json"}
+  );
+
+  if(response.statusCode == 200) {
+    return true;
+  }
+  return false;
 }
 
 acceptParty({required int partyId}) async {
