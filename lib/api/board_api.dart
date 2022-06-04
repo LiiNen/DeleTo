@@ -30,6 +30,31 @@ getBoardListByPage({required int categoryId, required int pageNum}) async {
   else return null;
 }
 
+getBoardListByUser({required int userId}) async {
+  var response = await http.get(Uri.parse('$requestUrl$pathBoard$pathUser?user_id=$userId&page_num=0'));
+
+  if(response.statusCode == 200) {
+    var responseBody = json.decode(response.body);
+    return List.generate(responseBody.length, (index) {
+      var _temp = responseBody[index];
+      return Board(
+        id: _temp['restaurant_id'],
+        shopName: _temp['restaurant_name'],
+        title: _temp['title'],
+        curNum: _temp['cur_mem'],
+        maxNum: _temp['mem_count'],
+        lat: _temp['lat'],
+        lng: _temp['lng'],
+        imgUrl: _temp['url'],
+        boardId: _temp['id'],
+        /// todo: front does not accept complete state
+        isComplete: (_temp['is_complete'] == 1)
+      );
+    });
+  }
+  else return null;
+}
+
 getBoardDetail({required int boardId}) async {
   var response = await http.get(Uri.parse('$requestUrl$pathBoard$pathInfo?post_id=$boardId'));
 
