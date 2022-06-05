@@ -249,7 +249,7 @@ class _StoreBoardView extends State<StoreBoardView> {
                     ]
                   ),
                   SizedBox(height: 6.0),
-                  Text(_board!.time, style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
+                  Text(dateFormat(_board!.time), style: textStyle(color: Color(0xffa8a8a8), size: 12.0)),
                 ]
               )),
               userInfo.id != _board!.userId ? DefaultButton(

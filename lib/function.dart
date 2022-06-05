@@ -77,3 +77,7 @@ String calDist({required double lat1, required double lat2, required double lng1
       LatLng(lat1, lng1), LatLng(lat2, lng2));
   return meter.toString();
 }
+
+String dateFormat(String dateTime) {
+  return dateTime.substring(5,7) + ' / ' + dateTime.substring(8,10) + ' ' + dateTime.substring(11,13) + ':' + dateTime.substring(14,16);
+}

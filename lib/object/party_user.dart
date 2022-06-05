@@ -7,5 +7,5 @@ class PartyUser extends User {
 
   PartyUser({
     required int id, imgUrl='', required String name, required this.content, required this.isChecked, required int point, required this.partyId,
-  }) : super(id: id, name: name, email: '', imgUrl: imgUrl, point: point);
+  }) : super(id: id, name: name, email: '', point: point);
 }

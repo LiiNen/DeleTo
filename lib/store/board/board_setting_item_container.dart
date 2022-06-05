@@ -24,8 +24,6 @@ class BoardSettingItemContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          user.imgUrl != '' ? Image.network(user.imgUrl, width: 80, height: 80) : FlutterLogo(size: 80),
-          SizedBox(width: 8),
           textBox(),
           Expanded(child: Container()),
           ConditionButton(title: user.isChecked ? '참여중' : '수락', callback: _partyAction, condition: !user.isChecked, width: 52.0)

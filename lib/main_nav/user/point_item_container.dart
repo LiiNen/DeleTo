@@ -21,7 +21,7 @@ class PointItemContainer extends StatelessWidget {
             color: Color(0xffe7e7e7),
           ),
           SizedBox(height: 8),
-          Text(point.time, style: textStyle(color: Color(0xff575757), weight: 500, size: 14.0)),
+          Text(dateFormat(point.time), style: textStyle(color: Color(0xff575757), weight: 500, size: 14.0)),
           SizedBox(height: 8),
           Text(point.title, style: textStyle(color: Colors.black, weight: 700, size: 16.0)),
           SizedBox(height: 8),
