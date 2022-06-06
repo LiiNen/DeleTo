@@ -58,7 +58,6 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
             maxNum: countController.text,
             restId: widget.shop.id,
             userId: userInfo.id,
-            categoryId: 1,
             lat: _lat, lng: _lng
           );
           if(_status) {

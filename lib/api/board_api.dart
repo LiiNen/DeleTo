@@ -85,7 +85,7 @@ getBoardDetail({required int boardId}) async {
   return null;
 }
 
-postBoard({required int deliveryPrice, required String title, required String content, required String maxNum, required int restId, required int userId, required int categoryId, required lat, required lng}) async {
+postBoard({required int deliveryPrice, required String title, required String content, required String maxNum, required int restId, required int userId, required lat, required lng}) async {
   var postBody = Map();
   postBody['delivery_fee'] = deliveryPrice.toString();
   postBody['title'] = title;
@@ -93,7 +93,6 @@ postBoard({required int deliveryPrice, required String title, required String co
   postBody['mem_count'] = maxNum;
   postBody['rest_id'] = restId.toString();
   postBody['user_id'] = userId.toString();
-  postBody['category_id'] = categoryId.toString();
   postBody['lat'] = lat;
   postBody['long'] = lng;
   var requestBody = Map();
