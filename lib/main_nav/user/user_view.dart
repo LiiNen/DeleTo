@@ -55,7 +55,7 @@ class _UserView extends State<UserView> {
                   LineDivider(),
                   ContentTitleContainer(title: '계정 / 정보 관리'),
                   UserColumnButton(title: '포인트 이용내역 조회하기', callback: () {navigatorPush(context: context, widget: PointView());}),
-                  UserColumnButton(title: '이메일', content: 'email@ajou.ac.kr'),
+                  UserColumnButton(title: '이메일', content: userInfo.email),
                   UserColumnButton(title: '회원정보 수정'),
                   LineDivider(),
                   ContentTitleContainer(title: '기타'),
