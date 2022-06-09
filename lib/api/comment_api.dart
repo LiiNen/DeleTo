@@ -13,7 +13,7 @@ getCommentByBoardId({required int boardId}) async {
     var responseBody = json.decode(response.body);
     return List.generate(responseBody.length, (index) {
       var _temp = responseBody[index];
-      return Comment(userId: 0, userName: _temp['name'], imgUrl: '', content: _temp['content'], time: _temp['created_at']);
+      return Comment(userId: _temp['id'], userName: _temp['name'], imgUrl: '', content: _temp['content'], time: _temp['created_at']);
     });
   }
   return null;

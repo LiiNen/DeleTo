@@ -12,7 +12,7 @@ class BoardItemContainer extends StoreItemContainer {
   BoardItemContainer({required this.context, required this.board}) : super(
     imgUrl: board.imgUrl, subTitle: board.shopName, title: board.title, content: board.content,
     callback: () {
-      navigatorPush(context: context, widget: StoreBoardView(boardId: board.boardId, imgUrl: board.imgUrl));
+      navigatorPush(context: context, widget: StoreBoardView(boardId: board.boardId));
     },
     bottomAlignWidget: <Widget>[
       Icon(Icons.person_rounded, size: 16),

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:delito/api/api_config.dart';
+import 'package:delito/api/restaurant_api.dart';
 import 'package:delito/api/user_api.dart';
 import 'package:delito/object/board.dart';
+import 'package:delito/object/restaurant.dart';
 import 'package:http/http.dart' as http;
 
 getBoardListByPage({required int categoryId, required int pageNum}) async {
@@ -64,6 +66,10 @@ getBoardDetail({required int boardId}) async {
     if(userName == false) {
       return null;
     }
+    var _temp = await getRestDetail(restId: responseBody['restaurant_id']);
+    if(_temp == null) {
+      return null;
+    }
     return Board(
       id: responseBody['restaurant_id'],
       shopName: responseBody['restaurant']['name'],
@@ -79,7 +85,8 @@ getBoardDetail({required int boardId}) async {
       leastPrice: responseBody['restaurant']['min_order_amount'],
       time: responseBody['createdAt'],
       userId: responseBody['content']['user_id'],
-      userName: userName
+      userName: userName,
+      imgUrl: _temp.imgUrl
     );
   }
   return null;

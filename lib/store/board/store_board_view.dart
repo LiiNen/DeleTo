@@ -20,8 +20,7 @@ import 'board_setting_view.dart';
 
 class StoreBoardView extends StatefulWidget {
   final int boardId;
-  final String imgUrl;
-  StoreBoardView({required this.boardId, required this.imgUrl});
+  StoreBoardView({required this.boardId});
   @override
   State<StoreBoardView> createState() => _StoreBoardView();
 }
@@ -142,7 +141,7 @@ class _StoreBoardView extends State<StoreBoardView> {
   partyInfoBox() {
     return Row(
       children: [
-        widget.imgUrl != null ? Image.network(widget.imgUrl, width: 62, height: 62) : FlutterLogo(size: 62),
+        _board!.imgUrl != '' ? Image.network(_board!.imgUrl, width: 62, height: 62) : FlutterLogo(size: 62),
         SizedBox(width: 24),
         Expanded(
           child: Column(

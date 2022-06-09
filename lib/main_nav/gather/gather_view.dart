@@ -3,10 +3,12 @@ import 'package:delito/api/comment_api.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
+import 'package:delito/function.dart';
 import 'package:delito/object/board.dart';
 import 'package:delito/object/user.dart';
 import 'package:delito/object/comment.dart';
 import 'package:delito/store/board/board_item_container.dart';
+import 'package:delito/store/board/store_board_view.dart';
 import 'package:delito/store/comment/comment_item_container.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +79,11 @@ class _GatherView extends State<GatherView> {
             }) : [Text('아직 게시물이 없습니다')]) + <Widget> [
               ContentTitleContainer(title: '남긴 댓글 목록',)
             ] + (_commentList!.isNotEmpty ? List.generate(_commentList!.length, (index) {
-              return CommentItemContainer(comment: _commentList![index]);
+              return GestureDetector(
+                onTap: () {navigatorPush(context: context, widget: StoreBoardView(boardId: _commentList![index].boardId));},
+                behavior: HitTestBehavior.translucent,
+                child: CommentItemContainer(comment: _commentList![index])
+              );
             }) : [Text('아직 댓글이 없습니다')])
           )
         ) : Center(
