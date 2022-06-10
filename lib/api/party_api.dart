@@ -78,3 +78,20 @@ rejectParty({required int partyId}) async {
     return false;
   }
 }
+
+completeParty({required int boardId}) async {
+  var requestBody = Map();
+  requestBody['post_id'] = boardId;
+  var requestBodyJson = json.encode(requestBody);
+  var response = await http.post(Uri.parse('$requestUrl$pathParty/complete'),
+    body: requestBodyJson,
+    headers: {"Content-Type": "application/json"}
+  );
+
+  if(response.statusCode == 200) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:delito/api/party_api.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/function.dart';
+import 'package:delito/main_nav/main_nav_view.dart';
 import 'package:delito/object/party_user.dart';
 import 'package:delito/store/board/board_setting_item_container.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,17 @@ class _BoardSettingView extends State<BoardSettingView> {
     }
   }
 
+  _boardCompleteAction() async {
+    var _status = await completeParty(boardId: widget.boardId);
+    if(_status == false) {
+      showToast('네트워크를 확인해주세요');
+    }
+    else {
+      showToast('완료되었습니다!');
+      navigatorPush(context: context, widget: MainNavView(initialIndex: 1,), replacement: true, all: true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +74,7 @@ class _BoardSettingView extends State<BoardSettingView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-
+        _boardCompleteAction();
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

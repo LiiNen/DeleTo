@@ -91,20 +91,6 @@ class _StoreBoardView extends State<StoreBoardView> {
     }
   }
 
-
-  //todo: ???
-  _boardClose() async {
-    setState(() {
-      _board!.open = false;
-    });
-  }
-
-  _boardComplete() async {
-    setState(() {
-      _board!.isComplete = true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -172,7 +158,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(_board!.open && _board!.curNum < _board!.maxNum) {
+        if(_board!.isComplete) {
           _participate();
         }
       },
@@ -180,16 +166,14 @@ class _StoreBoardView extends State<StoreBoardView> {
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: _board!.open && _board!.curNum < _board!.maxNum ? Color(0xff0958c5) : Color(0xffd1d5d9),
+          color: _board!.isComplete ? Color(0xff0958c5) : Color(0xffd1d5d9),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: _board!.open ? _board!.curNum < _board!.maxNum ? [
+          children: _board!.isComplete ? [
             Text('모집 완료 시, 배달비 ${(_board!.deliveryPrice/_board!.maxNum).ceil()}원 !', style: textStyle(color: Colors.white, weight: 700),),
             Text('참여하기', style: textStyle(color: Colors.white, weight: 700)),
-          ] : [
-            Text('현재 정원이 모두 모집되었습니다.', style: textStyle(color: Colors.white, weight: 700))
           ] : [
             Text('모집이 완료된 글입니다.', style: textStyle(color: Colors.white, weight: 700))
           ]
@@ -202,28 +186,23 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(_board!.open) {
+        if(!_board!.isComplete) {
           navigatorPush(context: context, widget: BoardSettingView(boardId: 2, backCallback: _getBoardInfo));
-        }
-        else if(!_board!.isComplete) {
-          _boardComplete();
         }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: _board!.open || !_board!.isComplete ? Color(0xff0958c5) : Color(0xffd1d5d9),
+          color: !_board!.isComplete ? Color(0xff0958c5) : Color(0xffd1d5d9),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: _board!.open ? [
+          children: !_board!.isComplete ? [
             Text('관리하기', style: textStyle(color: Colors.white, weight: 700),),
-          ] : !_board!.isComplete ? [
-            Text('전달 완료', style: textStyle(color: Colors.white, weight: 700))
           ] : [
-            Text('종료된 게시글입니다', style: textStyle(color: Colors.white, weight: 700))
+            Text('참여자들 보러가기', style: textStyle(color: Colors.white, weight: 700))
           ]
         )
       )

@@ -101,7 +101,7 @@ postBoard({required int deliveryPrice, required String title, required String co
   postBody['rest_id'] = restId.toString();
   postBody['user_id'] = userId.toString();
   postBody['lat'] = lat;
-  postBody['long'] = lng;
+  postBody['lng'] = lng;
   var requestBody = Map();
   requestBody['post'] = postBody;
 

@@ -19,9 +19,8 @@ class BoardItemContainer extends StoreItemContainer {
       SizedBox(width: 4),
       Text('(${board.curNum}명 / ${board.maxNum}명)', style: textStyle(weight: 600, size: 10.0)),
       SizedBox(width: 6),
-      board.open ? board.curNum < board.maxNum ?
+      !board.isComplete ?
         Text('모집중', style: textStyle(color: Color(0xff0958c5), weight: 700, size: 16.0)) :
-        Text('모집완료', style: textStyle(color: Colors.red, weight: 700, size: 16.0)) :
         Text('모집마감', style: textStyle(color: Colors.grey, weight: 700, size: 16.0))
     ]
   );
