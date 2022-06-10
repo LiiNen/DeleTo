@@ -119,3 +119,17 @@ postBoard({required int deliveryPrice, required String title, required String co
   }
   return false;
 }
+
+deleteBoard({required int boardId}) async {
+  var requestBody = Map();
+  requestBody['post_id'] = boardId;
+  var requestBodyJson = json.encode(requestBody);
+  var response = await http.delete(Uri.parse('$requestUrl$pathBoard'),
+    body: requestBodyJson,
+    headers: {"Content-Type": "application/json"}
+  );
+  if(response.statusCode == 200) {
+    return true;
+  }
+  return false;
+}

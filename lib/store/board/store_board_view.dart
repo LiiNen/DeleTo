@@ -6,6 +6,7 @@ import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/input_dialog.dart';
 import 'package:delito/function.dart';
+import 'package:delito/main_nav/main_nav_view.dart';
 import 'package:delito/main_nav/report/report_view.dart';
 import 'package:delito/object/board.dart';
 import 'package:delito/object/restaurant.dart';
@@ -236,7 +237,13 @@ class _StoreBoardView extends State<StoreBoardView> {
                   navigatorPush(context: context, widget: ReportView(completeCallback: () {}, isBack: true, userName: _board!.userName,));
                 },
                 width: 60, height: 24, fontSize: 12.0,
-              ) : Container(),
+              ) : DefaultButton(
+                title: '삭제하기',
+                callback: () {
+                  _deleteBoard();
+                },
+                width: 60, height: 24, fontSize: 12.0,
+              ),
             ]
           ),
           SizedBox(height: 12),
@@ -244,5 +251,21 @@ class _StoreBoardView extends State<StoreBoardView> {
         ]
       )
     );
+  }
+
+  _deleteBoard() async {
+    if(_board!.isComplete) {
+      showToast('완료된 모임은 3일 이내에 삭제가 불가능합니다.');
+    }
+    else {
+      var _status = await deleteBoard(boardId: widget.boardId);
+      if(_status == false) {
+        showToast('네트워크를 확인해주세요');
+      }
+      else {
+        showToast('삭제완료');
+        navigatorPush(context: context, widget: MainNavView(initialIndex: 1,), replacement: true, all: true);
+      }
+    }
   }
 }
