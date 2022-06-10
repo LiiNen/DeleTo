@@ -1,6 +1,6 @@
 import 'package:delito/function.dart';
 import 'package:delito/object/restaurant.dart';
-import 'package:delito/store/shop/store_rest_view.dart';
+import 'package:delito/store/rest/store_rest_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/store/store_item_container.dart';
 import 'package:delito/style.dart';

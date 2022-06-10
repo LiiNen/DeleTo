@@ -183,7 +183,7 @@ class _StoreRestView extends State<StoreRestView> {
         ),
         child: Center(
           child: _isOpen!
-            ? Text('모집글 만들기', style: textStyle(color: Colors.white, weight: 700))
+            ? Text('파티 만들기', style: textStyle(color: Colors.white, weight: 700))
             : Text('영업시간이 아닙니다.', style: textStyle(color: Colors.white, weight: 700))
         )
       )

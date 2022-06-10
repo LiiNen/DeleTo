@@ -19,11 +19,3 @@ class Board extends Store{
     lat=0.0, lng=0.0, required this.boardId,
   }) : super(id: id, imgUrl: imgUrl, shopName: shopName, lat: lat, lng: lng);
 }
-
-var testBoardList = [
-  Board(boardId: 2, id: 1, title: '쌀국수가 조아', shopName: '쌀국수먹자-본점', curNum: 3, maxNum: 6, content: '5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ5천원씩 상납 ㄱㄱ', deliveryPrice: 2000, leastPrice: 10000, imgUrl: 'https://rev-static.yogiyo.co.kr/restaurant_logos/업체자체_20201102_468209_쌀국수먹자-본점_대표사진_300x300.jpg'),
-  Board(boardId: 2, id: 2, title: '배달비 아낄사람', userId: 1, shopName: '피자헛-수원지동점', curNum: 4, maxNum: 5, imgUrl: 'https://rev-static.yogiyo.co.kr/franchise_logos/피자헛_20170612_Franchise이미지약정서_crop_200x200.jpg'),
-  Board(boardId: 2, id: 3, title: '광교관 여학생 있음?', shopName: '신전떡볶이 아주대점', curNum: 4, maxNum: 4),
-  Board(boardId: 2, id: 4, title: '본인 팔달관 망령', shopName: '맘스터치 광교점', curNum: 3, maxNum: 4),
-  Board(boardId: 2, id: 5, title: '남제 1명 구함', shopName: '맥도날드 아주대점', curNum: 1, maxNum: 2),
-];

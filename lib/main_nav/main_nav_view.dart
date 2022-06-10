@@ -59,7 +59,7 @@ class _MainNavView extends State<MainNavView> {
           },
           items: [
             BottomNavigationBarItem(label: '음식점 찾기', icon: Icon(Icons.food_bank_outlined)),
-            BottomNavigationBarItem(label: '내 모집 현황', icon: Icon(Icons.people_outline_rounded)),
+            BottomNavigationBarItem(label: '내 파티 현황', icon: Icon(Icons.people_outline_rounded)),
             BottomNavigationBarItem(label: '신고하기', icon: Icon(Icons.assistant_photo_outlined)),
             BottomNavigationBarItem(label: '내 정보', icon: Icon(Icons.person_outline)),
           ]

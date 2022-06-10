@@ -67,13 +67,13 @@ class _GatherView extends State<GatherView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(title: '내 모집 현황'),
+      appBar: DefaultAppBar(title: '내 파티 현황'),
       backgroundColor: Colors.white,
       body: isLoaded ? (
         hasParty ? SingleChildScrollView(
           child: Column(
             children: <Widget> [
-              ContentTitleContainer(title: '모임 목록',)
+              ContentTitleContainer(title: '파티 목록',)
             ] + (_boardList!.isNotEmpty ? List.generate(_boardList!.length, (index) {
               return BoardItemContainer(context: context, board: _boardList![index],);
             }) : [Text('아직 게시물이 없습니다')]) + <Widget> [

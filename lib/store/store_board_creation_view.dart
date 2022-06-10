@@ -40,7 +40,7 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
       return;
     }
     else if(countController.text == '') {
-      showToast('모집 인원 수를 입력해주세요');
+      showToast('최대 인원 수를 입력해주세요');
       return;
     }
     else if(contentController.text == '') {
@@ -79,7 +79,7 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
     return GestureDetector(
       onTap: () {FocusManager.instance.primaryFocus?.unfocus();},
       child: Scaffold(
-        appBar: DefaultAppBar(title: '모집글 작성하기', back: true,),
+        appBar: DefaultAppBar(title: '파티 만들기', back: true,),
         body: Container(
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(horizontal: 18),
@@ -93,7 +93,7 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
                     SizedBox(height: 24),
                     DefaultTextField(controller: titleController, focusNode: titleFocusNode, hint: '제목', nextFocusNode: countFocusNode, changeListener: () {setState(() {});}),
                     SizedBox(height: 12),
-                    DefaultTextField(controller: countController, focusNode: countFocusNode, hint: '모집 인원 수', nextFocusNode: contentFocusNode, changeListener: () {setState(() {});}, isNumber: true,),
+                    DefaultTextField(controller: countController, focusNode: countFocusNode, hint: '모집 최대 인원 수', nextFocusNode: contentFocusNode, changeListener: () {setState(() {});}, isNumber: true,),
                     SizedBox(height: 12),
                     DefaultTextField(controller: contentController, focusNode: contentFocusNode, hint: '내용', allowEnter: true, callback: _createBoard, changeListener: () {setState(() {});}),
                     SizedBox(height: 64), // button + sizedBox + margin 20

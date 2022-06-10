@@ -1,12 +1,10 @@
 import 'package:delito/api/restaurant_api.dart';
-import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/line_divider.dart';
-import 'package:delito/main_nav/search/search_view.dart';
 import 'package:delito/object/category.dart';
 import 'package:delito/object/restaurant.dart';
-import 'package:delito/store/shop/rest_item_container.dart';
+import 'package:delito/store/rest/rest_item_container.dart';
 import 'package:delito/store/store_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/function.dart';

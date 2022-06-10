@@ -1,6 +1,5 @@
 import 'package:delito/api/board_api.dart';
 import 'package:delito/api/party_api.dart';
-import 'package:delito/component/condition_button.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
@@ -9,10 +8,9 @@ import 'package:delito/function.dart';
 import 'package:delito/main_nav/main_nav_view.dart';
 import 'package:delito/main_nav/report/report_view.dart';
 import 'package:delito/object/board.dart';
-import 'package:delito/object/restaurant.dart';
 import 'package:delito/object/user.dart';
 import 'package:delito/store/comment/comment_view.dart';
-import 'package:delito/store/shop/store_rest_view.dart';
+import 'package:delito/store/rest/store_rest_view.dart';
 import 'package:flutter/material.dart';
 import 'package:delito/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -68,7 +66,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     return (await showDialog(
       context: context,
       builder: (context) => InputDialog(
-        title: '모임 신청', confirmAction: (message, point) {_participateAction(message, point);},
+        title: '파티 참가', confirmAction: (message, point) {_participateAction(message, point);},
         confirmWord: '포인트 지불 후 참여'
       ),
     )) ?? false;
@@ -253,7 +251,7 @@ class _StoreBoardView extends State<StoreBoardView> {
 
   _deleteBoard() async {
     if(_board!.isComplete) {
-      showToast('완료된 모임은 3일 이내에 삭제가 불가능합니다.');
+      showToast('완료된 파티는 3일 이내에 삭제가 불가능합니다.');
     }
     else {
       var _status = await deleteBoard(boardId: widget.boardId);
