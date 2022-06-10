@@ -4,6 +4,7 @@ import 'package:delito/component/confirm_dialog.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
 import 'package:delito/component/default_text_field.dart';
+import 'package:delito/main_nav/main_nav_view.dart';
 import 'package:delito/object/restaurant.dart';
 import 'package:delito/function.dart';
 import 'package:delito/object/user.dart';
@@ -29,8 +30,8 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
 
   _createBoard() async {
     final _pref = await SharedPreferences.getInstance();
-    var _lat = _pref.getDouble('lat') ?? 0;
-    var _lng = _pref.getDouble('lng') ?? 0;
+    double _lat = _pref.getDouble('lat') ?? 0;
+    double _lng = _pref.getDouble('lng') ?? 0;
     if(_lat == 0 && _lng == 0) {
       showToast('위치 정보를 확인해주세요');
     }
@@ -62,6 +63,7 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
           );
           if(_status) {
             showToast('성공');
+            navigatorPush(context: context, widget: MainNavView(initialIndex: 1,), replacement: true, all: true);
           }
           else {
             showToast('실패');

@@ -5,13 +5,13 @@ import 'package:delito/object/user.dart';
 import 'api_config.dart';
 import 'package:http/http.dart' as http;
 
-postReport({String title='temp', required String content, required String email, targetId = 0, required String targetUserName}) async {
+postReport({String title='temp', required String content, required String email, targetId=0, required String targetUserName}) async {
   var reportBody = Map();
-  reportBody['user_id'] = userInfo.id.toString();
+  reportBody['user_id'] = userInfo.id;
   reportBody['title'] = title;
   reportBody['content'] = content;
   reportBody['email'] = email;
-  reportBody['target_id'] = targetId.toString();
+  reportBody['target_id'] = targetId;
   reportBody['target_user_name'] = targetUserName;
   var requestBody = Map();
   requestBody['report'] = reportBody;

@@ -159,7 +159,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(_board!.isComplete) {
+        if(!_board!.isComplete) {
           _participate();
         }
       },
@@ -167,12 +167,12 @@ class _StoreBoardView extends State<StoreBoardView> {
         width: MediaQuery.of(context).size.width,
         height: 48,
         decoration: BoxDecoration(
-          color: _board!.isComplete ? Color(0xff0958c5) : Color(0xffd1d5d9),
+          color: !_board!.isComplete ? Color(0xff0958c5) : Color(0xffd1d5d9),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: _board!.isComplete ? [
+          children: !_board!.isComplete ? [
             Text('모집 완료 시, 배달비 ${(_board!.deliveryPrice/_board!.maxNum).ceil()}원 !', style: textStyle(color: Colors.white, weight: 700),),
             Text('참여하기', style: textStyle(color: Colors.white, weight: 700)),
           ] : [
@@ -187,9 +187,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(!_board!.isComplete) {
-          navigatorPush(context: context, widget: BoardSettingView(boardId: 2, backCallback: _getBoardInfo));
-        }
+        navigatorPush(context: context, widget: BoardSettingView(boardId: 2, backCallback: _getBoardInfo));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

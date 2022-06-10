@@ -111,11 +111,7 @@ postBoard({required int deliveryPrice, required String title, required String co
     headers: {"Content-Type": "application/json"}
   );
   if(response.statusCode == 200) {
-    var responseBody = json.decode(response.body);
-    if(responseBody['status'] == true) {
-      return true;
-    }
-    return false;
+    return true;
   }
   return false;
 }
