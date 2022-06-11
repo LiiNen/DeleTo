@@ -3,6 +3,7 @@ import 'package:delito/api/comment_api.dart';
 import 'package:delito/component/content_title_container.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/component/default_button.dart';
+import 'package:delito/component/line_divider.dart';
 import 'package:delito/function.dart';
 import 'package:delito/object/board.dart';
 import 'package:delito/object/user.dart';
@@ -30,9 +31,16 @@ class _GatherView extends State<GatherView> {
 
   @override
   void initState() {
+    _loadGather();
+    super.initState();
+  }
+
+  _loadGather() {
+    setState(() {
+      isLoaded = false;
+    });
     _getBoardListByUser();
     _getCommentListByUser();
-    super.initState();
   }
 
   _getBoardListByUser() async {
@@ -73,14 +81,20 @@ class _GatherView extends State<GatherView> {
         hasParty ? SingleChildScrollView(
           child: Column(
             children: <Widget> [
-              ContentTitleContainer(title: '파티 목록',)
-            ] + (_boardList!.isNotEmpty ? List.generate(_boardList!.length, (index) {
-              return BoardItemContainer(context: context, board: _boardList![index],);
-            }) : [Text('아직 게시물이 없습니다')]) + <Widget> [
-              ContentTitleContainer(title: '남긴 댓글 목록',)
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                child: ContentTitleContainer(title: '파티 목록',)
+              ),
+            ] + (_boardList!.isNotEmpty ? List<Widget>.generate(_boardList!.length, (index) {
+              return BoardItemContainer(context: context, board: _boardList![index], backCallback: _loadGather);
+            }) + [LineDivider()] : [Text('아직 게시물이 없습니다')]) + <Widget> [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                child: ContentTitleContainer(title: '남긴 댓글 목록',)
+              )
             ] + (_commentList!.isNotEmpty ? List.generate(_commentList!.length, (index) {
               return GestureDetector(
-                onTap: () {navigatorPush(context: context, widget: StoreBoardView(boardId: _commentList![index].boardId));},
+                onTap: () {navigatorPush(context: context, widget: StoreBoardView(boardId: _commentList![index].boardId, backCallback: _loadGather,));},
                 behavior: HitTestBehavior.translucent,
                 child: CommentItemContainer(comment: _commentList![index])
               );

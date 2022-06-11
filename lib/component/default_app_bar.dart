@@ -49,7 +49,10 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   backButton(context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () {Navigator.pop(context);},
+      onTap: () {
+        Navigator.pop(context);
+        if(backCallback != null) backCallback();
+      },
       child: Container(
         width: 24, height: 24,
         child: Center(

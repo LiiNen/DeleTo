@@ -8,11 +8,14 @@ import 'package:delito/style.dart';
 class BoardItemContainer extends StoreItemContainer {
   final Board board;
   final dynamic context;
+  final dynamic backCallback;
 
-  BoardItemContainer({required this.context, required this.board}) : super(
+  BoardItemContainer({required this.context, required this.board, this.backCallback}) : super(
     imgUrl: board.imgUrl, subTitle: board.shopName, title: board.title, content: board.content,
     callback: () {
-      navigatorPush(context: context, widget: StoreBoardView(boardId: board.boardId));
+      navigatorPush(context: context, widget: StoreBoardView(boardId: board.boardId, backCallback: () {
+        if(backCallback != null) backCallback();
+      },));
     },
     bottomAlignWidget: <Widget>[
       Icon(Icons.person_rounded, size: 16),

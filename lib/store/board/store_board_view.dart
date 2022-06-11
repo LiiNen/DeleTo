@@ -19,7 +19,8 @@ import 'board_setting_view.dart';
 
 class StoreBoardView extends StatefulWidget {
   final int boardId;
-  StoreBoardView({required this.boardId});
+  final dynamic backCallback;
+  StoreBoardView({required this.boardId, this.backCallback});
   @override
   State<StoreBoardView> createState() => _StoreBoardView();
 }
@@ -95,7 +96,9 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Scaffold(
-        appBar: DefaultAppBar(title: '배달동료 구인', back: true,),
+        appBar: DefaultAppBar(title: '배달동료 구인', back: true, backCallback: () {
+          if(widget.backCallback != null) widget.backCallback();
+        },),
         backgroundColor: Colors.white,
         body: _board != null ? Container(
           width: MediaQuery.of(context).size.width,
