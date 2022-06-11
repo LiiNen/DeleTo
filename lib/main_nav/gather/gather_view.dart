@@ -92,13 +92,13 @@ class _GatherView extends State<GatherView> {
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 child: ContentTitleContainer(title: '남긴 댓글 목록',)
               )
-            ] + (_commentList!.isNotEmpty ? List.generate(_commentList!.length, (index) {
+            ] + (_commentList!.isNotEmpty ? List<Widget>.generate(_commentList!.length, (index) {
               return GestureDetector(
                 onTap: () {navigatorPush(context: context, widget: StoreBoardView(boardId: _commentList![index].boardId, backCallback: _loadGather,));},
                 behavior: HitTestBehavior.translucent,
                 child: CommentItemContainer(comment: _commentList![index])
               );
-            }) : [Text('아직 댓글이 없습니다')])
+            }) + [LineDivider()] : [Text('아직 댓글이 없습니다')])
           )
         ) : Center(
           child: Column(

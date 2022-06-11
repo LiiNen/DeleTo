@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 getPartyList({required int boardId}) async {
   var response = await http.get(Uri.parse('$requestUrl$pathParty$pathBoard?post_id=$boardId'));
+  print('$requestUrl$pathParty$pathBoard?post_id=$boardId');
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);

@@ -55,7 +55,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     var lng = pref.getDouble('lng') ?? 0.0;
     setState(() {
       if(lat == 0.0 && lng == 0.0) {
-        _distString = '위치를 설정해주세요';
+        _distString = null;
       }
       else {
         _distString = calDist(lat1: lat, lng1: lng, lat2: _board!.lat, lng2: _board!.lng);
@@ -188,7 +188,9 @@ class _StoreBoardView extends State<StoreBoardView> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        navigatorPush(context: context, widget: BoardSettingView(boardId: 2, backCallback: _getBoardInfo));
+        if(!_board!.isComplete) {
+          navigatorPush(context: context, widget: BoardSettingView(boardId: widget.boardId, backCallback: _getBoardInfo));
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -202,7 +204,7 @@ class _StoreBoardView extends State<StoreBoardView> {
           children: !_board!.isComplete ? [
             Text('관리하기', style: textStyle(color: Colors.white, weight: 700),),
           ] : [
-            Text('참여자들 보러가기', style: textStyle(color: Colors.white, weight: 700))
+            Text('완료된 파티입니다', style: textStyle(color: Colors.white, weight: 700))
           ]
         )
       )
@@ -213,6 +215,7 @@ class _StoreBoardView extends State<StoreBoardView> {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -223,7 +226,7 @@ class _StoreBoardView extends State<StoreBoardView> {
                     children: [
                       Text(_board!.userName, style: textStyle(weight: 600)),
                       SizedBox(width: 4.0),
-                      Text(_distString != null ? '${_distString!} m' : '', style: textStyle(color: Color(0xffa8a8a8), size: 14.0))
+                      Text(_distString != null ? '${_distString!} m' : '위치를 설정해주세요', style: textStyle(color: Color(0xffa8a8a8), size: 14.0))
                     ]
                   ),
                   SizedBox(height: 6.0),
@@ -246,7 +249,7 @@ class _StoreBoardView extends State<StoreBoardView> {
             ]
           ),
           SizedBox(height: 12),
-          Text(_board!.content, style: textStyle())
+          Text(_board!.content, style: textStyle(), textAlign: TextAlign.left,)
         ]
       )
     );
