@@ -103,9 +103,20 @@ class _UserView extends State<UserView> {
               Row(
                 children: [
                   Text('매너점수: ', style: textStyle(weight: 500, size: 16.0)),
-                  Text(userInfo.point.toString(), style: textStyle(color: Color(0xffff9933), weight: 500, size: 16.0)),
-                  SizedBox(width: 4),
-                  Image.asset('asset/pointIcon.png', width: 16),
+                  Text('${userInfo.manner}p',
+                    style: textStyle(
+                      color: userInfo.manner < -100 ? Color(0xffd93826) :
+                        userInfo.manner < -10 ? Color(0xffff8030) :
+                        userInfo.manner > 100 ? Color(0xff0958c5) :
+                        userInfo.manner > 10 ? Color(0xff048833) : Color(0xffa9a9a9),
+                      weight: 500, size: 16.0
+                    )
+                  ),
+                  SizedBox(width: 8),
+                  Text(userInfo.manner < -100 ? '😬' :
+                    userInfo.manner < -10 ? '😡' :
+                    userInfo.manner > 100 ? '😎' :
+                    userInfo.manner > 10 ? '😍' : '😃', style: textStyle(size: 16.0)),
                 ]
               )
             ]

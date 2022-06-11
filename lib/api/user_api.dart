@@ -13,7 +13,7 @@ getUser({required int userId, bool isLogin=true}) async {
     }
     var user = responseBody['user'][0];
     if(isLogin) {
-      userInfo = User(id: userId, name: user['name'], point: user['point'], email: user['email']);
+      userInfo = User(id: userId, name: user['name'], point: user['point'], email: user['email'], manner: user['manner']);
     }
     else {
       return user['name'];
