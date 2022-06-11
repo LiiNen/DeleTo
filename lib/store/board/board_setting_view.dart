@@ -83,7 +83,7 @@ class _BoardSettingView extends State<BoardSettingView> {
           color: Color(0xff0958c5)
         ),
         child: Center(
-          child: Text('완료하기', style: textStyle(color: Colors.white, weight: 700))
+          child: Text('마감하기', style: textStyle(color: Colors.white, weight: 700))
         )
       )
     );

@@ -24,7 +24,6 @@ getBoardListByPage({required int categoryId, required int pageNum}) async {
         lng: _temp['lng'],
         imgUrl: _temp['url'],
         boardId: _temp['id'],
-        /// todo: front does not accept complete state
         isComplete: (_temp['is_complete'] == 1)
       );
     });

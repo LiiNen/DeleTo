@@ -12,7 +12,7 @@ getPartyList({required int boardId}) async {
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
     if(responseBody.length == 0) {
-      return [];
+      return <PartyUser>[];
     }
     else {
       return List.generate(responseBody.length, (index) {
