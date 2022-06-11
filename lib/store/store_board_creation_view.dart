@@ -34,6 +34,7 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
     double _lng = _pref.getDouble('lng') ?? 0;
     if(_lat == 0 && _lng == 0) {
       showToast('위치 정보를 확인해주세요');
+      return;
     }
     if(titleController.text == '') {
       showToast('제목을 입력해주세요');

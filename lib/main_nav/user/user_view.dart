@@ -100,24 +100,13 @@ class _UserView extends State<UserView> {
                 ]
               ),
               SizedBox(height: 8),
-              GestureDetector(
-                onTap: () {
-                  navigatorPush(
-                    context: context,
-                    widget: PointView()
-                  );
-                },
-                behavior: HitTestBehavior.translucent,
-                child: Container(
-                  height: 18,
-                  decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(
-                      color: Colors.blue,
-                      width: 0.8, // Underline thickness
-                    ))
-                  ),
-                  child: Text('이용내역 조회하기', style: textStyle(weight: 800, size: 14.0, color: Colors.blue))
-                )
+              Row(
+                children: [
+                  Text('매너점수: ', style: textStyle(weight: 500, size: 16.0)),
+                  Text(userInfo.point.toString(), style: textStyle(color: Color(0xffff9933), weight: 500, size: 16.0)),
+                  SizedBox(width: 4),
+                  Image.asset('asset/pointIcon.png', width: 16),
+                ]
               )
             ]
           )

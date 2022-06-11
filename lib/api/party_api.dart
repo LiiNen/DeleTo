@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:delito/api/api_config.dart';
+import 'package:delito/api/user_api.dart';
 import 'package:delito/object/party_user.dart';
 import 'package:delito/object/user.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +44,7 @@ joinParty({required int boardId, required String content, required String point}
   );
 
   if(response.statusCode == 200) {
+    getUser(userId: userInfo.id);
     return true;
   }
   return false;
