@@ -1,3 +1,4 @@
+import 'package:delito/api/category_api.dart';
 import 'package:delito/component/default_app_bar.dart';
 import 'package:delito/function.dart';
 import 'package:delito/main_nav/search/search_address_selection_view.dart';
@@ -49,8 +50,8 @@ class _SearchView extends State<SearchView> {
               child: (_address != null && _address != '') ? Center(child: Text('위의 주소 별칭을 탭해 현재 위치를 변경할 수 있습니다.', style: textStyle(weight: 500, size: 12.0))) : Container()
             ),
             Expanded(child: Container()),
-            Text('음식 카테고리를 선택하세요'),
-            SizedBox(height: 24),
+            categoryImageSelector(),
+            SizedBox(height: 12),
             categorySelector(),
             SizedBox(height: 24),
             Expanded(child: Container()),
@@ -60,26 +61,53 @@ class _SearchView extends State<SearchView> {
     );
   }
 
-
-  categorySelector() {
+  categoryImageSelector() {
     return Container(
       child: GridView.count(
         shrinkWrap: true,
-        crossAxisCount: 4, crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 1.6,
-        children: List.generate(categoryList.length, (index) {
+        crossAxisCount: 4, crossAxisSpacing: 6,
+        mainAxisSpacing: 6,
+        childAspectRatio: 1.2,
+        children: List.generate(definedCategory.length, (index) {
           return GestureDetector(
             onTap: () {
               navigatorPush(context: context, widget: SearchCategoryBoardView(categoryId: index));
             },
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 1),
-                borderRadius: BorderRadius.all(Radius.circular(4)),
+                border: Border.all(color: Color(0xffdad9d9), width: 1),
+                image: DecorationImage(
+                  image: AssetImage('asset/category-${categoryList[index].id}.png'),
+                  alignment: Alignment.bottomRight,
+                )
+              ),
+              padding: EdgeInsets.only(left: 4, top: 4),
+              child: Text(categoryList[index].name, style: textStyle(weight: 700, size: 12.0))
+            )
+          );
+        })
+      )
+    );
+  }
+
+  categorySelector() {
+    return Container(
+      child: GridView.count(
+        shrinkWrap: true,
+        crossAxisCount: 5, crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 1.6,
+        children: List.generate(categoryList.length-definedCategory.length, (index) {
+          return GestureDetector(
+            onTap: () {
+              navigatorPush(context: context, widget: SearchCategoryBoardView(categoryId: definedCategory.length+index));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xffdad9d9), width: 1),
               ),
               child: Center(
-                child: Text(categoryList[index].name)
+                child: Text(categoryList[definedCategory.length+index].name, style: textStyle(weight: 700, size: 12.0))
               )
             )
           );

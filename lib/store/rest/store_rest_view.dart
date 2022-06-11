@@ -206,18 +206,21 @@ class _StoreRestView extends State<StoreRestView> {
   }
 
   menuContainer(Menu _menu) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 120, height: 120,
-          child: _menu.imgUrl != '' ? Image.network(_menu.imgUrl, width: 120, height: 120) : FlutterLogo(size: 120,)
-        ),
-        SizedBox(height: 4),
-        Text(_menu.name, style: textStyle(weight: 700, size: 14.0)),
-        SizedBox(height: 4),
-        Text('${_menu.price}원', style: textStyle(color: Color(0xff7a7a7a), weight: 500, size: 14.0)),
-      ]
+    return Container(
+      width: 120,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 120, height: 120,
+            child: _menu.imgUrl != 'No Image' ? Image.network(_menu.imgUrl, width: 120, height: 120) : Icon(Icons.fastfood_outlined, size: 60)
+          ),
+          SizedBox(height: 4),
+          Text(_menu.name, style: textStyle(weight: 700, size: 14.0), overflow: TextOverflow.ellipsis,),
+          SizedBox(height: 4),
+          Text('${_menu.price}원', style: textStyle(color: Color(0xff7a7a7a), weight: 500, size: 14.0)),
+        ]
+      )
     );
   }
 }
