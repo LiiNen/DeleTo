@@ -81,12 +81,30 @@ class _StoreBoardView extends State<StoreBoardView> {
       showToast('포인트가 부족합니다');
     }
     else {
-      var _status = await joinParty(boardId: widget.boardId, content: message, point: point);
-      if(_status == false) {
-        showToast('네트워크를 확인해주세요');
+      var _statusCode = await joinParty(boardId: widget.boardId, content: message, point: point);
+      if(_statusCode == 200) {
+        showToast('참가 신청 메세지를 보냈습니다');
+      }
+      else if(_statusCode == 411) {
+        showToast('데이터 생성실패');
+      }
+      else if(_statusCode == 412) {
+        showToast('input error');
+      }
+      else if(_statusCode == 421) {
+        showToast('파티원이 가득 찼습니다.');
+      }
+      else if(_statusCode == 422) {
+        showToast('마감된 파티입니다.');
+      }
+      else if(_statusCode == 425) {
+        showToast('이미 참여 신청을 완료했습니다.');
+      }
+      else if(_statusCode == 430) {
+        showToast('잔고가 부족합니다.');
       }
       else {
-        showToast('참가 신청 메세지를 보냈습니다');
+        showToast('네트워크를 확인해주세요.\n반복시 관리자에게 문의해주세요');
       }
     }
   }

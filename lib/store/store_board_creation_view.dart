@@ -44,6 +44,9 @@ class _StoreBoardCreationView extends State<StoreBoardCreationView> {
       showToast('최대 인원 수를 입력해주세요');
       return;
     }
+    else if(int.parse(countController.text) < 2) {
+      showToast('인원 수는 2 이상으로 입력해주세요');
+    }
     else if(contentController.text == '') {
       showToast('내용을 입력해주세요');
       return;

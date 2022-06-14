@@ -44,11 +44,7 @@ joinParty({required int boardId, required String content, required String point}
     headers: {"Content-Type": "application/json"}
   );
 
-  if(response.statusCode == 200) {
-    getUser(userId: userInfo.id);
-    return true;
-  }
-  return false;
+  return response.statusCode;
 }
 
 acceptParty({required int partyId}) async {
