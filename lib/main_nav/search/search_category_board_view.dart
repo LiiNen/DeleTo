@@ -112,17 +112,15 @@ class _SearchCategoryBoardView extends State<SearchCategoryBoardView> with Singl
         )
       ),
       floatingActionButton: Container(
-        height: 40,
-        child: FloatingActionButton.extended(
+        height: 48, width: 48,
+        child: FloatingActionButton(
           onPressed: () {
             navigatorPush(context: context, widget: SearchCategoryRestView(categoryId: _categoryId!));
           },
           backgroundColor: Color(0xff0958c5),
-          icon: Icon(Icons.add_outlined),
-          label: Text('직접 만들기', style: textStyle(color: Colors.white, weight: 600, size: 16.0)),
+          child: Icon(Icons.add_outlined),
         )
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+      )
     );
   }
 }
